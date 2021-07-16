@@ -213,8 +213,4 @@ CmdHelp("climate").add_command(
   "setcity", "<city>/<country>", "Sets your default city."
 ).add_command(
   "wttr", "<city>", "Shows you the climate data of 3 days from today in a image format."
-).add_info(
-  "Climates And Weathers."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
