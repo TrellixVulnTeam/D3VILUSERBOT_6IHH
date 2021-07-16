@@ -109,8 +109,4 @@ CmdHelp("echo").add_command(
   "rmecho", "reply to a user", "Stop replayings targeted user message"
 ).add_command(
   "listecho", None, "Shows the list of users for whom you enabled echo"
-).add_info(
-  "Message Echoer."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
