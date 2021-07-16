@@ -96,8 +96,4 @@ CmdHelp("fake").add_command(
   'gbam', '<reason> (optional)', 'Fake gban. Just for fun🤓'
 ).add_command(
   'picgen', None, 'Gives a fake face image'
-).add_info(
-  'Fake Actions.'
-).add_warning(
-  '✅ Harmless Module.'
 ).add()
