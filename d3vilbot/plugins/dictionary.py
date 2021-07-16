@@ -45,8 +45,4 @@ CmdHelp("dictionary").add_command(
   'ud', 'query', 'fetches meaning from Urban Dictionary'
 ).add_command(
   'meaning', 'query', 'Fetches meaning of the given word'
-).add_info(
-  'Dictionary 📕'
-).add_warning(
-  '✅ Harmless Module.'
 ).add()
