@@ -330,8 +330,4 @@ CmdHelp("convert").add_command(
   "nfc voice", "<reply to media to extract voice>", "Converts the replied media file to voice"
 ).add_command(
   "nfc mp3", "<reply to media to extract mp3>", "Converts the replied media file to mp3"
-).add_info(
-  "Converter."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
