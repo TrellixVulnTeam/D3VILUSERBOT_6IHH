@@ -223,8 +223,4 @@ CmdHelp("execmod").add_command(
   "env", None, "Shows Environment veriables from Heroku"
 ).add_command(
   "speed", None, "Shows server speed of your bot"
-).add_info(
-  "Exec Modules."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
