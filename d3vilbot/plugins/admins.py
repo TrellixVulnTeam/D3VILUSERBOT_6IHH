@@ -610,8 +610,4 @@ CmdHelp("admins").add_command(
   "zombies clean", None, "Clears all the zombies in the group."
 ).add_command(
   "iundlt", None, "display last 5 deleted messages in group."
-).add_info(
-  "Admins Things!"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
