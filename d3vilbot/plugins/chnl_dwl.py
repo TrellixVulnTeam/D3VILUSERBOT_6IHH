@@ -68,8 +68,4 @@ CmdHelp("chnl_dwl").add_command(
   "geta", "channel username", "will download all media from channel into your bot server but there is limit of 3000 to prevent API limits."
 ).add_command(
   "getc", "channel username", "will download latest given number of media from channel into your bot server"
-).add_info(
-  "Channel Media Download"
-).add_warning(
-  "😪 Harmless Module."
 ).add()
