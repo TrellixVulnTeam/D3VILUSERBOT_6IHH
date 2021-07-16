@@ -139,8 +139,4 @@ CmdHelp("filter").add_command(
   "rmallfilters", None, "Deletes all the filter saved in a chat."
 ).add_command(
   "stop", "keyword of saved filter", "Stops reply to the keyword mentioned."
-).add_info(
-  "Save Filters."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
