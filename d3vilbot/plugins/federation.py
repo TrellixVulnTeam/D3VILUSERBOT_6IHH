@@ -114,8 +114,4 @@ CmdHelp("federation").add_command(
   "fstat", "<username/id>", "Gets the fban stats of the user from rose bot federation"
 ).add_command(
   "fedinfo", "<fed id>", "Gives details of the given fed id"
-).add_info(
-  "Rose Bot Federation."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
