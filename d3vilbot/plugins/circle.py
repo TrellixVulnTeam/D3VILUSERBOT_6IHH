@@ -49,8 +49,4 @@ async def _(event):
 
 CmdHelp("circle").add_command(
   "circle", "<reply to a 4×4(square) media>", "Converts the replied square media into circle telegram video"
-).add_info(
-  "Telegram Circle Video"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
