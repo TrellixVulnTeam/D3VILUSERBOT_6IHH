@@ -174,8 +174,4 @@ CmdHelp("edits").add_command(
   "type", "<word>", "Animates the given word into a typewriter."
 ).add_command(
   "emoji", None, "Available cmnds are:-\n• shrug\n• apple\n• :/\n• -_-\n Add .emoji in front of all cmds."
-).add_info(
-  "Bass Bakchodi hai ye."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
