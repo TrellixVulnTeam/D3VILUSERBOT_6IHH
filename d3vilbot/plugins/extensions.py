@@ -33,8 +33,4 @@ async def _(event):
 
 CmdHelp("fileext").add_command(
   "filext", "<extension name>", "Shows you the detailed information of that extension type."
-).add_info(
-  "File Extensions."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
