@@ -138,8 +138,4 @@ CmdHelp("clone").add_command(
   "clone", "username/reply to user", "Steals others profile including dp, name, bio."
 ).add_command(
   "revert", None, "To get back to your profile but it will show ALIVE_NAME instead of your current name and DEFAULT_BIO instead of your current bio"
-).add_info(
-  "Cloner."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
