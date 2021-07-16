@@ -142,8 +142,4 @@ CmdHelp("evaluators").add_command(
   "exec", "<command>", "Execute a Terminal command on HellBot server and shows details"
 ).add_command(
   "bash", "<query>", "Bash your codes on linux and gives the output in current chat"
-).add_info(
-  "Evaluating Modules. (Most Secure of all Bots)"
-).add_warning(
-  "🚫 Don't Execute Commands Unknowingly."
 ).add()
