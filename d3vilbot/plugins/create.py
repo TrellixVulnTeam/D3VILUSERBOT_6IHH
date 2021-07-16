@@ -141,8 +141,4 @@ CmdHelp("create").add_command(
   'create c', 'Name of your channel', 'Creates a channel and sends you link'
 ).add_command(
   'link', '<reply> <text>', 'Makes a permanent link of tagged user with a custom text'
-).add_info(
-  'Creates Groups'
-).add_warning(
-  '✅ Harmless Module'
 ).add()
