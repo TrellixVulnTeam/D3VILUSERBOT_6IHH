@@ -25,8 +25,4 @@ async def _(event):
 
 CmdHelp("chain").add_command(
   "chain", "Reply to a message", "Reply this command to any msg so that it finds chain length of that msg"
-).add_info(
-  "Chained Messages."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
