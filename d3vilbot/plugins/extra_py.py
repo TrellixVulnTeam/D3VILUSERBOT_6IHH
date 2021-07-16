@@ -79,8 +79,4 @@ CmdHelp("extra_py").add_command(
   "extdl", None, "Installs all plugins from the channal which id is in PLUGIN_CHANNEL Configiable"
 ).add_command(
   "installall", "<channel/grp username>", "Installs all the plugins in provided channel / group. (May get floodwait error)"
-).add_info(
-  "Extra Plugins."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
