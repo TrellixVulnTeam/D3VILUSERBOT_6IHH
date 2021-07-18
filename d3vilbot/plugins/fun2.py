@@ -324,8 +324,4 @@ CmdHelp("fun2").add_command(
   "fact", None, "Sends you some random facts"
 ).add_command(
   "ftext", "<text>", "Writes your text in "F" format"
-).add_info(
-  "Bakchodi h bass."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
