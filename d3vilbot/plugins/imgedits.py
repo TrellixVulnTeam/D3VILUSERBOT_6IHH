@@ -110,8 +110,4 @@ CmdHelp("imgedits").add_command(
   "warp", "<reply to a img/stcr>", "Edits the replied image or sticker to a funny image. `#Must_Try` !!"
 ).add_command(
   "distort", "<reply to a img/stcr>", "Edits the replied image or sticker to a funny image. `#Must_Try` !!"
-).add_info(
-  "Funs are here boiz"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
