@@ -46,8 +46,4 @@ async def figlet(event):
 
 CmdHelp("figlet").add_command(
   "figlet", "text : type", "The types are slant, 3D, 5line, alpha, banner, doh, iso, letter, allig, dotm, bubble, bulb, digi"
-).add_info(
-  "Another Art plugin but figlet."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
