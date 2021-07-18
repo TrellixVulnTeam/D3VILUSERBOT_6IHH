@@ -87,8 +87,4 @@ async def g_download(event):
 
 CmdHelp("gdrive").add_command(
   "gdl", "gdrive link", "Downloads the file from gdirve to HellBot's local storage. Use .upload to upload it."
-).add_info(
-  "Google Drive Downloader"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
