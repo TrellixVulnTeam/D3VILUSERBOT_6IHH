@@ -151,8 +151,4 @@ CmdHelp("fryer").add_command(
   "frybot", "<reply to a image/sticker>", "Fries the given sticker or image"
 ).add_command(
   "fry", "<1-9> <reply to image/sticker>", "Fries the given sticker or image based on level if you dont give anything then it is default to 2"
-).add_info(
-  "Image Destruction!"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
