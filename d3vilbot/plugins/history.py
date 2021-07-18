@@ -75,8 +75,4 @@ CmdHelp("history").add_command(
   "history", "<reply to a user>", "Fetches the name history of replied user."
 ).add_command(
   "unh", "<reply to user>", "Fetches the Username History of replied users."
-).add_info(
-  "Telegram Name History"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
