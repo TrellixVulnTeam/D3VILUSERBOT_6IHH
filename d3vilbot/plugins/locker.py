@@ -211,8 +211,4 @@ CmdHelp("locker").add_command(
   "unlock", "<lock type>", "Unlocks the mentioned lock type in current chat. You can Get all lock types by using '.ltype'."
 ).add_command(
   "ltype", None, "Use this to get the list of lock types..."
-).add_info(
-  "Chat Locker."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
