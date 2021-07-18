@@ -244,8 +244,4 @@ CmdHelp("global").add_command(
   "gmute", "<reply> or <userid>", "Globally Mutes the User."
 ).add_command(
   "ungmute", "<reply> or <userid>", "Globally Unmutes the gmutes user."
-).add_info(
-  "Global Admin Tool."
-).add_warning(
-  "✅ Harmlesss Module."
 ).add()
