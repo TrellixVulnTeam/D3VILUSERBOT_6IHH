@@ -144,8 +144,4 @@ CmdHelp("invite").add_command(
   "add", "<username/id>", "Adds the given user to the group"
 ).add_command(
   "inviteall", "<group username>", "Scraps user from the targeted group to your group. Basically Kidnapps user from one chat to another"
-).add_info(
-  "Invite them."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
