@@ -82,8 +82,4 @@ CmdHelp("maths").add_command(
   "sin", "<query>", "Gives the sin of given query"
 ).add_command(
   "cos", "<query>", "Gives the cos of given query"
-).add_info(
-  "A Plugin On Mathematics."
-).add_warning(
-  "✅ Harmlesss Module."
 ).add()
