@@ -300,8 +300,4 @@ CmdHelp("fun").add_command(
   "react", None, "Reacts randomly."
 ).add_command(
   "clap", "<reply> or <text>", "That kid needs clapping"
-).add_info(
-  "Bakchodi Hai Bass."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
