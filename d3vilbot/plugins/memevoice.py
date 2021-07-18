@@ -1,12 +1,13 @@
 import re
 from . import *
 
-# Credits to @d3krish developer of HellBot.
-# This is my first plugin that I made when I released first HellBot.
+# Credits goes to developer of HellBot.
+# This is  first plugin that he made when he released first HellBot.
 # Modified to work in groups with inline mode disabled.
 # Added error msg if no voice is found.
 # So please dont remove credit. 
 # You can use it in your repo. But dont remove these lines...
+#Now this plugin on D3VIL BOT
 
 @bot.on(d3vil_cmd(pattern="mev(?: |$)(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="mev(?: |$)(.*)", allow_sudo=True))
@@ -65,8 +66,4 @@ CmdHelp("memevoice").add_command(
 	"mev", "<query>", "Searches the given meme and sends audio if found."
 ).add_command(
 	"meev", "<query>", "Same as {hl}mev"
-).add_info(
-	"Audio Memes."
-).add_warning(
-	"✅ Harmless Module."
 ).add()
