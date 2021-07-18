@@ -45,8 +45,4 @@ async def _(event):
 
 CmdHelp("instagram").add_command(
   "insta", "<link>", "Downloads the provided instagram video/pic from link.", "insta www.instagram.com/yeuehiwnwiqo"
-).add_info(
-  "Insta Downloader."
-).add_warning(
-  "✅ Harmless Module"
 ).add()
