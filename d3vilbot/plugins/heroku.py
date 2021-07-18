@@ -290,8 +290,4 @@ CmdHelp("heroku").add_command(
   "del var", "<Var Name", "Deletes the variable from heroku. Bot will restart after deleting the variable. So be calm for a minute 😃"
 ).add_command(
   "logs", None, "Gets the app log of 100 lines of your bot directly from heroku."
-).add_info(
-  "Heroku Stuffs"
-).add_warning(
-  "✅ Harmless Module"
 ).add()
