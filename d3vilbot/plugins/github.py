@@ -126,8 +126,4 @@ CmdHelp("github").add_command(
   "commit", "<reply to a file>", "Uploads the file on github repo as provided in Heroku Config GIT_REPO_NAME. In short makes a commit to git repo from Userbot"
 ).add_command(
   "github", "<git username>", "Fetches the details of the given git username"
-).add_info(
-  "Github Hecks.."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
