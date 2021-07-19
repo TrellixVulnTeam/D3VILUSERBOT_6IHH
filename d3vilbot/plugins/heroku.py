@@ -44,7 +44,7 @@ async def re(d3vil):
     if HEROKU_API_KEY:
         await restart(event)
     else:
-        await event.edit("Please Set Your `HEROKU_API_KEY` to restart Hêllẞø†")
+        await event.edit("Please Set Your `HEROKU_API_KEY` to restart 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱")
 
 
 @bot.on(d3vil_cmd(pattern="shutdown$"))
@@ -52,7 +52,7 @@ async def re(d3vil):
 async def down(d3vil):
     if d3vil.fwd_from:
         return
-    await eor(d3vil, "**[ ! ]** Turning off Hêllẞø† Dynos... Manually turn me on later ಠ_ಠ")
+    await eor(d3vil, "**[ ! ]** Turning off 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Dynos... Manually turn me on later ಠ_ಠ")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:

@@ -74,7 +74,7 @@ def load_module(shortname):
         spec.loader.exec_module(mod)
         # for imports
         sys.modules["d3vilbot.plugins." + shortname] = mod
-        LOGS.info("⚡ Hêllẞø† ⚡ - Successfully Imported " + shortname)
+        LOGS.info("⚡ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ⚡ - Successfully Imported " + shortname)
 
 
 # remove plugins
