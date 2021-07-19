@@ -18,9 +18,7 @@ async def pong(d3vil):
 
 
 CmdHelp("ping").add_command(
-  "ping", None, "Checks the ping speed of your Hêllẞø†"
-).add_warning(
-  "✅ Harmless Module"
+  "ping", None, "Checks the ping speed of your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱"
 ).add()
 
-# d3vilbot
+
