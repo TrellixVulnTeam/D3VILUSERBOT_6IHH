@@ -226,7 +226,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
 @bot.on(sudo_cmd(pattern="update build$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
-    off_repo = "https://github.com/The-HellBot/HellBot"
+    off_repo = "https://github.com/D3KRISH/D3vilBot"
     os.chdir("/app")
     git_d3vil = f"rm -rf .git"
     try:
