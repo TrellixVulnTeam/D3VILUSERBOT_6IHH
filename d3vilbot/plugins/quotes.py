@@ -119,8 +119,4 @@ CmdHelp("quotes").add_command(
   "dhoka", None, "Sends a random Dhoka quote(katt gya bc)"
 ).add_command(
   "love", None, "Sends a random love quote🥰. (A stage before .dhoka)"
-).add_info(
-  "Random Quotes."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
