@@ -98,8 +98,4 @@ CmdHelp("purger").add_command(
   "sd", "<time> <text>", "Sends a self destruct text. Fill time in secs", "sd 10 d3vilo"
 ).add_command(
   "del", "<reply>", "Deletes the replied msg."
-).add_info(
-  "Ninja Techniques"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
