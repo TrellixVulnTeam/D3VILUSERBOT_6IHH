@@ -181,7 +181,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         elif event.query.user_id == bot.uid and query == "repo":
             result = builder.article(
                 title="Repository",
-                text=f"**⚡ ʟɛɢɛռɖaʀʏ ᴀғ ɦɛʟʟɮօt ⚡**",
+                text=f"**⚡ ℓεgεη∂αяү αғ тεαм ∂3vιℓ ⚡**",
                 buttons=[
                     [Button.url("📑 𝑅𝑒𝑝𝑜 📑", "https://t.me/D3VIL_SUPPORT)],
                     [Button.url("🚀 𝐷𝑒𝑝𝑙𝑜𝑦 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FThe-HellBot%2FHellBot&template=https%3A%2F%2Fgithub.com%2Fthe-d3vilbot%2Fd3vilbot")],
