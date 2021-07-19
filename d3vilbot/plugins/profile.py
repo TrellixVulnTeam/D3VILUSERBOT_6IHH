@@ -37,7 +37,7 @@ async def _(event):
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     urllib.request.urlretrieve(
-        "https://telegra.ph/file/249f27d5b52a87babcb3f.jpg", "donottouch.jpg"
+        "https://telegra.ph/file/a8944f9944ceb3077f1c8.jpg", "donottouch.jpg"
     )
     photo = "donottouch.jpg"
     if photo:
@@ -278,8 +278,4 @@ CmdHelp("profile").add_command(
   "offline", None, "Add an offline tag in your name and change profile pic to black."
 ).add_command(
   "kickme", None, "Gets out of the grp..."
-).add_info(
-  "🌝 Managing Profile was never so easy."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
