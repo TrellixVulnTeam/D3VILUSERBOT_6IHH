@@ -304,8 +304,4 @@ CmdHelp("trim").add_command(
   "atrim", "<starttime> <endtime>", "Trims the saved media with specific given time interval and output as audio"
 ).add_command(
   "tclean", None, "Deletes the saved media. So you can save new one🚶"
-).add_info(
-  "Trim Media By Ffmpeg."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
