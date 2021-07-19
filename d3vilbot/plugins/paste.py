@@ -175,8 +175,4 @@ CmdHelp("paste").add_command(
   "getpaste", "dog url", "Gets the content of a paste or shortened url from dogbin"
 ).add_command(
   "neko", "<reply>", "Create a paste or a shortened url using nekobin"
-).add_info(
-  "Paste Things to Neko."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
