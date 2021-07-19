@@ -51,7 +51,7 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await eor(event, 
-                   "✓ **File uploaded to [telegraph](https://telegra.ph{})** \n✓ **Time Taken :-** `{}` secs \n✓ **By :- {}**".format(
+                   "✓ **fílє uplσαdєd tσ [tєlєgrαph](https://telegra.ph{})** \n✓ **tímє tαkєn :-** `{}` secs \n✓ **вч :- {}**".format(
                         media_urls[0], (ms + ms_two), d3vil_mention,
                     ),
                     link_preview=True,
@@ -81,7 +81,7 @@ async def _(event):
             ms = (end - start).seconds
             d3vilboy = f"https://telegra.ph/{response['path']}"
             await edit_or_reply(event, 
-                  f"✓ **Pasted to** [telegraph]({d3vilboy}) \n✓ **Time Taken :-** `{ms}` secs\n✓** By :**  {d3vil_mention}", link_preview=True)
+                  f"✓ **pαѕtєd tσ** [telegraph]({d3vilboy}) \n✓ **tímє tαkєn :-** `{ms}` secs\n✓** вч :**  {d3vil_mention}", link_preview=True)
     else:
         await eod(event, 
             "Reply to a message to get a permanent telegra.ph link."
@@ -97,8 +97,4 @@ CmdHelp("telegraph").add_command(
   "tt", "<reply to text message>", "Uploads the replied text message to telegraph making a short telegraph link"
 ).add_command(
   "tm", "<reply to media>", "Uploads the replied media (sticker/ gif/ video/ image) to telegraph and gives a short telegraph link"
-).add_info(
-  "Make Telegraph Links."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
