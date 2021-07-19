@@ -14,9 +14,9 @@ async def sudo(event):
     sudo = "True" if Config.SUDO_USERS else "False"
     users = os.environ.get("SUDO_USERS", None)
     if sudo == "True":
-        await eod(event, f"📍 **Sudo :**  `Enabled`\n\n📝 **Sudo users :**  `{users}`", 10)
+        await eod(event, f"⚡ **Sudo :**  `Enabled`\n\n📝 **Sudo users :**  `{users}`", 10)
     else:
-        await eod(event, f"📍 **Sudo :**  `Disabled`", 7)
+        await eod(event, f"⚡ **Sudo :**  `Disabled`", 7)
 
 
 @bot.on(d3vil_cmd(pattern="addsudo(?: |$)"))
@@ -81,14 +81,10 @@ async def get_user(event):
     return target
 
 
-CmdHelp("sudo").add_command(
+CmdHelp("manage sudo").add_command(
   "sudo", None, "Check If Your Bot Has Sudo Enabled!!"
 ).add_command(
   "addsudo", "<reply to user>", "Adds replied user to sudo list."
 ).add_command(
   "rmsudo", "<reply to user>", "Removes the replied user from your sudo list if already added."
-).add_info(
-  "Manage Sudo."
-).add_warning(
-  "⚠️ Grant Sudo Access to someone you trust!"
 ).add()
