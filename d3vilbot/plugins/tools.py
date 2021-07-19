@@ -440,8 +440,4 @@ CmdHelp("tools").add_command(
   "makeqr", "<content>", "Make a Qrcode from the given content.", ".makeqr www.google.com"
 ).add_command(
   "scan", "<reply to media or file>", "It scans the media or file and checks either any virus is in the file or media"
-).add_info(
-  "Some Basic Tools."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
