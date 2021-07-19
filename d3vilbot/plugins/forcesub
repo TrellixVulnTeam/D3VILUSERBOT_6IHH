@@ -140,8 +140,4 @@ CmdHelp("forcesub").add_command(
   "chfsub", None, "Checks for the Status of Force Subscribe In The Chat."
 ).add_command(
   "lsfsub", None, "Gives the list of all chats with force subscribe enabled."
-).add_warning(
-  "✅ Harmless Module."
-).add_info(
-  "Force Them To Join. \n**📌 Note :** You need to be admin jn both the chat to use this module."
 ).add()
