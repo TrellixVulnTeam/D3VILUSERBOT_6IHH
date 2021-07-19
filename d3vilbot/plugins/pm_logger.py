@@ -86,8 +86,4 @@ CmdHelp("pm_logger").add_command(
   "elog", "<chat>", "Enables logging pm messages from the selected chat."
 ).add_command(
   "nlog", "<chat>", "Disables logging pm messages from the selected chat. Use .elog to enable it again."
-).add_info(
-  "PM logging."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
