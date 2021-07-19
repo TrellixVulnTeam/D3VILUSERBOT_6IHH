@@ -18,9 +18,9 @@ jobs:
 
         with:
 
-          find: "Hêllẞø†"
+          find: "he_ll"
 
-          replace: "𝔇3𝔳𝔦𝔩𝔅𝔬𝔱"
+          replace: "kr_ish"
 
       - name: Create Pull Request
 
