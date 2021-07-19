@@ -37,8 +37,4 @@ CmdHelp("tag").add_command(
     "tagbots", None, "Tag All The Bots In The Chat"
 ).add_command(
     "tagadmins", None, "Tag All The Admins Of The Chat"
-).add_info(
-    "Tag Them"
-).add_warning(
-    "✅ Harmless Module."
 ).add()
