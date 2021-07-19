@@ -94,9 +94,5 @@ CmdHelp("msgs").add_command(
 ).add_command(
   "frwd", "<reply to a msg>", "Enables seen counter in replied msg. To know how many users have seen your msg."
 ).add_command(
-  "resend", "<reply to a msg>", "Just resends the replied msg"
-).add_info(
-  "Messages tools."
-).add_warning(
-  "✅ Harmless Module."
+  "resend", "<reply to a msg>", "Just resends the replied."
 ).add()
