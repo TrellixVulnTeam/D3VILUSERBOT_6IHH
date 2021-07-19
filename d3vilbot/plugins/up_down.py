@@ -425,8 +425,4 @@ CmdHelp("up_down").add_command(
   "download", "<link/filename> or reply to media", "Downloads the file to the server"
 ).add_command(
   "webup", "<reply to media>", "Makes a direct download link of the replied media for a limited time"
-).add_info(
-  "Upload & Download."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
