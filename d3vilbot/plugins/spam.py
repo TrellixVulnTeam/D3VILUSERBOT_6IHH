@@ -83,15 +83,11 @@ async def tiny_pic_spam(e):
 
 
 CmdHelp("spam").add_command(
-  "spam", "<number> <text>", "Sends the text 'X' number of times.", ".spam 99 Hello"
+  "spam", "<number> <text>", "Sends the text 'X' number of times.", ".spam 99 hi"
 ).add_command(
   "mspam", "<reply to media> <number>", "Sends the replied media (gif/ video/ sticker/ pic) 'X' number of times", ".mspam 100 <reply to media>"
 ).add_command(
-  "dspam", "<delay> <spam count> <text>", "Sends the text 'X' number of times in 'Y' seconds of delay", ".dspam 5 100 Hello"
+  "dspam", "<delay> <spam count> <text>", "Sends the text 'X' number of times in 'Y' seconds of delay", ".dspam 5 100 hi"
 ).add_command(
-  "bigspam", "<count> <text>", "Sends the text 'X' number of times. This what d3vilbot iz known for. The Best BigSpam Ever", ".bigspam 5000 Hello"
-).add_info(
-  "Spammers Commands"
-).add_warning(
-  "❌ May Get Floodwait Error Or Limit Your Account"
+  "bigspam", "<count> <text>", "Sends the text 'X' number of times. This what d3vilbot iz known for. The Best BigSpam Ever", ".bigspam 5000 hi"
 ).add()
