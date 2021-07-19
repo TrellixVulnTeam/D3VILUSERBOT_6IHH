@@ -376,8 +376,4 @@ CmdHelp("tweets").add_command(
   "tweet", "<text>/<reply>", "Tweets in your name"
 ).add_command(
   "dani", "<text>/<reply>", "Tweet with Dani Daniels 😍🥰"
-).add_info(
-  "Lets Tweet."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
