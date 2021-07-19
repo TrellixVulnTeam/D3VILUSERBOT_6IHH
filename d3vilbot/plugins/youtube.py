@@ -179,8 +179,4 @@ CmdHelp("youtube").add_command(
   "ytv", "<yt link>", "Extracts the video from given youtube link and uploads it to telegram"
 ).add_command(
   "ytlink", "<search keyword>", "Extracts 7 links from youtube based on the given search query"
-).add_info(
-  "Youthoob ki duniya."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
