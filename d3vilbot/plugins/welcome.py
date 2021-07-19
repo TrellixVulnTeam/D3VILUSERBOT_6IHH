@@ -139,8 +139,4 @@ CmdHelp("welcome").add_command(
   "showwelcome", None, "Gets your current welcome message for that chat."
 ).add_command(
   "welcome_note", None, "Gives you a message containing all the formatting of welcome message."
-).add_info(
-  "Welcome Greetings."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
