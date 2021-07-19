@@ -112,8 +112,4 @@ CmdHelp("randoms").add_command(
   'hflirt', None, 'Sends a random flirt quote in hindi'
 ).add_command(
   'shayri', None, 'Sends a random heart touching quote'
-).add_info(
-  'Some Random Quotes.'
-).add_warning(
-  '✅ Harmless Module.'
 ).add()
