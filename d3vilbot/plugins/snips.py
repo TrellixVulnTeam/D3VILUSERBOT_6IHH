@@ -127,8 +127,4 @@ CmdHelp("snips").add_command(
 	"rmsnip", "<trigger>", "Removes the snip from your database."
 ).add_command(
 	"listsnip", None, "Get the list of all of the available snips."
-).add_info(
-	"Sniped Notes."
-).add_warning(
-	"✅ Harmless Module."
 ).add()
