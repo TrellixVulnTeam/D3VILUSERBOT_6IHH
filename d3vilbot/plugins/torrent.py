@@ -211,8 +211,4 @@ CmdHelp("torrent").add_command(
   "movie idop.se", "<query>", "Fetches torrent links of given query alternative way"
 ).add_command(
   "movie torrentz2.eu", "<query>", "Fetches torrent links of given query alternative way"
-).add_info(
-  "Search On Torrent."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
