@@ -198,8 +198,4 @@ CmdHelp("search").add_command(
   "altn", "<query>", "Gives you the link for given query from Alt News"
 ).add_command(
   "ddg", "<query>", "Gives you the link for given query from Duckduckgo"
-).add_info(
-  "Another Search Module."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
