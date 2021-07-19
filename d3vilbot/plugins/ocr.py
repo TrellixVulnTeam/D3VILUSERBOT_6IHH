@@ -142,8 +142,4 @@ CmdHelp("ocr").add_command(
   "ocr", "<reply to a img> <lang code>", "Reads and sends you the text written in replied image in selected language"
 ).add_command(
   "ocrlang", None, "Gives the list of supported languages of OCR."
-).add_info(
-  "Read Texts On Images."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
