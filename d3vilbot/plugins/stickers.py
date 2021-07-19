@@ -82,7 +82,7 @@ async def kang(args):
     if photo:
         splat = args.text.split()
         if not emojibypass:
-            emoji = "😎"
+            emoji = "🤣"
         pack = 1
         if len(splat) == 3:
             pack = splat[2]  # User sent both
@@ -97,11 +97,11 @@ async def kang(args):
                 # pack
                 emoji = splat[1]
 
-        packname = f"{user.username}_Hellbot_{pack}"
+        packname = f"{user.username}_D3vilbot_{pack}"
         packnick = (
             f"{d3vilbot} Vol.{pack}"
             if d3vilbot
-            else f"@{user.username}'s HellBot Vol.{pack}"
+            else f"@{user.username}'s D3vilBot Vol.{pack}"
         )
         cmd = "/newpack"
         file = io.BytesIO()
@@ -137,7 +137,7 @@ async def kang(args):
                     packnick = (
                         f"{d3vilbot} Vol.{pack}"
                         if d3vilbot
-                        else f"@{user.username}'s HellBot Vol.{pack}"
+                        else f"@{user.username}'s D3vilBot Vol.{pack}"
                     )
                     await d3vil.edit(
                         "`Switching to Pack "
@@ -512,8 +512,4 @@ CmdHelp("stickers").add_command(
   "text", "<word>", "Sends the written text in sticker format."
 ).add_command(
   "waifu", "<word>", "Waifu writes the word for you."
-).add_info(
-  "Everything about Sticker."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
