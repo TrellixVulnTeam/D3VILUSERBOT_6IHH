@@ -659,8 +659,4 @@ CmdHelp("infos").add_command(
   "users", "<name of member> (optional)", "Retrives all the (or mentioned) users in the chat"
 ).add_command(
   "recognize", "<reply to photo>", "Sends you the details of that replied picture."
-).add_info(
-  "Basic Cmds for groups."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
