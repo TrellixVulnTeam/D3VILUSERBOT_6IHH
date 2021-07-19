@@ -266,8 +266,4 @@ CmdHelp("update").add_command(
   "update now", None, "Soft-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. Basically if you restart dyno it will go back to previous deploy."
 ).add_command(
   "update build", None, "Hard-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
-).add_info(
-  "𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Updater."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
