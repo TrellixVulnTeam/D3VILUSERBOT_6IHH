@@ -10,12 +10,21 @@ from . import *
 #-------------------------------------------------------------------------------
 
 d3vil_pic = Config.ALIVE_PIC or "https://telegra.ph/file/ea9e11f7c9db21c1b8d5e.mp4"
-alive_c = f"__**🔥🔥ɦɛʟʟɮօt ɨs օռʟɨռɛ🔥🔥**__\n\n"
-alive_c += f"__↼ Øwñêr ⇀__ : 『 {d3vil_mention} 』\n\n"
-alive_c += f"•♦• Telethon     :  `{tel_ver}` \n"
-alive_c += f"•♦• 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱       :  __**{d3vil_ver}**__\n"
-alive_c += f"•♦• Sudo            :  `{is_sudo}`\n"
-alive_c += f"•♦• Channel      :  {d3vil_channel}\n"
+pm_caption = "  __**🔥🔥𝐃3𝐕𝐈𝐋 𝐁𝐎𝐓 𝐈𝐒 𝐀𝐋𝐈𝐕𝐄🔥🔥**__\n\n"
+
+pm_caption += f"**━━━━━━━━━━━━━━━━━━━━**\n\n"
+pm_caption += (
+    f"                 👑𝐌𝐀𝐒𝐓𝐄𝐑👑\n  **『 {d3vil_mention} 』**\n\n"
+)
+pm_caption += f"┏━━━━━━━━━━━━━━━━━━━\n"
+pm_caption += f"┣•➳➠ `Telethon:` `{tel_ver}` \n"
+pm_caption += f"┣•➳➠ `Version:` `{d3vil_ver}`\n"
+pm_caption += f"┣•➳➠ `Sudo:` `{is_sudou}`\n"
+pm_caption += f"┣•➳➠ `Channel:` [ᴊᴏɪɴ](https://t.me/D3VIL_SUPPORT)\n"
+pm_caption += f"┣•➳➠ `Creator:` [D3кяιsн](https://t.me/D3_krish)\n"
+pm_caption += f"┗━━━━━━━━━━━━━━━━━━━\n"
+pm_caption += " [⚡REPO⚡](https://github.com/D3KRISH/D3vilBot) ✘ [⚡License⚡](https://github.com/D3KRISH/D3vilBot/blob/main/LICENSE)"
+
 
 #-------------------------------------------------------------------------------
 
@@ -26,11 +35,11 @@ async def up(d3vil):
         return
     await d3vil.get_chat()
     await d3vil.delete()
-    await bot.send_file(d3vil.chat_id, d3vil_pic, caption=alive_c)
+    await bot.send_file(d3vil.chat_id, d3vil_pic, caption=pm_caption)
     await d3vil.delete()
 
 msg = f"""
-**⚡ нєℓℓвσт ιѕ σиℓιиє ⚡**
+**⚡ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝔦𝔰 𝔬𝔫𝔩𝔦𝔫𝔢 ⚡**
 {Config.ALIVE_MSG}
 **🏅 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜 🏅**
 **Telethon :**  `{tel_ver}`
@@ -57,6 +66,4 @@ CmdHelp("alive").add_command(
   "alive", None, "Shows the Default Alive Message"
 ).add_command(
   "d3vil", None, "Shows Inline Alive Menu with more details."
-).add_warning(
-  "✅ Harmless Module"
 ).add()
