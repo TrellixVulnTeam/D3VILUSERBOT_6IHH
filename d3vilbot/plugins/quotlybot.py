@@ -44,10 +44,6 @@ async def _(event):
         conv.chat_id, [first.id, ok.id, second.id, response.id]
     )
 
-CmdHelp("qbot").add_command(
+CmdHelp("quotlybot").add_command(
   "ss or qbot", "<reply to msg> <bg colour>", "Makes the sticker of the replied text, sticker, pic.", "ss black <reply to a msg>"
-).add_info(
-  "Makes Quoted Sticker."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
