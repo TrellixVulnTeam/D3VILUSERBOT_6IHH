@@ -11,10 +11,10 @@ from telethon import version
 D3VIL_USER = bot.me.first_name
 d3krish = bot.uid
 d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3krish})"
-d3vil_logo = "./d3vilbot/resources/pics/d3vilbot_logo.jpg"
-cjb = "./d3vilbot/resources/pics/cjb.jpg"
-restlo = "./d3vilbot/resources/pics/rest.jpeg"
-shuru = "./d3vilbot/resources/pics/shuru.jpg"
+d3vil_logo = "./resources/pics/d3vilbot_logo.jpg"
+cjb = "./resources/pics/cjb.jpg"
+restlo = "./resources/pics/rest.jpeg"
+shuru = "./resources/pics/shuru.jpg"
 hl = Config.HANDLER
 shl = Config.SUDO_HANDLER
 d3vil_ver = __d3vil__
