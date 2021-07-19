@@ -122,8 +122,4 @@ CmdHelp("removebg").add_command(
   "rmbg", "<reply to image/stcr> or <link>", "`Removes Background of replied image or sticker and sends output as a file. Need` REMOVE_BG_API `to be set in Heroku Config Vars."
 ).add_command(
   "srmbg", "<reply to img/stcr> or <link>", f"Same as {hl}rmbg but sends output as a sticker. Need REMOVE_BG_API to be set in Heroku Config Vars."
-).add_info(
-  "Remove Background."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
