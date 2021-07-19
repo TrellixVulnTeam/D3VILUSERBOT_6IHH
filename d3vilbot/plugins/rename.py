@@ -210,7 +210,4 @@ CmdHelp("rename").add_command(
 ).add_command(
   "rnsupload", "<reply to media> <new name>", "Renames the replied media and directly upload in streamable format."
 ).add_info(
-  "Rename Yiur Files."
-).add_warning(
-  "✅ Harmless Module."
 ).add()
