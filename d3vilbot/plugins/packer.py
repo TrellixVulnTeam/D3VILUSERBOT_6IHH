@@ -41,8 +41,4 @@ CmdHelp("packer").add_command(
   "unpack", "<reply to a file>", "Read contents of file and send as a telegram message."
 ).add_command(
   "pack", "<reply to text> <filename . extension>", "Packs the text and sends as a file of given extension", "<reply to text> example.py"
-).add_info(
-  "Packer Iz Here !"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
