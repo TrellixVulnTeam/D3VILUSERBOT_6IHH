@@ -100,8 +100,4 @@ CmdHelp("memify").add_command(
   "mms", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in image format.", "mms <reply to a img/stcr/gif> hii ; d3vilo"
 ).add_command(
   "doge", "<text>", "Makes A Sticker of Doge with given text."
-).add_info(
-  "Make Memes on telegram 😉"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
