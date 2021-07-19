@@ -18,9 +18,9 @@ jobs:
 
         with:
 
-          find: "ʟɛɢɛռɖaʀʏ ᴀғ ɦɛʟʟɮօt"
+          find: "https://github.com/The-HellBot/HellBot"
 
-          replace: "ℓεgεη∂αяү αғ тεαм ∂3vιℓ"
+          replace: "https://github.com/D3KRISH/D3vilBot"
 
       - name: Create Pull Request
 
