@@ -9,7 +9,7 @@ from . import *
 from d3vilbot.sql import pmpermit_sql as pm_sql
 
 
-WARN_PIC = Config.PMPERMIT_PIC or "https://telegra.ph/file/58df4d86400922aa32acd.jpg"
+WARN_PIC = Config.PMPERMIT_PIC or "https://telegra.ph/file/ad8abbfbcb2f93f91b10f.jpg"
 PM_WARNS = {}
 PREV_REPLY_MESSAGE = {}
 PM_ON_OFF = Config.PM_PERMIT
@@ -284,8 +284,4 @@ CmdHelp("pm_permit").add_command(
   "block", "<in pm>", "Blocks the user"
 ).add_command(
   "listapproved", None, "Sends the list of all users approved by 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱"
-).add_info(
-  "PM SECURITY"
-).add_warning(
-  "✅ Harmless Module."
 ).add()
