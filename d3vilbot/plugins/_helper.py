@@ -28,8 +28,8 @@ async def repo(event):
         await eor(event, msg)
 
 
-@bot.on(d3vil_cmd(pattern="d3vl ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="d3vl ?(.*)", allow_sudo=True))
+@bot.on(d3vil_cmd(pattern="help ?(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="help ?(.*)", allow_sudo=True))
 async def yardim(event):
     if event.fwd_from:
         return
