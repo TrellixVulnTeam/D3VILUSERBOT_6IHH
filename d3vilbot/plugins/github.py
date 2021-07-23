@@ -8,7 +8,7 @@ from . import *
 
 GIT_TEMP_DIR = "./userbot/temp/"
 
-@bot.on(hell_cmd(pattern=r"commit"))
+@bot.on(d3vil_cmd(pattern=r"commit"))
 @bot.on(sudo_cmd(pattern=r"commit"))
 async def download(event):
     if event.fwd_from:
