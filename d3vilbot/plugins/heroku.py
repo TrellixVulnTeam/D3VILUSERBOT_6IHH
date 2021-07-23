@@ -203,7 +203,7 @@ async def dyno_usage(d3vil):
     await asyncio.sleep(1.5)
 
     return await event.edit(
-        "⚡ **Dyno Usage** ⚡:\n\n"
+        "✘ **Dyno Usage** ✘:\n\n"
         f" ➠ __Dyno usage for__ • **{Config.HEROKU_APP_NAME}** • :\n"
         f"     ★  `{AppHours}`**h**  `{AppMinutes}`**m**  "
         f"**|**  `{AppPercentage}`**%**"
@@ -219,12 +219,12 @@ async def dyno_usage(d3vil):
 @bot.on(sudo_cmd(pattern="logs$", allow_sudo=True))
 async def _(dyno):
     if (HEROKU_APP_NAME is None) or (HEROKU_API_KEY is None):
-        return await eor(dyno, f"Make Sure Your HEROKU_APP_NAME & HEROKU_API_KEY are filled correct. Visit {d3vil_grp} for d3vlp.", link_preview=False)
+        return await eor(dyno, f"Make Sure Your HEROKU_APP_NAME & HEROKU_API_KEY are filled correct. Visit {d3vil_grp} for help.", link_preview=False)
     try:
         Heroku = heroku3.from_key(HEROKU_API_KEY)
         app = Heroku.app(HEROKU_APP_NAME)
     except BaseException:
-        return await dyno.reply(f"Make Sure Your Heroku AppName & API Key are filled correct. Visit {d3vil_grp} for d3vlp.", link_preview=False)
+        return await dyno.reply(f"Make Sure Your Heroku AppName & API Key are filled correct. Visit {d3vil_grp} for help.", link_preview=False)
     event = await eor(dyno, "Downloading Logs...")
     with open("d3vilbot-logs.txt", "w") as log:
         log.write(app.get_log())
@@ -232,7 +232,7 @@ async def _(dyno):
         dyno.chat_id,
         "d3vilbot-logs.txt",
         reply_to=dyno.id,
-        caption=f"**🗒️ Heroku Logs of 💯 lines. 🗒️**\n\n🌟 **Bot Of :**  {d3vil_mention}"
+        caption=f"**🗒️ Heroku Logs of 💯 lines. 🗒️**\n\n⚜️ **Bot Of :**  {d3vil_mention}"
     )
     await event.edit("Heroku Logs..")
     await asyncio.sleep(5)
@@ -241,7 +241,7 @@ async def _(dyno):
     
   # d3vil_data = app.get_log()
   # await eor(
-  #     dyno, d3vil_data, deflink=True, linktext=f"**🗒️ Heroku Logs of 💯 lines. 🗒️**\n\n🌟 **Bot Of :**  {d3vil_mention}\n\n🚀** Pasted**  "
+  #     dyno, d3vil_data, deflink=True, linktext=f"**🗒️ Heroku Logs of 💯 lines. 🗒️**\n\n⚜️ **Bot Of :**  {d3vil_mention}\n\n🚀** Pasted**  "
   # )
 """
     key = (
@@ -252,7 +252,7 @@ async def _(dyno):
     )
     d3vil_url = f"https://nekobin.com/{key}"
     url_raw = f"https://nekobin.com/raw/{key}"
-    foutput = f"**🗒️ Heroku Logs of 💯 lines. 🗒️** \n\n📍 [Nekobin]({d3vil_url}) & [Raw]({url_raw}) 📍\n\n🌟 **Bot Of :**  {d3vil_mention}"
+    foutput = f"**🗒️ Heroku Logs of 💯 lines. 🗒️** \n\n✘ [Nekobin]({d3vil_url}) & [Raw]({url_raw}) ✘\n\n🌟 **Bot Of :**  {d3vil_mention}"
 """
     
 
