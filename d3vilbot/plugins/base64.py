@@ -54,8 +54,8 @@ async def gethash(hash_q):
         await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern="b64 (en|de) (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="b64 (en|de) (.*)", allow_sudo=True))
+@bot.on(d3vil_cmd(pattern="hbase (en|de) (.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="hbase (en|de) (.*)", allow_sudo=True))
 @errors_handler
 async def endecrypt(query):
     if query.fwd_from:
@@ -81,7 +81,7 @@ async def endecrypt(query):
 CmdHelp("encode or decode").add_command(
   "hash", "<query>", "Finds the md5, sha1, sha256, sha512 of the string when written into a txt file"
 ).add_command(
-  "b64 en", "<query>", "Finds the base64 encoding of the given string"
+  "hbase en", "<query>", "Finds the base64 encoding of the given string"
 ).add_command(
-  "b64 de", "<query>", "Finds the base64 decoding of the given string"
+  "hbase de", "<query>", "Finds the base64 decoding of the given string"
 ).add()
