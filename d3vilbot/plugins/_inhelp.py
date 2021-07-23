@@ -108,7 +108,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     apn.append(y)
             result = await builder.article(
                 f"Hey! Only use .d3vlp please",
-                text=f"『 **{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗂️ __𝐶𝑜𝑚𝑚𝑎𝑛𝑑𝑠__ : `{len(apn)}`\n🗒️ __𝑃𝑎𝑔𝑒__ : 1/{veriler[0]}",
+                text=f"『 **{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗒️ __𝑃𝑎𝑔𝑒__ : 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -117,7 +117,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             d3vil = hunter.split("+")
             user = await bot.get_entity(int(d3vil[0]))
             channel = await bot.get_entity(int(d3vil[1]))
-            msg = f"**👋 𝑊𝑒𝑙𝑐𝑜𝑚𝑒** [{user.first_name}](tg://user?id={user.id}), \n\n**📍 𝑌𝑜𝑢 𝑛𝑒𝑒𝑑 𝑡𝑜 𝐽𝑜𝑖𝑛** {channel.title} **𝑡𝑜 𝑐𝒉𝑎𝑡 𝑖𝑛 𝑡𝒉𝑖𝑠 𝑔𝑟𝑜𝑢𝑝.**"
+            msg = f"**👋 𝑊𝑒𝑙𝑐𝑜𝑚𝑒** [{user.first_name}](tg://user?id={user.id}), \n\n** 𝑌𝑜𝑢 𝑛𝑒𝑒𝑑 𝑡𝑜 𝐽𝑜𝑖𝑛** {channel.title} **𝑡𝑜 𝑐𝒉𝑎𝑡 𝑖𝑛 𝑡𝒉𝑖𝑠 𝑔𝑟𝑜𝑢𝑝.**"
             if not channel.username:
                 link = (await bot(ExportChatInviteRequest(channel))).link
             else:
@@ -181,10 +181,10 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         elif event.query.user_id == bot.uid and query == "repo":
             result = builder.article(
                 title="Repository",
-                text=f"**⚡ ℓεgεη∂αяү αғ тεαм ∂3vιℓ ⚡**",
+                text=f"**[⚜️ 𝙻𝙴𝙶𝙴𝙽𝙳𝙰𝚁𝚈 𝙰𝙵 𝚃𝙴𝙰𝙼 𝙳3𝚅𝙸𝙻 ⚜️](https://t.me/D3VIL_SUPPORT)**",
                 buttons=[
-                    [Button.url("📑 𝑅𝑒𝑝𝑜 📑", "https://t.me/D3VIL_SUPPORT")],
-                    [Button.url("🚀 𝐷𝑒𝑝𝑙𝑜𝑦 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FThe-D3vilBot%2FD3vilBot&template=https%3A%2F%2Fgithub.com%2Fthe-d3vilbot%2Fd3vilbot")],
+                    [Button.url("📑 𝑅𝑒𝑝𝑜 📑", "https://github.com/TEAM-D3VIL/D3vilBot")],
+                    [Button.url("🚀 𝐷𝑒𝑝𝑙𝑜𝑦 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot&template=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot")],
                 ],
             )
 
@@ -200,20 +200,20 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         else:
             result = builder.article(
                 "@D3VIL_SUPPORT",
-                text="""**𝐻𝑒𝑦! 𝑇𝒉𝑖𝑠 𝑖𝑠 [𝔇3𝔳𝔦𝔩𝔅𝔬𝔱](https://t.me/its_d3vilbot) \nYou 𝑐𝑎𝑛 𝑘𝑛𝑜𝑤 𝑚𝑜𝑟𝑒 𝑎𝑏𝑜𝑢𝑡 𝑚𝑒 𝑓𝑟𝑜𝑚 𝑡𝒉𝑒 𝑙𝑖𝑛𝑘𝑠 𝑔𝑖𝑣𝑒𝑛 𝑏𝑒𝑙𝑜𝑤 👇**""",
+                text="""**𝐻𝑒𝑦! 𝑇𝒉𝑖𝑠 𝑖𝑠 [𝙳3𝚅𝙸𝙻𝙱𝙾𝚃](https://telegra.ph/file/ad8abbfbcb2f93f91b10f.jpg) \nYou 𝑐𝑎𝑛 𝑘𝑛𝑜𝑤 𝑚𝑜𝑟𝑒 𝑎𝑏𝑜𝑢𝑡 𝑚𝑒 𝑓𝑟𝑜𝑚 𝑡𝒉𝑒 𝑙𝑖𝑛𝑘𝑠 𝑔𝑖𝑣𝑒𝑛 𝑏𝑒𝑙𝑜𝑤 👇**""",
                 buttons=[
                     [
-                        custom.Button.url("🔥 𝐶𝐻𝐴𝑁𝑁𝐸𝐿 🔥", "https://t.me/D3VIL_SUPPORT"),
+                        custom.Button.url("🔥 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🔥", "https://t.me/D3VIL_SUPPORT"),
                         custom.Button.url(
-                            "⚡ 𝐺𝑅𝑂𝑈𝑃 ⚡", "https://t.me/D3VIL_BOT_SUPPORT"
+                            "⚡ 𝙶𝚁𝙾𝚄𝙿 ⚡", "https://t.me/D3VIL_BOT_SUPPORT"
                         ),
                     ],
                     [
                         custom.Button.url(
-                            "✨ 𝑅𝐸𝑃𝑂 ✨", "https://github.com/D3KRISH/D3vilBot"),
+                            "✨ 𝚁𝙴𝙿𝙾 ✨", "https://github.com/D3KRISH/D3vilBot"),
                         custom.Button.url
                     (
-                            "🔰 𝑇𝑈𝑇𝑂𝑅𝐼𝐴𝐿 🔰", "https://youtu.be"
+                            "🔰 𝙾𝚆𝙽𝙴𝚁 🔰", "https://youtu.be"
                     )
                     ],
                 ],
@@ -320,7 +320,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     for y in x:
                         apn.append(y)
                 await event.edit(
-                    f"🔰 **{d3vil_mention}**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗂️ __𝐶𝑜𝑚𝑚𝑎𝑛𝑑𝑠__ : `{len(apn)}`\n🗒️ __𝑃𝑎𝑔𝑒__ : 1/{veriler[0]}",
+                    f" **『{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗒️ __𝙿𝙰𝙶𝙴__ : 1/{veriler[0]}",
                     buttons=simp[1],
                     link_preview=False,
                 )
@@ -349,7 +349,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 apn.append(y)
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f"🔰 **{d3vil_mention}**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}`\n🗂️ __𝐶𝑜𝑚𝑚𝑎𝑛𝑑𝑠__ : `{len(apn)}`\n🗒️ __𝑃𝑎𝑔𝑒__ : {page + 1}/{veriler[0]}",
+                f" **『{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}`\n🗂️ __𝐶𝑜𝑚𝑚𝑎𝑛𝑑𝑠__ : `{len(apn)}`\n🗒️ __𝑃𝑎𝑔𝑒__ : {page + 1}/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -370,7 +370,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         try:
             buttons = [
                 custom.Button.inline(
-                    "⚡ " + cmd[0] + " ⚡", data=f"commands[{commands}[{page}]]({cmd[0]})"
+                    "✘ " + cmd[0] + " 1✘", data=f"commands[{commands}[{page}]]({cmd[0]})"
                 )
                 for cmd in CMD_HELP_BOT[commands]["commands"].items()
             ]
