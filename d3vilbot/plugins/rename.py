@@ -209,5 +209,4 @@ CmdHelp("rename").add_command(
   "rnupload", "<reply to media> <new name>", "Renames the replied media and directly uploads it to the chat"
 ).add_command(
   "rnsupload", "<reply to media> <new name>", "Renames the replied media and directly upload in streamable format."
-).add_info(
 ).add()
