@@ -59,7 +59,7 @@ async def lg1(d3vilevent):
     await bot.send_file(
         d3vilevent.chat_id,
         file_name,
-        caption=f"**мα∂ε вү :** {d3vil_mention}/n ωιтн тнε нεℓρ σғ [∂3vιℓ вαcкgяσυη∂'s](t.me/D3VIL_GFX)",
+        caption=f"**мα∂ε вү :** {d3vil_mention}\n ωιтн тнε нεℓρ σғ [∂3vιℓ вαcкgяσυη∂'s](t.me/D3VIL_GFX)",
     )
     await event.delete()
     try:
