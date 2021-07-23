@@ -43,7 +43,7 @@ def load_module(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("HellBot - Successfully imported " + shortname)
+        LOGS.info("D3vilBot - Successfully imported " + shortname)
     else:
         import d3vilbot.utils
 

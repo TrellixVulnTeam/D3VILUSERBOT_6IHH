@@ -1,8 +1,8 @@
 import re
 from . import *
 
-# Credits goes to developer of HellBot.
-# This is  first plugin that he made when he released first HellBot.
+# Credits goes to developer of D3vilBot.
+# This is  first plugin that he made when he released first D3vilBot.
 # Modified to work in groups with inline mode disabled.
 # Added error msg if no voice is found.
 # So please dont remove credit. 

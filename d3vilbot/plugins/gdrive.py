@@ -86,5 +86,5 @@ async def g_download(event):
     await event.edit("File Downloaded.\nName: `" + str(file_name) + "`")
 
 CmdHelp("gdrive").add_command(
-  "gdl", "gdrive link", "Downloads the file from gdirve to HellBot's local storage. Use .upload to upload it."
+  "gdl", "gdrive link", "Downloads the file from gdirve to D3vilBot's local storage. Use .upload to upload it."
 ).add()
