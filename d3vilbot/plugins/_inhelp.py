@@ -200,7 +200,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         else:
             result = builder.article(
                 "@D3VIL_SUPPORT",
-                text="""**𝐻𝑒𝑦! 𝑇𝒉𝑖𝑠 𝑖𝑠 [𝙳3𝚅𝙸𝙻𝙱𝙾𝚃](https://telegra.ph/file/ad8abbfbcb2f93f91b10f.jpg) \nYou 𝑐𝑎𝑛 𝑘𝑛𝑜𝑤 𝑚𝑜𝑟𝑒 𝑎𝑏𝑜𝑢𝑡 𝑚𝑒 𝑓𝑟𝑜𝑚 𝑡𝒉𝑒 𝑙𝑖𝑛𝑘𝑠 𝑔𝑖𝑣𝑒𝑛 𝑏𝑒𝑙𝑜𝑤 👇**""",
+                text="""**𝐻𝑒𝑦! 𝑇𝒉𝑖𝑠 𝑖𝑠 ![𝙳3𝚅𝙸𝙻𝙱𝙾𝚃](https://telegra.ph/file/ad8abbfbcb2f93f91b10f.jpg) \nYou 𝑐𝑎𝑛 𝑘𝑛𝑜𝑤 𝑚𝑜𝑟𝑒 𝑎𝑏𝑜𝑢𝑡 𝑚𝑒 𝑓𝑟𝑜𝑚 𝑡𝒉𝑒 𝑙𝑖𝑛𝑘𝑠 𝑔𝑖𝑣𝑒𝑛 𝑏𝑒𝑙𝑜𝑤 👇**""",
                 buttons=[
                     [
                         custom.Button.url("🔥 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🔥", "https://t.me/D3VIL_SUPPORT"),
