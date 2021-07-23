@@ -43,7 +43,7 @@ def load_module(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("D3vilBot - Successfully imported " + shortname)
+        LOGS.info("𝐓𝐄𝐀𝐌 𝐃3𝐕𝐈𝐋 - 𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢 𝚒𝚖𝚙𝚘𝚛𝚝𝚎𝚍 " + shortname)
     else:
         import d3vilbot.utils
 
@@ -74,7 +74,7 @@ def load_module(shortname):
         spec.loader.exec_module(mod)
         # for imports
         sys.modules["d3vilbot.plugins." + shortname] = mod
-        LOGS.info("⚡ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ⚡ - Successfully Imported " + shortname)
+        LOGS.info("✘ 𝐓𝐄𝐀𝐌 𝐃3𝐕𝐈𝐋 ✘  - 𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢 𝙸𝚖𝚙𝚘𝚛𝚝𝚎𝚍 " + shortname)
 
 
 # remove plugins
