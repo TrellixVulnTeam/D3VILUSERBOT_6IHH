@@ -1114,8 +1114,4 @@ CmdHelp("animations").add_command(
   "f", "<text>", "Prints the given text in 'F' format"
 ).add_command(
   "wahack", None, "Whatsapp Hack animation"
-).add_info(
-  "Fun Animations."
-).add_warning(
-  "⚠️ Some commands may cause flood error."
 ).add()
