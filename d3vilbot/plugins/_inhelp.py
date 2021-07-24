@@ -46,15 +46,15 @@ D3VIL_FIRST = (
     "{}\n\n**Please Choose Why You Are Here!!**".format(d3vil_mention, mssge))
 
 alive_txt = """
-**⚜️ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝔦𝔰 𝔬𝔫𝔩𝔦𝔫𝔢 ⚜️**
+**𖤍 𝐃3𝐕𝐈𝐋 𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 𖤍**
 {}
-**🏅 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜 🏅**
 
-**Telethon :**  `{}`
-**𝔇3𝔳𝔦𝔩𝔅𝔬𝔱  :**  **{}**
-**Uptime   :**  `{}`
-**Abuse    :**  **{}**
-**Sudo      :**  **{}**
+**★ 𝕋𝕖𝕝𝕖𝕥𝕙𝕠𝕟 :** `{}`
+**★ 𝔻3𝕍𝕀𝕃𝔹𝕆𝕋 :**{}**
+**★ 𝕌𝕡𝕥𝕚𝕞𝕖 :** `{}`
+**★ 𝕄𝕒𝕤𝕥𝕖𝕣 :** {}**
+**★ 𝕊𝕦𝕕𝕠   :** {}**
+**★ 𝔸𝕓𝕦𝕤𝕖  :** {}**
 """
 
 def button(page, modules):
@@ -370,7 +370,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         try:
             buttons = [
                 custom.Button.inline(
-                    "✘ " + cmd[0] + " 1✘", data=f"commands[{commands}[{page}]]({cmd[0]})"
+                    "✘ " + cmd[0] + " ✘", data=f"commands[{commands}[{page}]]({cmd[0]})"
                 )
                 for cmd in CMD_HELP_BOT[commands]["commands"].items()
             ]
