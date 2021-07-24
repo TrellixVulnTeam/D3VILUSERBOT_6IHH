@@ -10,20 +10,21 @@ from . import *
 #-------------------------------------------------------------------------------
 
 d3vil_pic = Config.ALIVE_PIC or "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
-pm_caption = "  __**🔥🔥𝐃3𝐕𝐈𝐋 𝐁𝐎𝐓 𝐈𝐒 𝐀𝐋𝐈𝐕𝐄🔥🔥**__\n\n"
+pm_caption = "  __**🔥🔥𝗗3𝗩𝗜𝗟 𝗕𝗢𝗧 𝗜𝗦 𝗔𝗟𝗜𝗩𝗘🔥🔥**__\n\n"
 
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 👑𝐌𝐀𝐒𝐓𝐄𝐑👑\n  **『 {d3vil_mention} 』**\n\n"
+    f"                 __↼🄼🄰🅂🅃🄴🅁⇀__\n  **『 {d3vil_mention} 』**\n\n"
 )
 pm_caption += f"┏━━━━━━━━━━━━━━━━━━━\n"
-pm_caption += f"┣•➳➠ `Telethon:` `{tel_ver}` \n"
-pm_caption += f"┣•➳➠ `Version:` `{d3vil_ver}`\n"
-pm_caption += f"┣•➳➠ `Sudo:` `{is_sudo}`\n"
-pm_caption += f"┣•➳➠ `Channel:` [ᴊᴏɪɴ](https://t.me/D3VIL_SUPPORT)\n"
-pm_caption += f"┣•➳➠ `Creator:` [D3кяιsн](https://t.me/D3_krish)\n"
+pm_caption += f"┣•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
+pm_caption += f"┣•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `{d3vil_ver}`\n"
+pm_caption += f"┣•➳➠ `𝖲𝗎𝖽𝗈:` `{is_sudo}`\n"
+pm_caption += f"┣•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [ᴊᴏɪɴ](https://t.me/D3VIL_SUPPORT)\n"
+pm_caption += f"┣•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
+pm_caption += f"┣•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
 pm_caption += f"┗━━━━━━━━━━━━━━━━━━━\n"
-pm_caption += " [⚡REPO⚡](https://github.com/D3KRISH/D3vilBot) ✘ [⚡License⚡](https://github.com/D3KRISH/D3vilBot/blob/main/LICENSE)"
+pm_caption += " [⚡REPO⚡](https://github.com/D3KRISH/D3vilBot) 🔹 [📜License📜](https://github.com/TEAM-D3VIL/D3vilBot/blob/main/LICENSE)"
 
 
 #-------------------------------------------------------------------------------
