@@ -101,7 +101,7 @@ async def _(event):
         first_name = first_name.replace("\u2060", "")
     last_name = replied_user.user.last_name
     last_name = (
-        last_name.replace("\u2060", "") if last_name else ("Last Name not found")
+        last_name.replace("\u2060", "") if last_name else ("Name not find")
     )
     user_bio = replied_user.about
     if user_bio is not None:
@@ -112,7 +112,7 @@ async def _(event):
     except Exception as e:
         dc_id = "`Need a Profile Picture to check **this**`"
         str(e)
-    caption = """<b>✘𝖤𝚇𝚃𝚁𝙰𝙲𝚃𝙴𝙳 𝚄𝚂𝙴𝚁 𝙸𝙽𝙵𝙾 𝙱𝚈 𝖣3𝚅𝚒𝚕 𝙱𝙾𝚃✘<b>
+    caption = """<b>𖤍 𝚄𝚂𝙴𝚁 𝙸𝙽𝙵𝙾 𝙱𝚈 𝖣3𝚅𝚒𝚕 𝙱𝙾𝚃 𖤍<b>
 <b>┏━━━━━━━━━━━━━━━━━━━━</b>
 <b>┣𝚄𝚂𝙴𝚁 𝙸𝙳</b>: <code>{}</code>
 <b>┣𝙻𝙸𝙽𝙺 𝚃𝙾 𝙿𝚁𝙾𝙵𝙸𝙻𝙴</b>: <a href='tg://user?id={}'>Click Here🚪</a>
@@ -126,7 +126,7 @@ async def _(event):
 <b>┣𝙱𝙾𝚃</b>: {}
 <b>┣𝙶𝚁𝙾𝚄𝙿 𝙸𝙽 𝙲𝙾𝙼𝙼𝙰𝙽</b>: {}
 <b>┗━━━━━━━━━━━━━━━━━━━━</b>
-<b>⚔️ <a href='https://t.me/D3VIL_BOT_SUPPORT'>𝙵𝚁𝙾𝙼 𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙾𝙵 𝙳3𝚅𝙸𝙻 𝚄𝚂𝙴𝚁𝙱𝙾𝚃</a> ⚔️ </b>
+<b> <a href='https://t.me/D3VIL_BOT_SUPPORT'>𝙵𝚁𝙾𝙼 𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙾𝙵 𝙳3𝚅𝙸𝙻 𝙱𝙾𝚃</a>  </b>
 """.format(
         user_id,
         user_id,
