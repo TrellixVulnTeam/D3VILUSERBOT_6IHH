@@ -38,6 +38,30 @@ async def up(d3vil):
     await bot.send_file(d3vil.chat_id, d3vil_pic, caption=pm_caption)
     await d3vil.delete()
 
+msg = f"""
+**⚡ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 ⚡**
+{Config.ALIVE_MSG}
+**🏅 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜 🏅**
+**𝕋𝕖𝕝𝕖𝕥𝕙𝕠𝕟 :**  `{tel_ver}`
+**𝔻3𝕍𝕀𝕃𝔹𝕆𝕋  :**  **{d3vil_ver}**
+**𝕌𝕡𝕥𝕚𝕞𝕖   :**  `{uptime}`
+**𝔸𝕓𝕦𝕤𝕖    :**  **{abuse_m}**
+**𝕊𝕦𝕕𝕠      :**  **{is_sudo}**
+"""
+botname = Config.BOT_USERNAME
+
+@bot.on(d3vil_cmd(pattern="d3vil$"))
+@bot.on(sudo_cmd(pattern="d3vil$", allow_sudo=True))
+async def d3vil_a(event):
+    try:
+        d3vil = await bot.inline_query(botname, "alive")
+        await d3vil[0].click(event.chat_id)
+        if event.sender_id == d3krish:
+            await event.delete()
+    except (noin, dedbot):
+        await eor(event, msg)
+
+
 CmdHelp("alive").add_command(
   "alive", None, "Shows the Default Alive Message"
 ).add_command(
