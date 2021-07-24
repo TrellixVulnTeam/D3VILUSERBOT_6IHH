@@ -518,12 +518,12 @@ async def bluedevildog(dog):
     await edit_or_reply(dog, J)
 
 
-@bot.on(d3vil_cmd(pattern=r"d3vilo$"))
-@bot.on(sudo_cmd(pattern="d3vilo$", allow_sudo=True))
-async def bluedevild3vilo(d3vilo):
-    if d3vilo.fwd_from:
+@bot.on(d3vil_cmd(pattern=r"hello$"))
+@bot.on(sudo_cmd(pattern="hello$", allow_sudo=True))
+async def bluedevilhello(hello):
+    if hello.fwd_from:
         return
-    await edit_or_reply(d3vilo, K)
+    await edit_or_reply(hello, K)
 
 
 @bot.on(d3vil_cmd(pattern=r"hmf$"))
@@ -646,6 +646,4 @@ CmdHelp("arts").add_command(
   'sshit', None, 'Send a art in "Ahh shit. Here we go again"'
 ).add_info(
   'Artistic Module'
-).add_warning(
-  '✅ Harmless Module.'
 ).add()
