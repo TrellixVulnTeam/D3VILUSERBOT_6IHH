@@ -108,7 +108,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     apn.append(y)
             result = await builder.article(
                 f"Hey! Only use .d3vlp please",
-                text=f"『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
+                text=f"『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -320,7 +320,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     for y in x:
                         apn.append(y)
                 await event.edit(
-                    f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
+                    f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                     buttons=simp[1],
                     link_preview=False,
                 )
@@ -349,7 +349,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 apn.append(y)
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
+                f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                 buttons=veriler[1],
                 link_preview=False,
             )
