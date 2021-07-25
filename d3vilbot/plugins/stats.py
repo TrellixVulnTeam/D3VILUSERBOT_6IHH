@@ -62,25 +62,25 @@ async def stats(
         unread += dialog.unread_count
     stop_time = time.time() - start_time
     full_name = inline_mention(await event.client.get_me())
-    response = f"🔰**Stats for {full_name}**🔰\n\n"
-    response += f"🔱 **Private Chats:** {private_chats} \n"
-    response += f"🔸   `Users: {private_chats - bots}` \n"
-    response += f"🔹   `Bots: {bots}` \n"
-    response += f"🔱 **Groups:** {groups} \n"
-    response += f"🔱 **Channels:** {broadcast_channels} \n"
-    response += f"☣️  **Admin in Groups:** {admin_in_groups} \n"
-    response += f"🔹   `Creator: {creator_in_groups}` \n"
-    response += f"🔸   `Admin Rights: {admin_in_groups - creator_in_groups}` \n"
-    response += f"☣️  **Admin in Channels:** {admin_in_broadcast_channels} \n"
-    response += f"🔸   `Creator: {creator_in_channels}` \n"
+    response = f"🔰**𝖲𝗍𝖺𝗍𝗌 𝖿𝗈𝗋 {full_name}**🔰\n\n"
+    response += f"🔱 **𝖯𝗋𝗂𝗏𝖺𝗍𝖾 𝖢𝗁𝖺𝗍𝗌:** {private_chats} \n"
+    response += f"🔸   `𝖴𝗌𝖾𝗋𝗌: {private_chats - bots}` \n"
+    response += f"🔹   `𝖡𝗈𝗍𝗌: {bots}` \n"
+    response += f"🔱 **𝖦𝗋𝗈𝗎𝗉𝗌:** {groups} \n"
+    response += f"🔱 **𝖢𝗁𝖺𝗇𝗇𝖾𝗅𝗌:** {broadcast_channels} \n"
+    response += f"☣️  **𝖠𝖽𝗆𝗂𝗇 in Groups:** {admin_in_groups} \n"
+    response += f"🔹   `𝖢𝗋𝖾𝖺𝗍𝗈𝗋: {creator_in_groups}` \n"
+    response += f"🔸   `𝖠𝖽𝗆𝗂𝗇 𝖱𝗂𝗀𝗁𝗍𝗌: {admin_in_groups - creator_in_groups}` \n"
+    response += f"☣️  **𝖠𝖽𝗆𝗂𝗇 𝗂𝗇 𝖢𝗁𝖺𝗇𝗇𝖾𝗅𝗌:** {admin_in_broadcast_channels} \n"
+    response += f"🔸   `𝖢𝗋𝖾𝖺𝗍𝗈𝗋: {creator_in_channels}` \n"
     response += (
         f"🔹   `Admin Rights: {admin_in_broadcast_channels - creator_in_channels}` \n"
     )
-    response += f"🔱 **Unread:** {unread} \n"
-    response += f"🔱 **Unread Mentions:** {unread_mentions} \n\n"
-    response += f"☣️   __It Took:__ {stop_time:.02f}s \n"
+    response += f"🔱 **𝖴𝗇𝗋𝖾𝖺𝖽:** {unread} \n"
+    response += f"🔱 **𝖴𝗇𝗋𝖾𝖺𝖽 𝖬𝖾𝗇𝗍𝗂𝗈𝗇𝗌:** {unread_mentions} \n\n"
+    response += f"☣️   __𝖨𝗍 𝖳𝗈𝗈𝗄:__ {stop_time:.02f}s \n"
     response += (
-        f"📌 **From The DataBase Of** :- {d3vil_channel}"
+        f"📌 **𝖥𝗋𝗈𝗆 𝖳𝗁𝖾 𝖣𝖺𝗍𝖺𝖡𝖺𝗌𝖾 𝖮𝖿** :- {d3vil_channel}"
     )
     await d3vil.edit(response)
 
