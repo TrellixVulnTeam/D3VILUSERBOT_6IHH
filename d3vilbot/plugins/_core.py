@@ -27,7 +27,7 @@ async def kk(event):
     o = stdout.decode()
     _o = o.split("\n")
     o = "\n".join(_o)
-    OUTPUT = f"List of Plugins in bot :- \n\n{o}\n\n<><><><><><><><><><><><><><><><><><><><><><><><>\nHELP:- If you want to know the commands for a plugin, do :- \n.plinfo <plugin name> without the < > brackets. \nJoin {d3vil_grp} for query."
+    OUTPUT = f"𝖫𝗂𝗌𝗍 𝗈𝖿 𝖯𝗅𝗎𝗀𝗂𝗇𝗌 𝗂𝗇 𝖻𝗈𝗍 :- \n\n{o}\n\n<><><><><><><><><><><><><><><><><><><><><><><><>\nHELP:- 𝖨𝖿 𝗒𝗈𝗎 𝗐𝖺𝗇𝗍 𝗍𝗈 𝗄𝗇𝗈𝗐 𝗍𝗁𝖾 𝖼𝗈𝗆𝗆𝖺𝗇𝖽𝗌 𝖿𝗈𝗋 𝖺 𝗉𝗅𝗎𝗀𝗂𝗇, 𝖽𝗈 :- \n.plinfo <𝗉𝗅𝗎𝗀𝗂𝗇 𝗇𝖺𝗆𝖾> 𝗐𝗂𝗍𝗁𝗈𝗎𝗍 𝗍𝗁𝖾 < > 𝖻𝗋𝖺𝖼𝗄𝖾𝗍𝗌. \𝗇𝖩𝗈𝗂𝗇 {d3vil_grp} 𝖿𝗈𝗋 𝗊𝗎𝖾𝗋𝗒."
     if len(OUTPUT) > 69:
         with io.BytesIO(str.encode(OUTPUT)) as out_file:
             out_file.name = "cmd_list.text"
@@ -65,7 +65,7 @@ async def send(event):
         )
         await event.delete()
     else:
-        await eod(event, "File not found..... Kek")
+        await eod(event, "𝖥𝗂𝗅𝖾 𝗇𝗈𝗍 𝖿𝗈𝗎𝗇𝖽..... 𝖪𝖾𝗄")
 
 
 @bot.on(d3vil_cmd(pattern="install$", outgoing=True))
@@ -132,7 +132,7 @@ async def unload(event):
     shortname = event.pattern_match["shortname"]
     try:
         remove_plugin(shortname)
-        await event.edit(f"Successfully unloaded `{shortname}`")
+        await event.edit(f"𝖲𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒 𝗎𝗇𝗅𝗈𝖺𝖽𝖾𝖽 `{shortname}`")
     except Exception as e:
         await event.edit(
             "Successfully unloaded {shortname}\n{}".format(
@@ -153,7 +153,7 @@ async def load(event):
         except BaseException:
             pass
         load_module(shortname)
-        await event.edit(f"Successfully loaded `{shortname}`")
+        await event.edit(f"𝖲𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒 𝗅𝗈𝖺𝖽𝖾𝖽 `{shortname}`")
     except Exception as e:
         await event.edit(
             f"Sorry, could not load {shortname} because of the following error.\n{str(e)}"
