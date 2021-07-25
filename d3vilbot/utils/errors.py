@@ -34,9 +34,9 @@ def errors_handler(func):
                 'date': datetime.datetime.now()
             }
 
-            text = "**𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 CRASH REPORT**\n\n"
+            text = "**𝓓3𝓿𝓲𝓵𝓫𝓸𝓽 𝓒𝓡𝓐𝓢𝓗 𝓡𝓔𝓟𝓞𝓡𝓣**\n\n"
 
-            link = "[here](https://t.me/d3krish)"
+            link = "[here](https://t.me/D3_krish)"
             text += "If you wanna you can report it"
             text += f"- just forward this message {link}.\n"
             text += "Nothing is logged except the fact of error and date\n"
@@ -57,7 +57,7 @@ def errors_handler(func):
             ftext += str(traceback.format_exc())
             ftext += "\n\nError text:\n"
             ftext += str(sys.exc_info()[1])
-            ftext += "\n\n--------END D3VILBOT TRACEBACK LOG--------"
+            ftext += "\n\n--------𝓔𝓝𝓓 𝓓3𝓥𝓘𝓛𝓑𝓞𝓣 𝓣𝓡𝓐𝓒𝓔𝓑𝓐𝓒𝓚 𝓛𝓞𝓖--------"
 
             command = "git log --pretty=format:\"%an: %s\" -5"
 
