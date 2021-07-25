@@ -35,15 +35,15 @@ LOG_GP = Config.LOGGER_ID
 mssge = (
     str(cstm_pmp)
     if cstm_pmp
-    else "**You Have Trespassed To My Master's PM!\nThis Is Illegal And Regarded As Crime.**"
+    else "**𝖸𝗈𝗎 𝖧𝖺𝗏𝖾 𝖳𝗋𝖾𝗌𝗉𝖺𝗌𝗌𝖾𝖽 𝖳𝗈 𝖬𝗒 𝖬𝖺𝗌𝗍𝖾𝗋'𝗌 𝖯𝖬!\n𝖳𝗁𝗂𝗌 𝖨𝗌 𝖨𝗅𝗅𝖾𝗀𝖺𝗅 𝖠𝗇𝖽 𝖱𝖾𝗀𝖺𝗋𝖽𝖾𝖽 𝖠𝗌 𝖢𝗋𝗂𝗆𝖾.**"
 )
 
-USER_BOT_WARN_ZERO = "Enough Of Your Flooding In My Master's PM!! \n\n**🚫 Blocked and Reported**"
+USER_BOT_WARN_ZERO = "𝖤𝗇𝗈𝗎𝗀𝗁 𝖮𝖿 𝖸𝗈𝗎𝗋 𝖥𝗅𝗈𝗈𝖽𝗂𝗇𝗀 𝖨𝗇 𝖬𝗒 𝖬𝖺𝗌𝗍𝖾𝗋'𝗌 𝖯𝖬!! \n\n**🚫 𝖡𝗅𝗈𝖼𝗄𝖾𝖽 𝖺𝗇𝖽 𝖱𝖾𝗉𝗈𝗋𝗍𝖾𝖽**"
 
 D3VIL_FIRST = (
-    "**🔥 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Prîvã†é Sêçürïty Prø†öçõl 🔥**\n\nThis is to inform you that "
-    "{} is currently unavailable.\nThis is an automated message.\n\n"
-    "{}\n\n**Please Choose Why You Are Here!!**".format(d3vil_mention, mssge))
+    "**🔥 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Prîvã†é Sêçürïty Prø†öçõl 🔥**\n\𝗇𝖳𝗁𝗂𝗌 𝗂𝗌 𝗍𝗈 𝗂𝗇𝖿𝗈𝗋𝗆 𝗒𝗈𝗎 𝗍𝗁𝖺𝗍 "
+    "{} 𝗂𝗌 𝖼𝗎𝗋𝗋𝖾𝗇𝗍𝗅𝗒 𝗎𝗇𝖺𝗏𝖺𝗂𝗅𝖺𝖻𝗅𝖾.\𝗇𝖳𝗁𝗂𝗌 𝗂𝗌 𝖺𝗇 𝖺𝗎𝗍𝗈𝗆𝖺𝗍𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾.\n\n"
+    "{}\n\n**𝖯𝗅𝖾𝖺𝗌𝖾 𝖢𝗁𝗈𝗈𝗌𝖾 𝖶𝗁𝗒 𝖸𝗈𝗎 𝖠𝗋𝖾 𝖧𝖾𝗋𝖾!!**".format(d3vil_mention, mssge))
 
 alive_txt = """
 **⚜️ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 ⚜️**
@@ -108,7 +108,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     apn.append(y)
             result = await builder.article(
                 f"Hey! Only use .d3vlp please",
-                text=f"『 **{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗒️ __𝑃𝑎𝑔𝑒__ : 1/{veriler[0]}",
+                text=f"『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -117,7 +117,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             d3vil = hunter.split("+")
             user = await bot.get_entity(int(d3vil[0]))
             channel = await bot.get_entity(int(d3vil[1]))
-            msg = f"**👋 𝑊𝑒𝑙𝑐𝑜𝑚𝑒** [{user.first_name}](tg://user?id={user.id}), \n\n** 𝑌𝑜𝑢 𝑛𝑒𝑒𝑑 𝑡𝑜 𝐽𝑜𝑖𝑛** {channel.title} **𝑡𝑜 𝑐𝒉𝑎𝑡 𝑖𝑛 𝑡𝒉𝑖𝑠 𝑔𝑟𝑜𝑢𝑝.**"
+            msg = f"**👋 𝗐𝖾𝗅𝖼𝗈𝗆𝖾** [{user.first_name}](tg://user?id={user.id}), \n\n** 𝖸𝗈𝗎 𝗇𝖾𝖾𝖽 𝗍𝗈 𝖩𝗈𝗂𝗇** {channel.title} **𝗍𝗈 𝖼𝗁𝖺𝗍 𝗂𝗇 𝗍𝗁𝗂𝗌 𝗀𝗋𝗈𝗎𝗉.**"
             if not channel.username:
                 link = (await bot(ExportChatInviteRequest(channel))).link
             else:
@@ -128,7 +128,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     text = msg,
                     buttons=[
                         [Button.url(text="Channel", url=link)],
-                        [custom.Button.inline("🔓 𝑈𝑛𝑚𝑢𝑡𝑒 𝑀𝑒", data=unmute)],
+                        [custom.Button.inline("🔓 𝖴𝗇𝗆𝗎𝗍𝖾 𝖬𝖾", data=unmute)],
                     ],
                 )
             ]
@@ -137,8 +137,8 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             kr_ish = alive_txt.format(Config.ALIVE_MSG, tel_ver, d3vil_ver, uptime, abuse_m, is_sudo)
             alv_btn = [
                 [Button.url(f"{D3VIL_USER}", f"tg://openmessage?user_id={d3krish}")],
-                [Button.url("My Channel", f"https://t.me/{my_channel}"), 
-                Button.url("My Group", f"https://t.me/{my_group}")],
+                [Button.url("𝖬𝗒 𝖢𝗁𝖺𝗇𝗇𝖾𝗅", f"https://t.me/{my_channel}"), 
+                Button.url("𝖬𝗒 𝖦𝗋𝗈𝗎𝗉", f"https://t.me/{my_group}")],
             ]
             if ALV_PIC and ALV_PIC.endswith((".jpg", ".png")):
                 result = builder.photo(
@@ -170,11 +170,11 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 text=d3vl_l,
                 buttons=[
                     [
-                        custom.Button.inline("📝 𝑅𝑒𝑞𝑢𝑒𝑠𝑡 📝", data="req"),
-                        custom.Button.inline("💬 𝐶𝒉𝑎𝑡 💬", data="chat"),
+                        custom.Button.inline("🚫 𝖲𝗉𝖺𝗆 🚫", data="heheboi"),
+                        custom.Button.inline("💬 𝖢𝗁𝖺𝗍 💬", data="chat"),
                     ],
-                    [custom.Button.inline("🚫 𝑆𝑝𝑎𝑚 🚫", data="heheboi")],
-                    [custom.Button.inline("𝐶𝑢𝑟𝑖𝑜𝑢𝑠 ❓", data="pmclick")],
+                    [custom.Button.inline("📝 𝖱𝖾𝗊𝗎𝖾𝗌𝗍 📝", data="req")],
+                    [custom.Button.inline("𝖢𝗎𝗋𝗂𝗈𝗎𝗌 ❓", data="pmclick")],
                 ],
             )
 
@@ -183,8 +183,8 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 title="Repository",
                 text=f"**[⚜️ 𝙻𝙴𝙶𝙴𝙽𝙳𝙰𝚁𝚈 𝙰𝙵 𝚃𝙴𝙰𝙼 𝙳3𝚅𝙸𝙻 ⚜️](https://t.me/D3VIL_SUPPORT)**",
                 buttons=[
-                    [Button.url("📑 𝑅𝑒𝑝𝑜 📑", "https://github.com/TEAM-D3VIL/D3vilBot")],
-                    [Button.url("🚀 𝐷𝑒𝑝𝑙𝑜𝑦 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot&template=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot")],
+                    [Button.url("📑 𝖱𝖾𝗉𝗈 📑", "https://github.com/TEAM-D3VIL/D3vilBot")],
+                    [Button.url("🚀 𝖣𝖾𝗉𝗅𝗈𝗒 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot&template=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot")],
                 ],
             )
 
@@ -192,7 +192,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             part = query.split(" ")
             result = builder.article(
                 "File uploaded",
-                text=f"**𝐹𝑖𝑙𝑒 𝑢𝑝𝑙𝑜𝑎𝑑𝑒𝑑 𝑠𝑢𝑐𝑐𝑒𝑠𝑠𝑓𝑢𝑙𝑙𝑦 𝑡𝑜 {part[2]} site.\n\n𝑈𝑝𝑙𝑜𝑎𝑑 𝑇𝑖𝑚𝑒 : {part[1][:3]} 𝑠𝑒𝑐𝑜𝑛𝑑\n[‏‏‎ ‎]({part[0]})",
+                text=f"**𝖥𝗂𝗅𝖾 𝗎𝗉𝗅𝗈𝖺𝖽𝖾𝖽 𝗌𝗎𝖼𝖼𝖾𝗌𝗌𝖿𝗎𝗅𝗅𝗒 𝗍𝗈 {part[2]} site.\𝗇𝖴𝗉𝗅𝗈𝖽𝖾𝖽 𝖳𝗂𝗆𝖾 : {part[1][:3]} 𝗌𝖾𝖼𝗈𝗇𝖽\n[‏‏‎ ‎]({part[0]})",
                 buttons=[[custom.Button.url("URL", part[0])]],
                 link_preview=True,
             )
@@ -200,7 +200,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         else:
             result = builder.article(
                 "@D3VIL_SUPPORT",
-                text="""**𝐻𝑒𝑦! 𝑇𝒉𝑖𝑠 𝑖𝑠 [✘•𝙳3𝚅𝙸𝙻𝙱𝙾𝚃•✘](https://t.me/D3VIL_OP_BOLTE)  \nYou 𝑐𝑎𝑛 𝑘𝑛𝑜𝑤 𝑚𝑜𝑟𝑒 𝑎𝑏𝑜𝑢𝑡 𝑚𝑒 𝑓𝑟𝑜𝑚 𝑡𝒉𝑒 𝑙𝑖𝑛𝑘𝑠 𝑔𝑖𝑣𝑒𝑛 𝑏𝑒𝑙𝑜𝑤 👇**""",
+                text="""**𝖧𝖾𝗒! 𝖳𝗁𝗂𝗌 𝗂𝗌 [✘•𝙳3𝚅𝙸𝙻𝙱𝙾𝚃•✘](https://t.me/D3VIL_OP_BOLTE)  \𝗇𝖸𝗈𝗎 𝖼𝖺𝗇 𝗄𝗇𝗈𝗐 𝗆𝗈𝗋𝖾 𝖺𝖻𝗈𝗎𝗍 𝗆𝖾 𝖿𝗋𝗈𝗆 𝗍𝗁𝖾 𝗅𝗂𝗇𝗄𝗌 𝗀𝗂𝗏𝖾𝗇 𝖻𝖾𝗅𝗈𝗐 👇**""",
                 buttons=[
                     [
                         custom.Button.url("🔥 𝙲𝙷𝙰𝙽𝙽𝙴𝙻 🔥", "https://t.me/D3VIL_SUPPORT"),
@@ -225,28 +225,28 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
     @tgbot.on(callbackquery.CallbackQuery(data=compile(b"pmclick")))
     async def on_pm_click(event):
         if event.query.user_id == bot.uid:
-            reply_pop_up_alert = "This is for Other Users..."
+            reply_pop_up_alert = "𝖳𝗁𝗂𝗌 𝗂𝗌 𝖿𝗈𝗋 𝖮𝗍𝗁𝖾𝗋 𝖴𝗌𝖾𝗋𝗌..."
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"🔰 𝑇𝒉𝑖𝑠 𝑖𝑠 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝑃𝑀 𝑆𝑒𝑐𝑢𝑟𝑖𝑡𝑦 𝑓𝑜𝑟 {d3vil_mention} 𝑡𝑜 𝑘𝑒𝑒𝑝 𝑎𝑤𝑎𝑦 𝑢𝑛𝑤𝑎𝑛𝑡𝑒𝑑 𝑟𝑒𝑡𝑎𝑟𝑑𝑠 𝑓𝑟𝑜𝑚 𝑠𝑝𝑎𝑚𝑚𝑖𝑛𝑔 𝑃𝑀..."
+                f" 𝖳𝗁𝗂𝗌 𝗂𝗌 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝖯𝗆 𝖲𝖾𝖼𝗎𝗋𝗂𝗍𝗒 𝖿𝗈𝗋 {d3vil_mention} 𝗍𝗈 𝗄𝖾𝖾𝗉 𝖺𝗐𝖺𝗒 𝗎𝗇𝗐𝖺𝗇𝗍𝖾𝖽 𝗋𝖾𝗍𝖺𝗋𝖽𝗌 𝖿𝗋𝗈𝗆 𝗌𝗉𝖺𝗆𝗆𝗂𝗇𝗀 𝖯𝖬..."
             )
 
     @tgbot.on(callbackquery.CallbackQuery(data=compile(b"req")))
     async def on_pm_click(event):
         if event.query.user_id == bot.uid:
-            reply_pop_up_alert = "This is for other users!"
+            reply_pop_up_alert = "𝖳𝗁𝗂𝗌 𝗂𝗌 𝖿𝗈𝗋 𝗈𝗍𝗁𝖾𝗋 𝗎𝗌𝖾𝗋𝗌!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"✅ **𝑅𝑒𝑞𝑢𝑒𝑠𝑡 𝑅𝑒𝑔𝑖𝑠𝑡𝑒𝑟𝑒𝑑** \n\n{d3vil_mention} 𝑤𝑖𝑙𝑙 𝑛𝑜𝑤 𝑑𝑒𝑐𝑖𝑑𝑒 𝑡𝑜 𝑙𝑜𝑜𝑘 𝑓𝑜𝑟 𝑦𝑜𝑢𝑟 𝑟𝑒𝑞𝑢𝑒𝑠𝑡 𝑜𝑟 𝑛𝑜𝑡.\n😐 𝑇𝑖𝑙𝑙 𝑡𝒉𝑒𝑛 𝑤𝑎𝑖𝑡 𝑝𝑎𝑡𝑖𝑒𝑛𝑡𝑙𝑦 𝑎𝑛𝑑 𝑑𝑜𝑛'𝑡 𝑠𝑝𝑎𝑚!!"
+                f"✅ **𝖱𝖾𝗊𝗎𝖾𝗌𝗍 𝖱𝖾𝗀𝗂𝗌𝗍𝖾𝗋𝖾𝖽** \n\n{d3vil_mention} 𝗐𝗂𝗅𝗅 𝗇𝗈𝗐 𝖽𝖾𝖼𝗂𝖽𝖾 𝗍𝗈 𝗅𝗈𝗈𝗄 𝖿𝗈𝗋 𝗒𝗈𝗎𝗋 𝗋𝖾𝗊𝗎𝖾𝗌𝗍 𝗈𝗋 𝗇𝗈𝗍.\n😐 𝖳𝗂𝗅𝗅 𝗍𝗁𝖾𝗇 𝗐𝖺𝗂𝗍 𝖺𝗇𝖽 𝖽𝗈𝗇'𝗍 𝗌𝗉𝖺𝗆!!"
             )
             target = await event.client(GetFullUserRequest(event.query.user_id))
             first_name = html.escape(target.user.first_name)
             ok = event.query.user_id
             if first_name is not None:
                 first_name = first_name.replace("\u2060", "")
-            tosend = f"**👀 𝐻𝑒𝑦 {d3vil_mention} !!** \n\n⚜️ 𝑌𝑜𝑢 𝐺𝑜𝑡 𝐴 𝑅𝑒𝑞𝑢𝑒𝑠𝑡 𝐹𝑟𝑜𝑚 [{first_name}](tg://user?id={ok}) 𝐼𝑛 𝑃𝑀!!"
+            tosend = f"**👀 𝖧𝖾𝗒 {d3vil_mention} !!** \n\n⚜️ 𝖸𝗈𝗎 𝖦𝗈𝗍 𝖠 𝖱𝖾𝗊𝗎𝖾𝗌𝗍 𝖥𝗋𝗈𝗆 [{first_name}](tg://user?id={ok}) 𝖨𝗇 𝖯𝗆!!"
             await bot.send_message(LOG_GP, tosend)
 
 
@@ -254,29 +254,29 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
     async def on_pm_click(event):
         event.query.user_id
         if event.query.user_id == bot.uid:
-            reply_pop_up_alert = "This is for other users!"
+            reply_pop_up_alert = "𝖳𝗁𝗂𝗌 𝗂𝗌 𝖿𝗈𝗋 𝗈𝗍𝗁𝖾𝗋 𝗎𝗌𝖾𝗋𝗌!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"Ahh!! You here to do chit-chat!!\n\nPlease wait for {d3vil_mention} to come. Till then keep patience and don't spam."
+                f"𝖠𝗁𝗁!! 𝖸𝗈𝗎 𝗁𝖾𝗋𝖾 𝗍𝗈 𝖽𝗈 chat!!\𝗇𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍 𝖿𝗈𝗋 {d3vil_mention} 𝗍𝗈 𝖼𝗈𝗆𝖾. 𝖳𝗂𝗅𝗅 𝗍𝗁𝖾𝗇 𝗄𝖾𝖾𝗉 𝗉𝖺𝗍𝗂𝖾𝗇𝖼𝖾 𝖺𝗇𝖽 𝖽𝗈𝗇'𝗍 𝗌𝗉𝖺𝗆."
             )
             target = await event.client(GetFullUserRequest(event.query.user_id))
             ok = event.query.user_id
             first_name = html.escape(target.user.first_name)
             if first_name is not None:
                 first_name = first_name.replace("\u2060", "")
-            tosend = f"**👀 Hey {d3vil_mention} !!** \n\n⚜️ You Got A PM from  [{first_name}](tg://user?id={ok})  for random chats!!"
+            tosend = f"**👀 𝖧𝖾𝗒 {d3vil_mention} !!** \n\n⚜️ 𝖸𝗈𝗎 𝖦𝗈𝗍 𝖠 𝖯𝖬 𝖿𝗋𝗈𝗆  [{first_name}](tg://user?id={ok})  𝖿𝗈𝗋 𝗋𝖺𝗇𝖽𝗈𝗆 𝖼𝗁𝖺𝗍𝗌!!"
             await bot.send_message(LOG_GP, tosend)
 
 
     @tgbot.on(callbackquery.CallbackQuery(data=compile(b"heheboi")))
     async def on_pm_click(event):
         if event.query.user_id == bot.uid:
-            reply_pop_up_alert = "This is for other users!"
+            reply_pop_up_alert = "𝖳𝗁𝗂𝗌 𝗂𝗌 𝖿𝗈𝗋 𝗈𝗍𝗁𝖾𝗋 𝗎𝗌𝖾𝗋𝗌!"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"🥴 **Nikal lawde\nPehli fursat me nikal**"
+                f"🥴 **𝖭𝗂𝗄𝖺𝗅 𝗆𝖺𝖽𝖾𝗋𝖼𝗁𝗈𝖽\n𝖯𝖾𝗁𝗅𝗂 𝖿𝗎𝗋𝗌𝖺𝗍 𝗆𝖾 𝗇𝗂𝗄𝖺𝗅**"
             )
             await bot(functions.contacts.BlockRequest(event.query.user_id))
             target = await event.client(GetFullUserRequest(event.query.user_id))
@@ -287,7 +287,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             first_name = html.escape(target.user.first_name)
             await bot.send_message(
                 LOG_GP,
-                f"**𝐵𝑙𝑜𝑐𝑘𝑒𝑑**  [{first_name}](tg://user?id={ok}) \n\n𝑅𝑒𝑎𝑠𝑜𝑛:- 𝑆𝑝𝑎𝑚",
+                f"**𝖡𝗅𝗈𝖼𝗄𝖾𝖽**  [{first_name}](tg://user?id={ok}) \n\𝗇𝖱𝖾𝖺𝗌𝗈𝗇:- 𝖲𝗉𝖺𝗆",
             )
 
 
@@ -296,7 +296,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         hunter = (event.data_match.group(1)).decode("UTF-8")
         d3vil = hunter.split("+")
         if not event.sender_id == int(d3vil[0]):
-            return await event.answer("This Ain't For You!!", alert=True)
+            return await event.answer("𝖳𝗁𝗂𝗌 𝖠𝗂𝗇'𝗍 𝖥𝗈𝗋 𝖸𝗈𝗎!!", alert=True)
         try:
             await bot(GetParticipantRequest(int(d3vil[1]), int(d3vil[0])))
         except UserNotParticipantError:
@@ -306,7 +306,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         await bot.edit_permissions(
             event.chat_id, int(d3vil[0]), send_message=True, until_date=None
         )
-        await event.edit("Yay! You can chat now !!")
+        await event.edit("𝖸𝖺𝗒! 𝖸𝗈𝗎 𝖼𝖺𝗇 𝖼𝗁𝖺𝗍 𝗇𝗈𝗐 !!")
 
 
     @tgbot.on(callbackquery.CallbackQuery(data=compile(b"reopen")))
@@ -320,12 +320,12 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     for y in x:
                         apn.append(y)
                 await event.edit(
-                    f" **『{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}` \n🗒️ __𝙿𝙰𝙶𝙴__ : 1/{veriler[0]}",
+                    f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                     buttons=simp[1],
                     link_preview=False,
                 )
             else:
-                reply_pop_up_alert = "𝐻𝑜𝑜 𝑔𝑦𝑎 𝑎𝑎𝑝𝑘𝑎. 𝐾𝑎𝑏𝑠𝑒 𝑡𝑎𝑝𝑎𝑟 𝑡𝑎𝑝𝑎𝑟 𝑑𝑎𝑏𝑎𝑒 𝑗𝑎𝑎 𝑟𝒉𝑒 𝒉. 𝐾𝒉𝑢𝑑𝑘𝑎 bna 𝑙𝑜 𝑛𝑎 𝑎𝑔𝑟 𝑐𝒉𝑎𝑖𝑦𝑒 𝑡𝑜. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™"
+                reply_pop_up_alert = "𝖧𝗈𝗈 𝗀𝗒𝖺 𝖺𝗉𝗄𝖺. 𝖪𝖺𝖻𝗌𝖾 𝗍𝖺𝗉𝖺𝗋 𝗍𝖺𝗉𝖺𝗋 𝖽𝖺𝖻𝖺𝖾 𝗃𝖺𝖺 𝗋𝗁𝖾 𝗁. 𝗄𝗁𝗎𝖽𝗄𝖺 𝖻𝗇𝖺 𝗅𝗈 𝗇𝖺 𝖺𝗀𝗋 𝖼𝗁𝗂𝗒𝖾 𝗍𝗂. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™"
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         
 
@@ -333,9 +333,9 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             veriler = custom.Button.inline(f"{d3vil_emoji} Re-Open Menu {d3vil_emoji}", data="reopen")
-            await event.edit(f"**⚜️ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Mêñû Prõvîdêr ìs ñôw Çlösëd ⚜️**\n\n**Bot Of :**  {d3vil_mention}\n\n        [©️ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™️]({chnl_link})", buttons=veriler, link_preview=False)
+            await event.edit(f"**⚜️ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝖬êñû 𝖯𝗋õ𝗏î𝖽ê𝗋 ì𝗌 ñô𝗐 Ç𝗅ö𝗌ë𝖽 ⚜️**\n\n**𝖡𝗈𝗍 𝖮𝖿 :**  {d3vil_mention}\n\n        [©️ 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™️]({chnl_link})", buttons=veriler, link_preview=False)
         else:
-            reply_pop_up_alert = "𝐻𝑜𝑜 𝑔𝑦𝑎 𝑎𝑎𝑝𝑘𝑎. 𝐾𝑎𝑏𝑠𝑒 𝑡𝑎𝑝𝑎𝑟 𝑡𝑎𝑝𝑎𝑟 𝑑𝑎𝑏𝑎𝑒 𝑗𝑎𝑎 𝑟𝒉𝑒 𝒉. 𝐾𝒉𝑢𝑑𝑘𝑎 𝑏𝑛𝑎 𝑙𝑜 𝑛𝑎 𝑎𝑔𝑟 𝑐𝒉𝑎𝑖𝑦𝑒 𝑡𝑜. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™"
+            reply_pop_up_alert = "𝖧𝗈𝗈 𝗀𝗒𝖺 𝖺𝗉𝗄𝖺. 𝖪𝖺𝖻𝗌𝖾 𝗍𝖺𝗉𝖺𝗋 𝗍𝖺𝗉𝖺𝗋 𝖽𝖺𝖻𝖺𝖾 𝗃𝖺𝖺 𝗋𝗁𝖾 𝗁. 𝗄𝗁𝗎𝖽𝗄𝖺 𝖻𝗇𝖺 𝗅𝗈 𝗇𝖺 𝖺𝗀𝗋 𝖼𝗁𝗂𝗒𝖾 𝗍𝗂. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
    
 
@@ -349,13 +349,13 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 apn.append(y)
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f" **『{d3vil_mention}』**\n\n📜 __𝑁𝑜.𝑜𝑓 𝑃𝑙𝑢𝑔𝑖𝑛𝑠__ : `{len(CMD_HELP)}`\n🗂️ __𝐶𝑜𝑚𝑚𝑎𝑛𝑑𝑠__ : `{len(apn)}`\n🗒️ __𝑃𝑎𝑔𝑒__ : {page + 1}/{veriler[0]}",
+                f" **『{d3vil_mention}』**\n\n🗒️ 𝖯𝖺𝗀𝖾 : {page + 1}/{veriler[0]}",\n📜 𝖭𝗈.𝗈𝖿. 𝖯𝗅𝗎𝗀𝗂𝗇𝗌: {len(CMD_HELP)}\n🗂️ 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌: {len(apn)}\n",
                 buttons=veriler[1],
                 link_preview=False,
             )
         else:
             return await event.answer(
-                "Hoo gya aapka. Kabse tapar tapar dabae jaa rhe h. Khudka bna lo na agr chaiye to. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™",
+                "𝖧𝗈𝗈 𝗀𝗒𝖺 𝖺𝗉𝗄𝖺. 𝖪𝖺𝖻𝗌𝖾 𝗍𝖺𝗉𝖺𝗋 𝗍𝖺𝗉𝖺𝗋 𝖽𝖺𝖻𝖺𝖾 𝗃𝖺𝖺 𝗋𝗁𝖾 𝗁. 𝗄𝗁𝗎𝖽𝗄𝖺 𝖻𝗇𝖺 𝗅𝗈 𝗇𝖺 𝖺𝗀𝗋 𝖼𝗁𝗂𝗒𝖾 𝗍𝗂. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™",
                 cache_time=0,
                 alert=True,
             )
@@ -376,20 +376,20 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             ]
         except KeyError:
             return await event.answer(
-                "No Description is written for this plugin", cache_time=0, alert=True
+                "𝖭𝗈 𝖣𝖾𝗌𝖼𝗋𝗂𝗉𝗍𝗂𝗈𝗇 𝗂𝗌 𝗐𝗋𝗂𝗍𝗍𝖾𝗇 𝖿𝗈𝗋 𝗍𝗁𝗂𝗌 𝗉𝗅𝗎𝗀𝗂𝗇", cache_time=0, alert=True
             )
 
         buttons = [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
         buttons.append([custom.Button.inline(f"{d3vil_emoji} Main Menu {d3vil_emoji}", data=f"page({page})")])
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f"**📗 𝐹𝑖𝑙𝑒 :**  `{commands}`\n**🔢 𝑁𝑢𝑚𝑏𝑒𝑟 𝑜𝑓 𝑐𝑜𝑚𝑚𝑎𝑛𝑑𝑠 :**  `{len(CMD_HELP_BOT[commands]['commands'])}`",
+                f"**📗 𝖥𝗂𝗅𝖾 :**  `{commands}`\n**🔢 𝖭𝗎𝗆𝖻𝖾𝗋 𝗈𝖿 𝖼𝗈𝗆𝗆𝖺𝗇𝖽𝗌 :**  `{len(CMD_HELP_BOT[commands]['commands'])}`",
                 buttons=buttons,
                 link_preview=False,
             )
         else:
             return await event.answer(
-                "𝐻𝑜𝑜 𝑔𝑦𝑎 𝑎𝑎𝑝𝑘𝑎. 𝐾𝑎𝑏𝑠𝑒 𝑡𝑎𝑝𝑎𝑟 𝑡𝑎𝑝𝑎𝑟 𝑑𝑎𝑏𝑎𝑒 𝑗𝑎𝑎 rhe 𝒉. 𝐾𝒉𝑢𝑑𝑘𝑎 𝑏𝑛𝑎 𝑙𝑜 𝑛𝑎 𝑎𝑔𝑟 𝑐𝒉𝑎𝑖𝑦𝑒 𝑡𝑜. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™",
+                "𝖧𝗈𝗈 𝗀𝗒𝖺 𝖺𝗉𝗄𝖺. 𝖪𝖺𝖻𝗌𝖾 𝗍𝖺𝗉𝖺𝗋 𝗍𝖺𝗉𝖺𝗋 𝖽𝖺𝖻𝖺𝖾 𝗃𝖺𝖺 𝗋𝗁𝖾 𝗁. 𝗄𝗁𝗎𝖽𝗄𝖺 𝖻𝗇𝖺 𝗅𝗈 𝗇𝖺 𝖺𝗀𝗋 𝖼𝗁𝗂𝗒𝖾 𝗍𝗂. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™",
                 cache_time=0,
                 alert=True,
             )
@@ -402,24 +402,24 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
         cmd = event.data_match.group(1).decode("UTF-8")
         page = int(event.data_match.group(2).decode("UTF-8"))
         commands = event.data_match.group(3).decode("UTF-8")
-        result = f"**📗 File :**  `{cmd}`\n"
+        result = f"**📗 𝖥𝗂𝗅𝖾 :**  `{cmd}`\n"
         if CMD_HELP_BOT[cmd]["info"]["info"] == "":
             if not CMD_HELP_BOT[cmd]["info"]["warning"] == "":
-                result += f"**⚠️ Warning :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n\n"
+                result += f"**⚠️ 𝖶𝖺𝗋𝗇𝗂𝗇𝗀 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n\n"
         else:
             if not CMD_HELP_BOT[cmd]["info"]["warning"] == "":
-                result += f"**⚠️ Warning :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n"
-            result += f"**ℹ️ Info :**  {CMD_HELP_BOT[cmd]['info']['info']}\n\n"
+                result += f"**⚠️ 𝖶𝖺𝗋𝗇𝗂𝗇𝗀 :**  {CMD_HELP_BOT[cmd]['info']['warning']}\n"
+            result += f"**ℹ️ 𝖨𝗇𝖿𝗈 :**  {CMD_HELP_BOT[cmd]['info']['info']}\n\n"
         command = CMD_HELP_BOT[cmd]["commands"][commands]
         if command["params"] is None:
-            result += f"**🛠 Commands :**  `{HANDLER[:1]}{command['command']}`\n"
+            result += f"**🛠 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌 :**  `{HANDLER[:1]}{command['command']}`\n"
         else:
-            result += f"**🛠 Commands :**  `{HANDLER[:1]}{command['command']} {command['params']}`\n"
+            result += f"**🛠 𝖢𝗈𝗆𝗆𝖺𝗇𝖽𝗌 :**  `{HANDLER[:1]}{command['command']} {command['params']}`\n"
         if command["example"] is None:
-            result += f"**💬 Explanation :**  `{command['usage']}`\n\n"
+            result += f"**💬 𝖤𝗑𝗉𝗅𝖺𝗇𝖺𝗍𝗂𝗈𝗇 :**  `{command['usage']}`\n\n"
         else:
-            result += f"**💬 Explanation :**  `{command['usage']}`\n"
-            result += f"**⌨️ For Example :**  `{HANDLER[:1]}{command['example']}`\n\n"
+            result += f"**💬 𝖤𝗑𝗉𝗅𝖺𝗇𝖺𝗍𝗂𝗈𝗇 :**  `{command['usage']}`\n"
+            result += f"**⌨️ 𝖥𝗈𝗋 𝖤𝗑𝖺𝗆𝗉𝗅𝖾 :**  `{HANDLER[:1]}{command['example']}`\n\n"
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
                 result,
@@ -430,10 +430,10 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             )
         else:
             return await event.answer(
-                "𝐻𝑜𝑜 𝑔𝑦𝑎 𝑎𝑎𝑝𝑘𝑎. 𝐾𝑎𝑏𝑠𝑒 𝑡𝑎𝑝𝑎𝑟 𝑡𝑎𝑝𝑎𝑟 𝑑𝑎𝑏𝑎𝑒 𝑗𝑎𝑎 𝑟𝒉𝑒 𝒉. 𝐾𝒉𝑢𝑑𝑘𝑎 𝑏𝑛𝑎 𝑙𝑜 𝑛𝑎 𝑎𝑔𝑟 𝑐𝒉𝑎𝑖𝑦𝑒 𝑡𝑜. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™",
+                "𝖧𝗈𝗈 𝗀𝗒𝖺 𝖺𝗉𝗄𝖺. 𝖪𝖺𝖻𝗌𝖾 𝗍𝖺𝗉𝖺𝗋 𝗍𝖺𝗉𝖺𝗋 𝖽𝖺𝖻𝖺𝖾 𝗃𝖺𝖺 𝗋𝗁𝖾 𝗁. 𝗄𝗁𝗎𝖽𝗄𝖺 𝖻𝗇𝖺 𝗅𝗈 𝗇𝖺 𝖺𝗀𝗋 𝖼𝗁𝗂𝗒𝖾 𝗍𝗂. © 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 ™"
                 cache_time=0,
                 alert=True,
             )
 
 
-# d3vilbot
+
