@@ -36,7 +36,7 @@ async def _(event):
             end = datetime.datetime.now()
             ms = (end - start).seconds
             await edit_or_reply(event, 
-                "Downloaded to  `{}`  in  `{}`  seconds. \nMaking Telegraph Link.....".format(downloaded_file_name, ms)
+                "𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝖽 𝗍𝗈  `{}`  in  `{}`  seconds. \𝗇𝖬𝖺𝗄𝗂𝗇𝗁 𝖳𝖾𝗅𝖾𝗀𝗋𝖺𝗉𝗁 𝖫𝗂𝗇𝗄.....".format(downloaded_file_name, ms)
             )
             if downloaded_file_name.endswith((".webp")):
                 resize_image(downloaded_file_name)
@@ -51,7 +51,7 @@ async def _(event):
                 ms_two = (end - start).seconds
                 os.remove(downloaded_file_name)
                 await eor(event, 
-                   "✓ **fílє uplσαdєd tσ [tєlєgrαph](https://telegra.ph{})** \n✓ **tímє tαkєn :-** `{}` secs \n✓ **вч :- {}**".format(
+                   "✓ **𝖥𝗂𝗅𝖾 𝗎𝗉𝗅𝗈𝖺𝖽𝖾𝖽 𝗍𝗈 : https://telegra.ph{}** \n✓ **𝖳𝗂𝗆𝖾 𝗍𝖺𝗄𝖾𝗇 :-** `{}` 𝗌𝖾𝖼𝗌 \n✓ **𝖡𝗒 :- {}**".format(
                         media_urls[0], (ms + ms_two), d3vil_mention,
                     ),
                     link_preview=True,
@@ -81,7 +81,7 @@ async def _(event):
             ms = (end - start).seconds
             d3vilboy = f"https://telegra.ph/{response['path']}"
             await edit_or_reply(event, 
-                  f"✓ **pαѕtєd tσ** [telegraph]({d3vilboy}) \n✓ **tímє tαkєn :-** `{ms}` secs\n✓** вч :**  {d3vil_mention}", link_preview=True)
+                  f"✓ **𝗉𝖺𝗌𝗍𝖾𝖽 𝗍𝗈** {d3vilboy} \n✓ **𝖳𝗂𝗆𝖾 𝗍𝖺𝗄𝖾𝗇 :-** `{ms}` 𝖲𝖾𝖼𝗌\n✓** 𝖡𝗒 :**  {d3vil_mention}", link_preview=True)
     else:
         await eod(event, 
             "Reply to a message to get a permanent telegra.ph link."
