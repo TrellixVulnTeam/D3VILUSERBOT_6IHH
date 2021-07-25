@@ -48,7 +48,7 @@ async def yardim(event):
         )
         await event.delete()
     else:
-        await eor(event, "**⚠️ ERROR !!** \nPlease Re-Check BOT_TOKEN & BOT_USERNAME on Heroku.")
+        await eor(event, "**⚠️ 𝖤𝖱𝖱𝖮𝖱 !!** \nPlease Re-Check BOT_TOKEN & BOT_USERNAME on Heroku.")
 
 
 @bot.on(d3vil_cmd(pattern="plinfo(?: |$)(.*)", outgoing=True))
@@ -61,7 +61,7 @@ async def d3vilbott(event):
         if args in CMD_HELP:
             await eor(event, str(CMD_HELP[args]))
         else:
-            await eod(event, "**⚠️ Error !** \nNeed a module name to show plugin info.")
+            await eod(event, "**⚠️ 𝖤𝗋𝗋𝗈𝗋 !** \nNeed a module name to show plugin info.")
     else:
         string = ""
         sayfa = [
