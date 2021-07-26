@@ -276,7 +276,7 @@ if NEEDIT == "ENABLE":
             await bot(functions.contacts.BlockRequest(chat_id))
 
 
-CmdHelp("pm permit").add_command(
+CmdHelp("pmpermit").add_command(
   "allow", "<in pm>", "Approves the user in which pm cmd is used."
 ).add_command(
   "disallow", "<in pm>", "Disapprove User to PM you."
