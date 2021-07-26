@@ -24,4 +24,4 @@ CmdHelp("animation").add_command(
   'squ', None, 'Use and see'
 ).add_command(
   'rain', None, 'Use and see'
-)add.()
+).add()
