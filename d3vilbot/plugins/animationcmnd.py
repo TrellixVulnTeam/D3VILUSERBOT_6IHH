@@ -1,3 +1,20 @@
+import asyncio
+from collections import deque
+
+from . import *
+
+@bot.on(d3vil_cmd(pattern=r"boxs$", outgoing=True))
+@bot.on(sudo_cmd(pattern=r"boxs$", allow_sudo=True))
+async def _(event):
+    if event.fwd_from:
+        return
+    event = await eor(event, "`boxs...`")
+    deq = deque(list("🟥🟧🟨🟩🟦🟪🟫⬛⬜"))
+    for _ in range(999):
+        await asyncio.sleep(0.3)
+        await event.edit("".join(deq))
+        deq.rotate(1)
+
 CmdHelp("animation").add_command(
   'boxs', None, 'Use and see'
 ).add_command(
