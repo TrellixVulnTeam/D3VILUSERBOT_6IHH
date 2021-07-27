@@ -48,6 +48,7 @@ msg = f"""
 **𝕌𝕡𝕥𝕚𝕞𝕖   :**  `{uptime}`
 **𝔸𝕓𝕦𝕤𝕖    :**  **{abuse_m}**
 **𝕊𝕦𝕕𝕠      :**  **{is_sudo}**
+**𝕄𝕒𝕤𝕥𝕖𝕣     :**  **{d3vil_mention}**
 """
 botname = Config.BOT_USERNAME
 
