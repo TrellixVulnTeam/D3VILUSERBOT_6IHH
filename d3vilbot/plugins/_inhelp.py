@@ -140,7 +140,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 [Button.url("𝖣3𝖵𝖨𝖫 𝖲𝖴𝖯𝖯𝖮𝖱𝖳𝖲", f"https://t.me/D3VIL_SUPPORT")],
                 [Button.url(f"{D3VIL_USER}", f"tg://openmessage?user_id={d3krish}"),
                 [Button.url("𝖬𝗒 𝖢𝗁𝖺𝗇𝗇𝖾𝗅", f"https://t.me/{my_channel}"), 
-                Button.url("𝖬𝗒 𝖦𝗋𝗈𝗎𝗉", f"https://t.me/{my_group}")],
+                Button.url("𝖬𝗒 𝖦𝗋𝗈𝗎𝗉", f"https://t.me/{my_group}"),
             ]
             if ALV_PIC and ALV_PIC.endswith((".jpg", ".png")):
                 result = builder.photo(
