@@ -49,6 +49,7 @@ alive_txt = """
 **⚜️ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 ⚜️**
 {}
 **🏅 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜 🏅**
+**𝐌𝐚𝐬𝐭𝐞𝐫  :**     **{}**
 **╔══════════════════╗
 **╠➳➠ 𝗧𝗲𝗹𝗲𝘁𝗵𝗼𝗻 :**  `{}`
 **╠➳➠ 𝗗3𝗩𝗜𝗟𝗕𝗢𝗧  :**  **{}**
@@ -135,7 +136,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             ]
 
         elif event.query.user_id == bot.uid and query == "alive":
-            kr_ish = alive_txt.format(Config.ALIVE_MSG, tel_ver, d3vil_ver, uptime, abuse_m, is_sudo)
+            kr_ish = alive_txt.format(Config.ALIVE_MSG, d3vil_mention, tel_ver, d3vil_ver, uptime, abuse_m, is_sudo)
             alv_btn = [
                 [Button.url(f"{D3VIL_USER}", f"tg://openmessage?user_id={d3krish}")],
                 [Button.url("𝖬𝗒 𝖢𝗁𝖺𝗇𝗇𝖾𝗅", f"https://t.me/{my_channel}"), 
