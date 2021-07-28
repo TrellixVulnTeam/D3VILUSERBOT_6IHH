@@ -11,7 +11,7 @@ from telethon import version
 D3VIL_USER = bot.me.first_name
 d3krish = bot.uid
 d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3krish})"
-d3vil_logo = "./resources/Pics/d3vilbot_logo.jpg"
+d3vil_logo = "./resources/Pics/d3vilkrish_logo.jpg"
 cjb = "./resources/Pics/cjb.jpg"
 restlo = "./resources/Pics/rest.jpeg"
 shuru = "./resources/Pics/shuru.jpg"
@@ -49,9 +49,9 @@ if "@" in my_group:
     my_group = my_group.replace("@", "")
 
 chnl_link = "https://t.me/D3VIL_SUPPORT"
-d3vil_channel = f"[тнε ∂3vιℓ вσт υρ∂αтεs]({chnl_link})"
+d3vil_channel = f"[тнε ᗪ3vιℓ υρ∂αтεs]({chnl_link})"
 grp_link = "https://t.me/D3VIL_BOT_SUPPORT"
-d3vil_grp = f"[тнε ∂3vιℓ вσт cнαт]({grp_link})"
+d3vil_grp = f"[тнε ᗪ3vιℓ cнαт]({grp_link})"
 
 WELCOME_FORMAT = """**Use these fomats in your welcome note to make them attractive.**
   {mention} :  To mention the user
