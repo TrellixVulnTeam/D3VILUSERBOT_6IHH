@@ -222,8 +222,8 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
     return
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"update build$"))
-@bot.on(sudo_cmd(pattern="update build$", allow_sudo=True))
+@bot.on(d3vil_cmd(outgoing=True, pattern=r"update b$"))
+@bot.on(sudo_cmd(pattern="update b$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
     off_repo = "https://github.com/D3KRISH/D3vilBot"
@@ -260,10 +260,10 @@ async def upstream(event):
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
-CmdHelp("update").add_command(
+CmdHelp("updater").add_command(
   "update", None, "Checks if any new update is available."
 ).add_command(
   "update now", None, "Soft-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. Basically if you restart dyno it will go back to previous deploy."
 ).add_command(
-  "update build", None, "Hard-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
+  "update b", None, "Hard-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
 ).add()
