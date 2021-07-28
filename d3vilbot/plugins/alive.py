@@ -16,14 +16,14 @@ pm_caption += f"**━━━━━━━━━━━━━━━━━━━━**
 pm_caption += (
     f"                 ↼𝗠𝗔𝗦𝗧𝗘𝗥⇀\n  **『 {d3vil_mention} 』**\n\n"
 )
-pm_caption += f"┏━━━━━━━━━━━━━━━━━━━\n"
-pm_caption += f"┣•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
-pm_caption += f"┣•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `{d3vil_ver}`\n"
-pm_caption += f"┣•➳➠ `𝖲𝗎𝖽𝗈:` `{is_sudo}`\n"
-pm_caption += f"┣•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [𝙹𝗈𝗂𝗇](https://t.me/D3VIL_SUPPORT)\n"
-pm_caption += f"┣•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
-pm_caption += f"┣•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
-pm_caption += f"┗━━━━━━━━━━━━━━━━━━━\n"
+pm_caption += f"╔══════════════════╗\n"
+pm_caption += f"╠•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
+pm_caption += f"╠•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `{d3vil_ver}`\n"
+pm_caption += f"╠•➳➠ `𝖲𝗎𝖽𝗈:` `{is_sudo}`\n"
+pm_caption += f"╠•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [𝙹𝗈𝗂𝗇](https://t.me/D3VIL_SUPPORT)\n"
+pm_caption += f"╠•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
+pm_caption += f"╠•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
+pm_caption += f"╚══════════════════╝\n"
 pm_caption += " [⚡REPO⚡](https://github.com/TEAM-D3VIL/D3vilBot) 🔹 [📜License📜](https://github.com/TEAM-D3VIL/D3vilBot/blob/main/LICENSE)"
 
 
@@ -43,6 +43,7 @@ msg = f"""
 **⚡ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 ⚡**
 {Config.ALIVE_MSG}
 **🏅 𝙱𝚘𝚝 𝚂𝚝𝚊𝚝𝚞𝚜 🏅**
+**𝐌𝐚𝐬𝐭𝐞𝐫   :**  **{d3vil_mention}**
 **╔══════════════════╗**
 **╠➳➠ 𝗧𝗲𝗹𝗲𝘁𝗵𝗼𝗻 :**  `{tel_ver}`
 **╠➳➠ 𝗗3𝗩𝗜𝗟𝗕𝗢𝗧  :**  **{d3vil_ver}**
