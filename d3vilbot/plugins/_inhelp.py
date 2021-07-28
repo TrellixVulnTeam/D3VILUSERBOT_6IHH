@@ -171,7 +171,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 text=d3vl_l,
                 buttons=[
                     [
-                        custom.Button.inline("🚫 𝖲𝗉𝖺𝗆 🚫", data="teamd3"),
+                        custom.Button.inline("🚫 𝖲𝗉𝖺𝗆/𝖲𝖼𝖺𝗆 🚫", data="teamd3"),
                         custom.Button.inline("💬 𝖢𝗁𝖺𝗍 💬", data="chat"),
                     ],
                     [custom.Button.inline("📝 𝖱𝖾𝗊𝗎𝖾𝗌𝗍 📝", data="req")],
