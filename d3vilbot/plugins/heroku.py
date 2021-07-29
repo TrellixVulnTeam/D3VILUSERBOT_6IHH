@@ -52,7 +52,7 @@ async def re(d3vil):
 async def down(d3vil):
     if d3vil.fwd_from:
         return
-    await eor(d3vil, "**[ ! ]** Turning off 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Dynos... Manually turn me on later ಠ_ಠ")
+    await eor(d3vil, "**[ ! ]** Turning off ᗪ3ᏉᎥᏝᏰᎧᏖDynos... Manually turn me on later ಠ_ಠ")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:

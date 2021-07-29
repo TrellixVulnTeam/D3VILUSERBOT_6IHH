@@ -16,7 +16,7 @@ PM_ON_OFF = Config.PM_PERMIT
 CSTM_PMP = Config.CUSTOM_PMPERMIT or "**You Have Trespassed To My Master's PM!\nThis Is Illegal And Regarded As Crime.**"
 D3VIL_ZERO = "Go get some sleep retard. \n\n**Blocked !!**"
 D3VIL_FIRST = (
-    "**Hello, This is 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝖴𝗅𝗍𝗋𝖺 𝖯𝗋𝗂𝗏𝖺𝗍𝖾 𝖲𝖾𝖼𝗎𝗋𝗂𝗍𝗒 𝖯𝗋𝗈𝗍𝗈𝖼𝗈𝗅⚠️**"
+    "**Hello, This is ᗪ3ᏉᎥᏝᏰᎧᏖ𝖴𝗅𝗍𝗋𝖺 𝖯𝗋𝗂𝗏𝖺𝗍𝖾 𝖲𝖾𝖼𝗎𝗋𝗂𝗍𝗒 𝖯𝗋𝗈𝗍𝗈𝖼𝗈𝗅⚠️**"
     "{} 𝗂𝗌 𝖼𝗎𝗋𝗋𝖾𝗇𝗍𝗅𝗒 𝗎𝗇𝖺𝗏𝖺𝗂𝗅𝖺𝖻𝗅𝖾.\nThis 𝗂𝗌 𝖺𝗇 𝖺𝗎𝗍𝗈𝗆𝖺𝗍𝖾𝖽 𝗆𝖾𝗌𝗌𝖺𝗀𝖾.\n\n"
     "{}\n\n**𝖯𝗅𝖾𝖺𝗌𝖾 𝖢𝗁𝗈𝗈𝗌𝖾 𝖶𝗁𝗒 𝖸𝗈𝗎 𝖠𝗋𝖾 𝖨𝗇𝖻𝗈𝗑 👇!!**".format(d3vil_mention, CSTM_PMP)
 )

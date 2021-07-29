@@ -150,7 +150,7 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            "\n** 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 is UP-TO-DATE.**"
+            "\n** ᗪ3ᏉᎥᏝᏰᎧᏖis UP-TO-DATE.**"
             f"\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  {d3vil_ver}"
             f"\n**𝗢𝘄𝗻𝗲𝗿 :**  {d3vil_mention}"
             f"\n**𝗚𝗶𝘁 𝗕𝗿𝗮𝗻𝗰𝗵 :**  {UPSTREAM_REPO_BRANCH}\n"
@@ -216,7 +216,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             )
             await asyncio.sleep(5)
             return await event.delete()
-        await event.edit(f"**𝗬𝗼𝘂𝗿 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 𝗜𝘀 𝗨𝗽𝗧𝗼𝗗𝗮𝘁𝗲**\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
+        await event.edit(f"**𝗬𝗼𝘂𝗿 ᗪ3ᏉᎥᏝᏰᎧᏖ𝗜𝘀 𝗨𝗽𝗧𝗼𝗗𝗮𝘁𝗲**\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
     else:
         await event.edit("**Please set up**  `HEROKU_API_KEY`  **from heroku to update!**")
     return
@@ -256,7 +256,7 @@ async def upstream(event):
     ac_br = repo.active_branch.name
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
-    await event.edit(f"**𝔇3𝔳𝔦𝔩𝔅𝔬𝔱 Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
+    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖDocker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
