@@ -14,7 +14,7 @@ PICS_STR = []
 @bot.on(sudo_cmd(pattern=r"logo ?(.*)", allow_sudo=True))
 async def lg1(d3vilevent):
     event = await eor(d3vilevent, "`Processing.....`")
-    fnt = await get_font_file(d3vilevent.client, "@D3VIL_FONTSS")
+    fnt = await get_font_file(d3vilevent.client, "@D3VIL_AND_MAFIA_FONTS")
     if d3vilevent.reply_to_msg_id:
         rply = await d3vilevent.get_reply_message()
         logo_ = await rply.download_media()
