@@ -54,34 +54,45 @@ async def gethash(hash_q):
         await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern="hbase (en|de) (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="hbase (en|de) (.*)", allow_sudo=True))
-@errors_handler
-async def endecrypt(query):
-    if query.fwd_from:
-        return
-    if query.pattern_match.group(1) == "en":
-        lething = str(base64.b64encode(bytes(query.pattern_match.group(2), "utf-8")))[
-            2:
-        ]
-        await query.reply("**Encoded :** \n\n`" + lething[:-1] + "`")
-        await query.delete()
-    elif query.pattern_match.group(1) == "de":
-        lething = str(
-            base64.b64decode(
-                bytes(query.pattern_match.group(2), "utf-8"), validate=True
-            )
-        )[2:]
-        await query.reply("**Decoded :**\n\n`" + lething[:-1] + "`")
-        await query.delete()
-    else:
-        await eod(query, f"You should check out `{hl}plinfo base64` !!")
+@bot.on(d3vil_cmd(pattern="encode ?(.*)"))
+@bot.on(sudo_cmd(pattern="encode (.*)", allow_sudo=True))
+async def encod(e):
+    match = e.pattern_match.group(1)
+    if not match and e.is_reply:
+        gt = await e.get_reply_message()
+        if gt.text:
+            match = gt.text
+    if not (match or e.is_reply):
+        return await eor(e, "`Give me Something to Encode..`")
+    byt = match.encode("ascii")
+    et = base64.b64encode(byt)
+    atc = et.decode("ascii")
+    await eor(e, f"**=>> 𝖤𝗇𝖼𝗈𝖽𝖾𝖽 𝖳𝖾𝗑𝗍 :** `{match}`\n\n**=>> 𝖮𝖴𝖳𝖯𝖴𝖳 :**\n`{atc}`")
+
+
+@bot.on(d3vil_cmd(pattern="decode ?(.*)"))
+@bot.on(sudo_cmd(pattern="decode (.*)", allow_sudo=True))
+async def encod(e):
+    match = e.pattern_match.group(1)
+    if not match and e.is_reply:
+        gt = await e.get_reply_message()
+        if gt.text:
+            match = gt.text
+    if not (match or e.is_reply):
+        return await eor(e, "`Give me Something to Decode..`")
+    byt = match.encode("ascii")
+    try:
+        et = base64.b64decode(byt)
+        atc = et.decode("ascii")
+        await eor(e, f"**=>> 𝖣𝖾𝖼𝗈𝖽𝖾𝖽 𝖳𝖾𝗑𝗍 :** `{match}`\n\n**=>> 𝖮𝖴𝖳𝖯𝖴𝖳 :**\n`{atc}`")
+    except Exception as p:
+        await eor(e, "**ERROR :** " + str(p))
 
 
 CmdHelp("encode or decode").add_command(
   "hash", "<query>", "Finds the md5, sha1, sha256, sha512 of the string when written into a txt file"
 ).add_command(
-  "hbase en", "<query>", "Finds the base64 encoding of the given string"
+  "encode", "<query>", "Finds the base64 encoding of the given string"
 ).add_command(
-  "hbase de", "<query>", "Finds the base64 decoding of the given string"
+  "decode", "<query>", "Finds the base64 decoding of the given string"
 ).add()
