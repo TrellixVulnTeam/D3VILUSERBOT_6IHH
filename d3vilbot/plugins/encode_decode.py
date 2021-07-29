@@ -89,7 +89,7 @@ async def encod(e):
         await eor(e, "**ERROR :** " + str(p))
 
 
-CmdHelp("encode or decode").add_command(
+CmdHelp("encode_decode").add_command(
   "hash", "<query>", "Finds the md5, sha1, sha256, sha512 of the string when written into a txt file"
 ).add_command(
   "encode", "<query>", "Finds the base64 encoding of the given string"
