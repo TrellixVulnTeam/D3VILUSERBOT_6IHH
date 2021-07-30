@@ -232,7 +232,7 @@ async def watcher(event):
         await event.delete()
 
 
-CmdHelp("global").add_command(
+CmdHelp("global_cmnd").add_command(
   "gban", "<reply>/<userid>", "Globally Bans the mentioned user in 'X' chats you are admin with ban permission."
 ).add_command(
   "ungban", "<reply>/<userid>", "Globally Unbans the user in 'X' chats you are admin!"
