@@ -52,12 +52,12 @@ async def _(event):
             except BaseException:
                 pass
     gbaner(userid)
-    gmsg = f"🥴 [{name}](tg://user?id={userid}) **beta majdur ko khodna 😪 aur** {d3vil_mention} **ko chodna... Kabhi sikhana nhi!! 😏**\n\n📍 Added to Gban Watch!!\n**🔰 Total Chats :**  `{chats}`"
+    gmsg = f"🥴 𝚃𝙷𝙸𝚂 𝚄𝚂𝙴𝚁 𝙶𝙻𝙾𝙱𝙰𝙻 𝙱𝙰𝙽  【[{name}](tg://user?id={userid})】 **𝙱𝚈 :** 『{d3vil_mention}』\n\n📍 𝙰𝚍𝚍𝚎𝚍 𝚝𝚘 𝙶𝚋𝚊𝚗 𝚆𝚊𝚝𝚌𝚑!!\n** 𝚃𝚘𝚝𝚊𝚕 𝙲𝚑𝚊𝚝𝚜 :**  `{chats}`"
     if reason != "":
-        gmsg += f"\n**🔰 Reason :**  `{reason}`"
-    ogmsg = f"[{name}](tg://user?id={userid}) **Is now GBanned by** {d3vil_mention} **in**  `{chats}`  **Chats!! 😏**\n\n**📍 Also Added to Gban Watch!!**"
+        gmsg += f"\n**𝚁𝚎𝚊𝚜𝚘𝚗 ➳➠ :**  `{reason}`"
+    ogmsg = f"[{name}](tg://user?id={userid}) **𝙸𝚜 𝚗𝚘𝚠 𝙶𝙱𝚊𝚗𝚗𝚎𝚍 𝚋𝚢** {d3vil_mention} **in**  `{chats}`  **𝙲𝚑𝚊𝚝𝚜!! 😏**\n\n**📍 𝙰𝚕𝚜𝚘 𝙰𝚍𝚍𝚎𝚍 𝚝𝚘 𝙶𝚋𝚊𝚗 𝚆𝚊𝚝𝚌𝚑!!**"
     if reason != "":
-        ogmsg += f"\n**🔰 Reason :**  `{reason}`"
+        ogmsg += f"\n**𝚁𝚎𝚊𝚜𝚘𝚗 ➳➠ :**  `{reason}`"
     if Config.ABUSE == "ON":
         await bot.send_file(event.chat_id, cjb, caption=gmsg)
     else:
@@ -89,7 +89,7 @@ async def _(event):
                 pass
     ungbaner(userid)
     await d3vil.edit(
-        f"📍 [{name}](tg://user?id={userid}) **is now Ungbanned from `{chats}` chats and removed from Gban Watch!!**",
+        f"📍 [{name}](tg://user?id={userid}) **𝚒𝚜 𝚗𝚘𝚠 𝚄𝚗𝚐𝚋𝚊𝚗𝚗𝚎𝚍 𝚏𝚛𝚘𝚖 `{chats}` 𝚌𝚑𝚊𝚝𝚜 𝚊𝚗𝚍 𝚛𝚎𝚖𝚘𝚟𝚎𝚍 𝚏𝚛𝚘𝚖 𝙶𝚋𝚊𝚗 𝚆𝚊𝚝𝚌𝚑!!**",
     )
 
 
@@ -120,8 +120,8 @@ async def _(event):
                         user.id,
                         view_messages=False,
                     )
-                    gban_watcher = f"⚠️⚠️**Warning**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
-                    gban_watcher += f"**🔥 Action 🔥**  \n`Banned this piece of shit....` **AGAIN!**"
+                    gban_watcher = f"⚠️⚠️**𝚆𝚊𝚛𝚗𝚒𝚗𝚐**⚠️⚠️\n\n`Gbanned User Joined the chat!!`\n**⚜️ Victim Id :**  [{user.first_name}](tg://user?id={user.id})\n"
+                    gban_watcher += f"**🔥 𝙰𝚌𝚝𝚒𝚘𝚗 🔥**  \n`Banned this piece of shit....` **AGAIN!**"
                     await event.reply(gban_watcher)
                 except BaseException:
                     pass
