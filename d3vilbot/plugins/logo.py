@@ -25,7 +25,7 @@ async def lg1(d3vilevent):
         logo_ = await pic.download_media()
     text = d3vilevent.pattern_match.group(1)
     if len(text) <= 8:
-        font_size_ = 150
+        font_size_ = 180
         strik = 10
     elif len(text) >= 9:
         font_size_ = 50
