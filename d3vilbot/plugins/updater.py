@@ -49,7 +49,7 @@ async def gen_chlog(repo, diff):
 
 async def print_changelogs(event, ac_br, changelog):
     changelog_str = (
-        f"🔥 **𝗡𝗲𝘄 𝗗3𝘃𝗶𝗹𝗕𝗼𝘁 𝗨𝗣𝗗𝗔𝗧𝗘 𝗮𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲 𝗳𝗼𝗿 [{ac_br}]:\n\n📑 𝗖𝗛𝗔𝗡𝗚𝗘𝗟𝗢𝗚:**\n`{changelog}`"
+        f"⭕ **𝗡𝗲𝘄 𝗗3𝘃𝗶𝗹𝗕𝗼𝘁 𝗨𝗣𝗗𝗔𝗧𝗘 𝗮𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲 𝗳𝗼𝗿 [{ac_br}]:\n\n📝 𝗖𝗛𝗔𝗡𝗚𝗘𝗟𝗢𝗚:**\n`{changelog}`"
     )
     if len(changelog_str) > 4096:
         await event.edit("`Changelog is too big, view the file to see it.`")
@@ -92,7 +92,7 @@ async def update(event, repo, ups_rem, ac_br):
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
     await event.edit(
-        "✅ Successfully updated 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱!\n\nBot is restarting please wait for a minute."
+        "✅ Successfully updated ᗪ3ᏉᎥᏝᏰᎧᏖ𝔱!\n\nBot is restarting please wait for a minute."
     )
     args = [sys.executable, "-m", "d3vilbot"]
     os.execle(sys.executable, *args, os.environ)
@@ -150,10 +150,10 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            "\n** ᗪ3ᏉᎥᏝᏰᎧᏖis UP-TO-DATE.**"
-            f"\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  {d3vil_ver}"
-            f"\n**𝗢𝘄𝗻𝗲𝗿 :**  {d3vil_mention}"
-            f"\n**𝗚𝗶𝘁 𝗕𝗿𝗮𝗻𝗰𝗵 :**  {UPSTREAM_REPO_BRANCH}\n"
+            "\n** ᗪ3ᏉᎥᏝᏰᎧᏖ is UP-TO-DATE.**"
+            f"\n\n**𝐕𝐞𝐫𝐬𝐢𝐨𝐧 :**  {d3vil_ver}"
+            f"\n**𝐌𝐚𝐬𝐭𝐞𝐫 :**  {d3vil_mention}"
+            f"\n**𝐆𝐢𝐭 𝐁𝐫𝐚𝐧𝐜𝐡 :**  {UPSTREAM_REPO_BRANCH}\n"
         )
         return repo.__del__()
     if conf == "" and not force_update:
@@ -163,7 +163,7 @@ async def upstream(event):
 
     if force_update:
         await event.edit(
-            "`Updating 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. Please wait few minutes...`"
+            "`Updating ᗪ3ᏉᎥᏝᏰᎧᏖ. Please wait few minutes...`"
         )
     if conf == "now":
         await event.edit("`Update In Progress! Please Wait....`")
@@ -216,7 +216,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             )
             await asyncio.sleep(5)
             return await event.delete()
-        await event.edit(f"**𝗬𝗼𝘂𝗿 ᗪ3ᏉᎥᏝᏰᎧᏖ𝗜𝘀 𝗨𝗽𝗧𝗼𝗗𝗮𝘁𝗲**\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
+        await event.edit(f"**𝗬𝗼𝘂𝗿 ᗪ3ᏉᎥᏝᏰᎧᏖ 𝗜𝘀 𝗨𝗽𝗧𝗼𝗗𝗮𝘁𝗲**\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
     else:
         await event.edit("**Please set up**  `HEROKU_API_KEY`  **from heroku to update!**")
     return
@@ -256,7 +256,7 @@ async def upstream(event):
     ac_br = repo.active_branch.name
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
-    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖDocker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
+    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖ Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
