@@ -101,7 +101,7 @@ async def _(event):
             await conv.get_response()
             await conv.send_message("/fedinfo " + lavde)
             massive = await conv.get_response()
-            await d3vil.edit(massive.text + "\n\n**ʟɛɢɛռɖaʀʏ_ᴀғ_ɦɛʟʟɮօt**")
+            await d3vil.edit(massive.text + "\n\n**🎖️ʟɛɢɛռɖǟʀʏ ǟʄ ᗪ3ʋɨʟɮօȶ🎖️**")
         except YouBlockedUserError:
             await d3vil.edit("`Please Unblock` @MissRose_Bot")
             
