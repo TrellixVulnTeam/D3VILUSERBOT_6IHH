@@ -59,7 +59,7 @@ async def print_changelogs(event, ac_br, changelog):
             event.chat_id,
             "output.txt",
             reply_to=event.id,
-            thumb=hell_logo,
+            thumb=d3vil_logo,
         )
         os.remove("output.txt")
     else:
