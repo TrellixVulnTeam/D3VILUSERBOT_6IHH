@@ -49,7 +49,7 @@ async def gen_chlog(repo, diff):
 
 async def print_changelogs(event, ac_br, changelog):
     changelog_str = (
-        f"⭕ **𝗡𝗲𝘄 𝗗3𝘃𝗶𝗹𝗕𝗼𝘁 𝗨𝗣𝗗𝗔𝗧𝗘 𝗮𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲 𝗳𝗼𝗿 [{ac_br}]:\n\n📝 𝗖𝗛𝗔𝗡𝗚𝗘𝗟𝗢𝗚:**\n`{changelog}`"
+        f"☞︎︎︎**New UPDATE available for [{ac_br}]:\n\n🧾 CHANGELOG:**\n`{changelog}`"
     )
     if len(changelog_str) > 4096:
         await event.edit("`Changelog is too big, view the file to see it.`")
@@ -59,7 +59,7 @@ async def print_changelogs(event, ac_br, changelog):
             event.chat_id,
             "output.txt",
             reply_to=event.id,
-            thumb=d3vil_logo,
+            thumb=hell_logo,
         )
         os.remove("output.txt")
     else:
@@ -74,7 +74,7 @@ async def print_changelogs(event, ac_br, changelog):
 async def update_requirements():
     reqs = str(requirements_path)
     try:
-        process = await asyncio.create_subprocess_sd3vil(
+        process = await asyncio.create_subprocess_shell(
             " ".join([sys.executable, "-m", "pip", "install", "-r", reqs]),
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
@@ -92,7 +92,7 @@ async def update(event, repo, ups_rem, ac_br):
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
     await event.edit(
-        "✅ Successfully updated ᗪ3ᏉᎥᏝᏰᎧᏖ𝔱!\n\nBot is restarting please wait for a minute."
+        "✔︎ Successfully updated ᗪ3ᏉᎥᏝᏰᎧᏖ𝔱!\n\nBot is restarting please wait for a minute."
     )
     args = [sys.executable, "-m", "d3vilbot"]
     os.execle(sys.executable, *args, os.environ)
@@ -111,7 +111,7 @@ async def upstream(event):
             event, "Set  `HEROKU_APP_NAME`  and  `HEROKU_API_KEY`  to update your bot 🥴"
         )
     try:
-        txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
+        txt = "⚠︎ `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await event.edit(f"{txt}\n`directory {error}  not found`")
@@ -150,20 +150,20 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            "\n** ᗪ3ᏉᎥᏝᏰᎧᏖ is UP-TO-DATE.**"
-            f"\n\n**𝐕𝐞𝐫𝐬𝐢𝐨𝐧 :**  {d3vil_ver}"
-            f"\n**𝐌𝐚𝐬𝐭𝐞𝐫 :**  {d3vil_mention}"
-            f"\n**𝐆𝐢𝐭 𝐁𝐫𝐚𝐧𝐜𝐡 :**  {UPSTREAM_REPO_BRANCH}\n"
+            "\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓  𝗶𝘀 𝗨𝗣-𝗧𝗢-𝗗𝗔𝗧𝗘༆.**"
+            f"\n\n**𝖵𝖾𝗋𝗌𝗂𝗈𝗇 ➪**  {d3vil_ver}"
+            f"\n**𝖬𝖺𝗌𝗍𝖾𝗋 ➪**  {d3vil_mention}"
+            f"\n**𝖬𝖺𝗂𝗇 𝖡𝗋𝖺𝗇𝖼𝗁 ➪**  {UPSTREAM_REPO_BRANCH}\n"
         )
         return repo.__del__()
     if conf == "" and not force_update:
         await print_changelogs(event, ac_br, changelog)
         await event.delete()
-        return await event.respond(f"🌚 Do `{hl}update build` to update your **𝔇3𝔳𝔦𝔩𝔅𝔬𝔱** !!")
+        return await event.respond(f"🌚 Do `{hl}update build` to update your **𝐃3𝐕𝐈𝐋𝐁𝐎𝐓** !!")
 
     if force_update:
         await event.edit(
-            "`Updating ᗪ3ᏉᎥᏝᏰᎧᏖ. Please wait few minutes...`"
+            "`Force-Updating 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. Please wait...`"
         )
     if conf == "now":
         await event.edit("`Update In Progress! Please Wait....`")
@@ -216,21 +216,21 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             )
             await asyncio.sleep(5)
             return await event.delete()
-        await event.edit(f"**𝗬𝗼𝘂𝗿 ᗪ3ᏉᎥᏝᏰᎧᏖ 𝗜𝘀 𝗨𝗽𝗧𝗼𝗗𝗮𝘁𝗲**\n\n**𝗩𝗲𝗿𝘀𝗶𝗼𝗻 :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
+        await event.edit(f"**Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 Is UpToDate**\n\n**Version :**  __{hell_ver}__\n**Oɯɳҽɾ :**  {hell_mention}")
     else:
         await event.edit("**Please set up**  `HEROKU_API_KEY`  **from heroku to update!**")
     return
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"update b$"))
-@bot.on(sudo_cmd(pattern="update b$", allow_sudo=True))
+@bot.on(d3vil_cmd(outgoing=True, pattern=r"update build$"))
+@bot.on(sudo_cmd(pattern="update build$", allow_sudo=True))
 async def upstream(event):
     event = await edit_or_reply(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
-    off_repo = "https://github.com/D3KRISH/D3vilBot"
+    off_repo = "https://github.com/TEAM-D3VIL/D3vilBot"
     os.chdir("/app")
-    git_d3vil = f"rm -rf .git"
+    git_hell = f"rm -rf .git"
     try:
-        await runner.runcmd(git_d3vil)
+        await runner.runcmd(git_hell)
     except BaseException:
         pass
     try:
@@ -256,14 +256,14 @@ async def upstream(event):
     ac_br = repo.active_branch.name
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
-    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖ Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
+    await event.edit(f"** 𝐃3𝐕𝐈𝐋 𝐁𝐎𝐓 Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
-CmdHelp("updater").add_command(
+CmdHelp("updates").add_command(
   "update", None, "Checks if any new update is available."
 ).add_command(
-  "update now", None, "Soft-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. Basically if you restart dyno it will go back to previous deploy."
+  "update now", None, "Soft-Update Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. Basically if you restart dyno it will go back to previous deploy."
 ).add_command(
-  "update b", None, "Hard-Update Your 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
+  "update build", None, "Hard-Update Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
 ).add()
