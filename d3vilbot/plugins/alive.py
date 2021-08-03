@@ -17,16 +17,16 @@ pm_caption += (
     f"                 ↼𝗠𝗔𝗦𝗧𝗘𝗥⇀\n  **『 {d3vil_mention} 』**\n\n"
 )
 
-d3vil_caption += f"{Config.ALIVE_MSG}\n"
-d3vil_caption += f"╔══════════════════╗\n"
-d3vil_caption += f"╠•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
-d3vil_caption += f"╠•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `{d3vil_ver}`\n"
-d3vil_caption += f"╠•➳➠ `𝖲𝗎𝖽𝗈:` `{is_sudo}`\n"
-d3vil_caption += f"╠•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [𝙹𝗈𝗂𝗇](https://t.me/D3VIL_SUPPORT)\n"
-d3vil_caption += f"╠•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
-d3vil_caption += f"╠•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
-d3vil_caption += f"╚══════════════════╝\n"
-d3vil_caption += " [⚡REPO⚡](https://github.com/TEAM-D3VIL/D3vilBot) 🔹 [📜License📜](https://github.com/TEAM-D3VIL/D3vilBot/blob/main/LICENSE)"
+pm_caption += f"{Config.ALIVE_MSG}\n"
+pm_caption += f"╔══════════════════╗\n"
+pm_caption += f"╠•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
+pm_caption += f"╠•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `{d3vil_ver}`\n"
+pm_caption += f"╠•➳➠ `𝖲𝗎𝖽𝗈:` `{is_sudo}`\n"
+pm_caption += f"╠•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [𝙹𝗈𝗂𝗇](https://t.me/D3VIL_SUPPORT)\n"
+pm_caption += f"╠•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
+pm_caption += f"╠•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
+pm_caption += f"╚══════════════════╝\n"
+pm_caption += " [⚡REPO⚡](https://github.com/TEAM-D3VIL/D3vilBot) 🔹 [📜License📜](https://github.com/TEAM-D3VIL/D3vilBot/blob/main/LICENSE)"
 
 
 #-------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ async def up(d3vil):
         return
     await d3vil.get_chat()
     await d3vil.delete()
-    await bot.send_file(d3vil.chat_id, d3vil_pic, caption=d3vil_caption)
+    await bot.send_file(d3vil.chat_id, d3vil_pic, caption=pm_caption)
     await d3vil.delete()
 
 msg = f"""
