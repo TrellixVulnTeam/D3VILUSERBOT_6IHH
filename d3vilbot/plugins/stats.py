@@ -62,25 +62,26 @@ async def stats(
         unread += dialog.unread_count
     stop_time = time.time() - start_time
     full_name = inline_mention(await event.client.get_me())
-    response = f"🔰**𝖲𝗍𝖺𝗍𝗌 𝖿𝗈𝗋 {full_name}**🔰\n\n"
-    response += f"🔱 **𝖯𝗋𝗂𝗏𝖺𝗍𝖾 𝖢𝗁𝖺𝗍𝗌:** {private_chats} \n"
-    response += f"🔸   `𝖴𝗌𝖾𝗋𝗌: {private_chats - bots}` \n"
-    response += f"🔹   `𝖡𝗈𝗍𝗌: {bots}` \n"
-    response += f"🔱 **𝖦𝗋𝗈𝗎𝗉𝗌:** {groups} \n"
-    response += f"🔱 **𝖢𝗁𝖺𝗇𝗇𝖾𝗅𝗌:** {broadcast_channels} \n"
-    response += f"☣️  **𝖠𝖽𝗆𝗂𝗇 in Groups:** {admin_in_groups} \n"
-    response += f"🔹   `𝖢𝗋𝖾𝖺𝗍𝗈𝗋: {creator_in_groups}` \n"
-    response += f"🔸   `𝖠𝖽𝗆𝗂𝗇 𝖱𝗂𝗀𝗁𝗍𝗌: {admin_in_groups - creator_in_groups}` \n"
-    response += f"☣️  **𝖠𝖽𝗆𝗂𝗇 𝗂𝗇 𝖢𝗁𝖺𝗇𝗇𝖾𝗅𝗌:** {admin_in_broadcast_channels} \n"
-    response += f"🔸   `𝖢𝗋𝖾𝖺𝗍𝗈𝗋: {creator_in_channels}` \n"
+    response = f"༆ 𝚂𝚃𝙰𝚃𝚂 𝙾𝙵  {full_name} ༆\n\n"
+    response += f"┏━━━━━━━━✧❅✦❅✧━━━━━━━━\n" 
+    response += f"┣ 🔹 𝙿𝚁𝙸𝚅𝙰𝚃𝙴 𝙲𝙷𝙰𝚃𝚂: {private_chats} \n"
+    response += f"┣ 🔸 𝚄𝚂𝙴𝚁𝚂: {private_chats - bots}  \n"
+    response += f"┣ 🔹 𝙱𝙾𝚃𝚂: {bots}  \n"
+    response += f"┣ 🔸 𝙶𝚁𝙾𝚄𝙿𝚂: {groups} \n"
+    response += f"┣ 🔹 𝙲𝙷𝙰𝙽𝙽𝙴𝙻𝚂: {broadcast_channels} \n"
+    response += f"┣ 🔸 𝙰𝙳𝙼𝙸𝙽 𝙸𝙽 𝙶𝚁𝙾𝚄𝙿𝚂: {admin_in_groups} \n"
+    response += f"┣ 🔹 𝙲𝚁𝙴𝙰𝚃𝙾𝚁: {creator_in_groups} \n"
+    response += f"┣ 🔸 𝙰𝙳𝙼𝙸𝙽 𝚁𝙸𝙶𝙷𝚃𝚂: {admin_in_groups - creator_in_groups} \n"
+    response += f"┣ 🔹 𝙰𝙳𝙼𝙸𝙽 𝙸𝙽 𝙲𝙷𝙰𝙽𝙽𝙴𝙻: {admin_in_broadcast_channels} \n"
+    response += f"┣ 🔸 𝙲𝚁𝙴𝙰𝚃𝙾𝚁: {creator_in_channels} \n"
+    response += f"┣ 🔹 𝙰𝙳𝙼𝙸𝙽 𝚁𝙸𝙶𝙷𝚃𝚂: {admin_in_broadcast_channels - creator_in_channels} \n"
+    response += f"┣ 🔸 𝚄𝙽𝚁𝙴𝙰𝙳: {unread} \n"
+    response += f"┣ 🔹 𝚄𝙽𝚁𝙴𝙰𝙳 𝙼𝙴𝙽𝚃𝙸𝙾𝙽𝚂: {unread_mentions} \n"
+    response += f"┣ 🔸 𝙸𝚃 𝚃𝙾𝙾𝙺: {stop_time:.02f}𝚂 \n"
+    response += f"┗━━━━━━━━✧❅✦❅✧━━━━━━━━\n\n"
+
     response += (
-        f"🔹   `Admin Rights: {admin_in_broadcast_channels - creator_in_channels}` \n"
-    )
-    response += f"🔱 **𝖴𝗇𝗋𝖾𝖺𝖽:** {unread} \n"
-    response += f"🔱 **𝖴𝗇𝗋𝖾𝖺𝖽 𝖬𝖾𝗇𝗍𝗂𝗈𝗇𝗌:** {unread_mentions} \n\n"
-    response += f"☣️   __𝖨𝗍 𝖳𝗈𝗈𝗄:__ {stop_time:.02f}s \n"
-    response += (
-        f"📌 **𝖥𝗋𝗈𝗆 𝖳𝗁𝖾 𝖣𝖺𝗍𝖺𝖡𝖺𝗌𝖾 𝖮𝖿** :- {d3vil_channel}"
+        f"📌 𝙵𝚁𝙾𝙼 𝚃𝙷𝙴 𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙾𝙵 :- {d3vil_channel}" 
     )
     await d3vil.edit(response)
 
