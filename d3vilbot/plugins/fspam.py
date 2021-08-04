@@ -1,3 +1,6 @@
+#credit goes to @ForGo10God hellbot owner
+#modified by @D3_krish
+
 import asyncio
 import base64
 import os
