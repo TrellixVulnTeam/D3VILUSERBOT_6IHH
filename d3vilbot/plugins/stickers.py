@@ -256,7 +256,7 @@ async def kang(args):
                 await bot.send_read_acknowledge(conv.chat_id)
 
         await d3vil.edit(
-            f"⚡** This Sticker iz [kanged](t.me/addstickers/{packname}) successfully to your pack **⚡",
+            f"✔︎** 𝚃𝙷𝙸𝚂 𝚂𝚃𝙸𝙲𝙺𝙴𝚁 𝙸𝚂 ➪[𝖪𝖺𝗇𝗀𝖾𝖽](t.me/addstickers/{packname}) 𝚂𝚄𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝚃𝙾 𝚈𝙾𝚄𝚁 𝙿𝙰𝙲𝙺 **✔︎",
             parse_mode="md",
         )
 
@@ -323,12 +323,12 @@ async def get_pack_info(event):
             pack_emojis.append(document_sticker.emoticon)
 
     OUTPUT = (
-        f"🔹 **Sticker Title:** `{get_stickerset.set.title}\n`"
-        f"🔸 **Sticker Short Name:** `{get_stickerset.set.short_name}`\n"
-        f"🔹 **Official:** `{get_stickerset.set.official}`\n"
-        f"🔸 **Archived:** `{get_stickerset.set.archived}`\n"
-        f"🔹 **Stickers In Pack:** `{len(get_stickerset.packs)}`\n"
-        f"🔸 **Emojis In Pack:**\n{' '.join(pack_emojis)}"
+        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫 𝐓𝐢𝐭𝐥𝐞➪** `{get_stickerset.set.title}\n`"
+        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫 𝐒𝐡𝐨𝐫𝐭 𝐍𝐚𝐦𝐞➪** `{get_stickerset.set.short_name}`\n"
+        f"𖣔 **𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥➪** `{get_stickerset.set.official}`\n"
+        f"𖣔 **𝐀𝐫𝐜𝐡𝐢𝐯𝐞𝐝➪** `{get_stickerset.set.archived}`\n"
+        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫𝐬 𝐈𝐧 𝐏𝐚𝐜𝐤➪** `{len(get_stickerset.packs)}`\n"
+        f"𖣔 **𝐄𝐦𝐨𝐣𝐢𝐬 𝐈𝐧 𝐏𝐚𝐜𝐤➪**\n{' '.join(pack_emojis)}"
     )
 
     await edit_or_reply(event, OUTPUT)
@@ -449,7 +449,7 @@ async def sticklet(event):
     )
 
     image_stream = io.BytesIO()
-    image_stream.name = "Hellbot.webp"
+    image_stream.name = "D3vilbot.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
 
