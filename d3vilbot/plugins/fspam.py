@@ -1,4 +1,4 @@
-#credit goes to @ForGo10God hellbot owner
+#credit goes to @Chirag_Bhargava & Hellboy owner 
 #modified by @D3_krish
 
 import asyncio
