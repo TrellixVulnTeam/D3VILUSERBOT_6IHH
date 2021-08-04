@@ -16,8 +16,8 @@ lg_id = Config.LOGGER_ID
 
 
 
-@bot.on(d3vil_cmd(pattern="fspam (.*)"))
-@bot.on(sudo_cmd(pattern="fspam (.*)", allow_sudo=True))
+@bot.on(d3vil_cmd(pattern="bspam (.*)"))
+@bot.on(sudo_cmd(pattern="bspam (.*)", allow_sudo=True))
 async def spammer(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
         message = e.text
@@ -37,8 +37,8 @@ async def spammer(e):
             lg_id, f"#SPAM \n\nSpammed  {counter}  messages!!"
         )
 
-CmdHelp("fspam").add_command(
-  "fspam", "<number> <text>", "spams a message 'X'number of times without flood wait!.", ".spam 9999 Hello"
+CmdHelp("bspam").add_command(
+  "bspam", "<number> <text>", "spams a message 'X'number of times without flood wait!.", ".spam 9999 Hello"
 ).add_warning(
   "⚠️ But may you can get ban form Telegram if you will do spam too long"
 ).add()
