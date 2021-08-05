@@ -63,7 +63,7 @@ for name in files:
 #     except BaseException:
 #         pass
 #     LOGS.info("Installing Extra Plugins")
-#     path = "hellbot/plugins/*.py"
+#     path = "d3vilbot/plugins/*.py"
 #     files = glob.glob(path)
 #     for name in files:
 #         with open(name) as ex:
