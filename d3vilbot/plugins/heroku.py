@@ -32,7 +32,7 @@ async def restart(event):
         app = Heroku.apps()[HEROKU_APP_NAME]
         app.restart()
     else:
-        execl(executable, executable, "bash", "D3vilBot")
+        execl(executable, executable, "bash", "HellBot")
 
 
 @bot.on(d3vil_cmd(pattern="restart$"))
@@ -44,7 +44,7 @@ async def re(d3vil):
     if HEROKU_API_KEY:
         await restart(event)
     else:
-        await event.edit("Please Set Your `HEROKU_API_KEY` to restart 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱")
+        await event.edit("Please Set Your `HEROKU_API_KEY` to restart ∂3víℓвσт")
 
 
 @bot.on(d3vil_cmd(pattern="shutdown$"))
@@ -52,7 +52,7 @@ async def re(d3vil):
 async def down(d3vil):
     if d3vil.fwd_from:
         return
-    await eor(d3vil, "**[ ! ]** Turning off ᗪ3ᏉᎥᏝᏰᎧᏖDynos... Manually turn me on later ಠ_ಠ")
+    await eor(d3vil, "**[ ! ]** Turning off Hêllẞø† Dynos... Manually turn me on later ಠ_ಠ")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:
@@ -79,7 +79,7 @@ async def variable(d3vil):
             variable = d3vil.pattern_match.group(2).split()[0]
             if variable in ("D3VILBOT_SESSION", "BOT_TOKEN", "HEROKU_API_KEY"):
                 if Config.ABUSE == "ON":
-                    await bot.send_file(d3vil.chat_id, cjb, caption=cap)
+                    await bot.send_file(hell.chat_id, cjb, caption=cap)
                     await event.delete()
                     await bot.send_message(lg_id, f"#HEROKU_VAR \n\n`{heroku_var[variable]}`")
                     return
@@ -102,10 +102,10 @@ async def variable(d3vil):
             with open("configs.json", "r") as fp:
                 result = fp.read()
                 if len(result) >= 4096:
-                    await d3vil.client.send_file(
-                        d3vil.chat_id,
+                    await hell.client.send_file(
+                        hell.chat_id,
                         "configs.json",
-                        reply_to=d3vil.id,
+                        reply_to=hell.id,
                         caption="`Output too large, sending it as a file`",
                     )
                 else:
@@ -118,7 +118,7 @@ async def variable(d3vil):
             os.remove("configs.json")
             return
     elif exe == "set":
-        event = await eor(d3vil, "Setting Heroku Variable...")
+        event = await eor(hell, "Setting Heroku Variable...")
         variable = d3vil.pattern_match.group(2)
         if not variable:
             return await event.edit(f"`{hl}set var <Var Name> <Value>`")
@@ -203,7 +203,7 @@ async def dyno_usage(d3vil):
     await asyncio.sleep(1.5)
 
     return await event.edit(
-        "✘ **Dyno Usage** ✘:\n\n"
+        "⚡ **Dyno Usage** ⚡:\n\n"
         f" ➠ __Dyno usage for__ • **{Config.HEROKU_APP_NAME}** • :\n"
         f"     ★  `{AppHours}`**h**  `{AppMinutes}`**m**  "
         f"**|**  `{AppPercentage}`**%**"
@@ -211,8 +211,9 @@ async def dyno_usage(d3vil):
         " ➠ __Dyno hours remaining this month__ :\n"
         f"     ★  `{hours}`**h**  `{minutes}`**m**  "
         f"**|**  `{percentage}`**%**"
-        f"\n\n**Owner :** {d3vil_mention}"
+        f"\n\n**Owner :** {hell_mention}"
     )
+
 
 @bot.on(d3vil_cmd(pattern="logs$"))
 @bot.on(sudo_cmd(pattern="logs$", allow_sudo=True))
@@ -224,10 +225,37 @@ async def _(dyno):
         app = Heroku.app(HEROKU_APP_NAME)
     except BaseException:
         return await dyno.reply(f"Make Sure Your Heroku AppName & API Key are filled correct. Visit {d3vil_grp} for help.", link_preview=False)
-   # event = await eor(dyno, "Downloading Logs...")
-    d3vil_data = app.get_log()
-    await eor(dyno, d3vil_data, deflink=True, linktext=f"**🗒️ Heroku Logs of 💯 lines. 🗒️**\n\n🌟 **Bot Of :**  {d3vil_mention}\n\n🚀** Pasted**  ")
+    event = await eor(dyno, "Downloading Logs...")
+    with open("d3vilbot-logs.txt", "w") as log:
+        log.write(app.get_log())
+    await bot.send_file(
+        dyno.chat_id,
+        "d3vilbot-logs.txt",
+        reply_to=dyno.id,
+        caption=f"**✔︎ 𝙷𝙴𝚁𝙾𝙺𝚄 𝙻𝙾𝙶𝚂 𝙾𝙵  💯 𝙻𝙸𝙽𝙴𝚂. 🗒️**\n\n **𝙼𝙰𝚂𝚃𝙴𝚁 ➪**  {d3vil_mention}"
+    )
+    await event.edit("Heroku Logs..")
+    await asyncio.sleep(5)
+    await event.delete()
+    return os.remove("d3vilbot-logs.txt")
     
+  # d3vil_data = app.get_log()
+  # await eor(
+  #     dyno, d3vil_data, deflink=True, linktext=f"**✔︎ 𝙷𝙴𝚁𝙾𝙺𝚄 𝙻𝙾𝙶𝚂 𝙾𝙵 💯 𝙻𝙸𝙽𝙴𝚂. 🗒️**\n\n **𝙼𝙰𝚂𝚃𝙴𝚁 ➪**  {d3vil_mention}\n\n🚀** 𝙿𝙰𝚂𝚃𝙴𝙳**  "
+  # )
+"""
+    key = (
+        requests.post("https://nekobin.com/api/documents", json={"content": d3vil_data})
+        .json()
+        .get("result")
+        .get("key")
+    )
+    d3vil_url = f"https://nekobin.com/{key}"
+    url_raw = f"https://nekobin.com/raw/{key}"
+    foutput = f"**✔︎ 𝙷𝙴𝚁𝙾𝙺𝚄 𝙻𝙾𝙶𝚂 𝙾𝙵 💯 𝙻𝙸𝙽𝙴𝚂. 🗒️** \n\n [Nekobin]({d3vil_url}) & [Raw]({url_raw}) \n\n **𝙼𝙰𝚂𝚃𝙴𝚁 ➪**  {d3vil_mention}"
+"""
+    
+
 
 def prettyjson(obj, indent=2, maxlinelength=80):
     """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
@@ -242,23 +270,22 @@ def prettyjson(obj, indent=2, maxlinelength=80):
     return indentitems(items, indent, level=0)
 
 
-
 CmdHelp("power").add_command(
-  "restart", None, "𝖱𝖾𝗌𝗍𝖺𝗋𝗍𝗌 𝗒𝗈𝗎𝗋 𝗎𝗌𝖾𝗋𝖻𝗈𝗍. 𝖱𝖾𝖽𝗍𝖺𝗋𝗍𝗂𝗇𝗀 𝖡𝗈𝗍 𝗆𝖺𝗒 𝗋𝖾𝗌𝗎𝗅𝗍 in 𝖻𝖾𝗍𝗍𝖾𝗋 𝖿𝗎𝗇𝖼𝗍𝗂𝗈𝗇𝗂𝗇𝗀 𝗈𝖿 𝖻𝗈𝗍 𝗐𝗁𝖾𝗇 𝗂𝗍𝗌 𝗅𝖺𝗀𝗀𝗒"
+  "restart", None, "Restarts your userbot. Redtarting Bot may result in better functioning of bot when its laggy"
 ).add_command(
-  "shutdown", None, "𝖳𝗎𝗋𝗇𝗌 𝗈𝖿𝖿 𝖣𝗒𝗇𝗈𝗌 𝗈𝖿 𝖴𝗌𝖾𝗋𝖻𝗈𝗍. 𝖴𝗌𝖾𝗋𝖻𝗈𝗍 𝗐𝗂𝗅𝗅 𝗌𝗍𝗈𝗉 𝗐𝗈𝗋𝗄𝗂𝗇𝗀 𝗎𝗇𝗅𝖾𝗌𝗌 𝗒𝗈𝗎 𝗆𝖺𝗇𝗎𝖺𝗅𝗅𝗒 𝗍𝗎𝗋𝗇 𝗂𝗍 𝗈𝗇 𝖿𝗋𝗈𝗆 𝗁𝖾𝗋𝗈𝗄𝗎"
+  "shutdown", None, "Turns off Dynos of Userbot. Userbot will stop working unless you manually turn it on from heroku"
 ).add_info(
   "Power Switch For Bot"
 ).add()
 
 CmdHelp("heroku").add_command(
-  "usage", None, "𝖢𝗁𝖾𝖼𝗄 𝗒𝗈𝗎𝗋 𝗁𝖾𝗋𝗈𝗄𝗎 𝖽𝗒𝗇𝗈 𝗁𝗈𝗎𝗋𝗌 𝗌𝗍𝖺𝗍𝗎𝗌."
+  "usage", None, "Check your heroku dyno hours status."
 ).add_command(
-  "set var", "<Var Name> <value>", "𝖠𝖽𝖽 𝗇𝖾𝗐 𝗏𝖺𝗋𝗂𝖺𝖻𝗅𝖾 𝗈𝗋 𝗎𝗉𝖽𝖺𝗍𝖾 𝖾𝗑𝗂𝗌𝗍𝗂𝗇𝗀 𝗏𝖺𝗅𝗎𝖾/𝗏𝖺𝗋𝗂𝖺𝖻𝗅𝖾\𝗇𝖠𝖿𝗍𝖾𝗋 𝗌𝖾𝗍𝗍𝗂𝗇𝗀 𝖺 𝗏𝖺𝗋𝗂𝖺𝖻𝗅𝖾 𝖻𝗈𝗍 𝗐𝗂𝗅𝗅 𝗋𝖾𝗌𝗍𝖺𝗋𝗍 𝗌𝗈 𝗌𝗍𝖺𝗒 𝖼𝖺𝗅𝗆 𝖿𝗈𝗋 1 𝗆𝗂𝗇𝗎𝗍𝖾."
+  "set var", "<Var Name> <value>", "Add new variable or update existing value/variable\nAfter setting a variable bot will restart so stay calm for 1 minute."
 ).add_command(
-  "get var", "<Var Name", "𝖦𝖾𝗍𝗌 𝗍𝗁𝖾 𝗏𝖺𝗋𝗂𝖺𝖻𝗅𝖾 and 𝗂𝗍𝗌 𝗏𝖺𝗅𝗎𝖾 (𝗂𝖿 𝖺𝗇𝗒) 𝖿𝗋𝗈𝗆 𝗁𝖾𝗋𝗈𝗄𝗎."
+  "get var", "<Var Name", "Gets the variable and its value (if any) from heroku."
 ).add_command(
   "del var", "<Var Name", "Deletes the variable from heroku. Bot will restart after deleting the variable. So be calm for a minute 😃"
 ).add_command(
-  "logs", None, "𝖦𝖾𝗍𝗌 𝗍𝗁𝖾 𝖺𝗉𝗉 𝗅𝗈𝗀 𝗈𝖿 100 𝗅𝗂𝗇𝖾𝗌 𝗈𝖿 𝗒𝗈𝗎𝗋 𝖻𝗈𝗍 𝖽𝗂𝗋𝖾𝖼𝗍𝗅𝗒 𝖿𝗋𝗈𝗆 𝗁𝖾𝗋𝗈𝗄𝗎."
+  "logs", None, "Gets the app log of 100 lines of your bot directly from heroku."
 ).add()
