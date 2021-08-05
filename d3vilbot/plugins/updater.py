@@ -49,7 +49,7 @@ async def gen_chlog(repo, diff):
 
 async def print_changelogs(event, ac_br, changelog):
     changelog_str = (
-        f"☞︎︎︎**New UPDATE available for [{ac_br}]:\n\n🧾 CHANGELOG:**\n`{changelog}`"
+        f"🔥 **New UPDATE available for [{ac_br}]:\n\n📑 CHANGELOG:**\n`{changelog}`"
     )
     if len(changelog_str) > 4096:
         await event.edit("`Changelog is too big, view the file to see it.`")
@@ -92,7 +92,7 @@ async def update(event, repo, ups_rem, ac_br):
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
     await event.edit(
-        "✔︎ Successfully updated ᗪ3ᏉᎥᏝᏰᎧᏖ𝔱!\n\nBot is restarting please wait for a minute."
+        "✔︎ Successfully updated D3vilBot!\n\nBot is restarting please wait for a minute."
     )
     args = [sys.executable, "-m", "d3vilbot"]
     os.execle(sys.executable, *args, os.environ)
@@ -111,7 +111,7 @@ async def upstream(event):
             event, "Set  `HEROKU_APP_NAME`  and  `HEROKU_API_KEY`  to update your bot 🥴"
         )
     try:
-        txt = "⚠︎ `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
+        txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await event.edit(f"{txt}\n`directory {error}  not found`")
@@ -150,20 +150,20 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            "\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓  𝗶𝘀 𝗨𝗣-𝗧𝗢-𝗗𝗔𝗧𝗘༆.**"
-            f"\n\n**𝖵𝖾𝗋𝗌𝗂𝗈𝗇 ➪**  {d3vil_ver}"
-            f"\n**𝖬𝖺𝗌𝗍𝖾𝗋 ➪**  {d3vil_mention}"
-            f"\n**𝖬𝖺𝗂𝗇 𝖡𝗋𝖺𝗇𝖼𝗁 ➪**  {UPSTREAM_REPO_BRANCH}\n"
+            "\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐔𝐏-𝐓𝐎-𝐃𝐀𝐓𝐄༆**"
+            f"\n\n**ᴠᴇʀsɪᴏɴ ➪**  {d3vil_ver}"
+            f"\n**ᴍᴀsᴛᴇʀ ➪**  {d3vil_mention}"
+            f"\n**ᴍᴀɪɴ ʙʀᴀɴᴄʜ ➪**  {UPSTREAM_REPO_BRANCH}\n"
         )
         return repo.__del__()
     if conf == "" and not force_update:
         await print_changelogs(event, ac_br, changelog)
         await event.delete()
-        return await event.respond(f"🌚 Do `{hl}update build` to update your **𝐃3𝐕𝐈𝐋𝐁𝐎𝐓** !!")
+        return await event.respond(f"🌚 Do `{hl}update build` to update your ** 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍** !!")
 
     if force_update:
         await event.edit(
-            "`Force-Updating 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. Please wait...`"
+            "`✔️ Force-Updating ᗪ3ᏉᎥᏝᏰᎧᏖ. Please wait...`"
         )
     if conf == "now":
         await event.edit("`Update In Progress! Please Wait....`")
@@ -216,7 +216,7 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             )
             await asyncio.sleep(5)
             return await event.delete()
-        await event.edit(f"**Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 Is UpToDate**\n\n**Version :**  __{hell_ver}__\n**Oɯɳҽɾ :**  {hell_mention}")
+        await event.edit(f"**Your  ᗪ3ᏉᎥᏝᏰᎧᏖ Is UpToDate**\n\n**Version :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
     else:
         await event.edit("**Please set up**  `HEROKU_API_KEY`  **from heroku to update!**")
     return
@@ -228,7 +228,7 @@ async def upstream(event):
     event = await edit_or_reply(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
     off_repo = "https://github.com/TEAM-D3VIL/D3vilBot"
     os.chdir("/app")
-    git_hell = f"rm -rf .git"
+    git_d3vil = f"rm -rf .git"
     try:
         await runner.runcmd(git_hell)
     except BaseException:
@@ -256,14 +256,14 @@ async def upstream(event):
     ac_br = repo.active_branch.name
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
-    await event.edit(f"** 𝐃3𝐕𝐈𝐋 𝐁𝐎𝐓 Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
+    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖ Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
-CmdHelp("updates").add_command(
+CmdHelp("update").add_command(
   "update", None, "Checks if any new update is available."
 ).add_command(
-  "update now", None, "Soft-Update Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. Basically if you restart dyno it will go back to previous deploy."
+  "update now", None, "Soft-Update Your ᗪ3ᏉᎥᏝᏰᎧᏖ. Basically if you restart dyno it will go back to previous deploy."
 ).add_command(
-  "update build", None, "Hard-Update Your 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
+  "update build", None, "Hard-Update Your ᗪ3ᏉᎥᏝᏰᎧᏖ. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
 ).add()
