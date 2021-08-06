@@ -93,11 +93,40 @@ async def nope(d3vilkrish):
     else:
      await eod(d3vilkrish, "Error 404:  Not Found")
      
+@bot.on(d3vil_cmd(pattern="gg(?: |$)(.*)", outgoing=True))
+@bot.on(sudo_cmd(pattern="gg(?: |$)(.*)", allow_sudo=True))
+async def nope(d3vilkrish):
+    d3vil = d3vilkrish.pattern_match.group(1)
+    if not d3vil:
+        if d3vilkrish.is_reply:
+            (await d3vilkrish.get_reply_message()).message
+        else:
+            if Config.ABUSE == "ON":
+                return await eor(d3vilkrish, "Abe chumtiye kuch likhne ke liye de")
+            else:
+                return await eor(d3vilkrish, "I need some text to make sticker.")
+
+    troll = await bot.inline_query("GooglaxBot", f"{(deEmojify(d3vil))}")
+    if troll:
+        await d3vilkrish.delete()
+        d3vl_ = await troll[0].click(Config.LOGGER_ID)
+        if d3vl_:
+            await bot.send_file(
+                d3vilkrish.chat_id,
+                d3vl_,
+                caption="",
+            )
+        await d3vl_.delete()
+    else:
+     await eod(d3vilkrish, "Error 404:  Not Found")
     
+
 CmdHelp("memify").add_command(
-  "mmf", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in sticker format.", "mmf <reply to a img/stcr/gif> hii ; d3vilo"
+  "mmf", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in sticker format.", "mmf <reply to a img/stcr/gif> hii ; hello"
 ).add_command(
-  "mms", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in image format.", "mms <reply to a img/stcr/gif> hii ; d3vilo"
+  "mms", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in image format.", "mms <reply to a img/stcr/gif> hii ; hello"
+).add_command(
+  "gg", "<text>, "Make gogle search Sticker."
 ).add_command(
   "doge", "<text>", "Makes A Sticker of Doge with given text."
 ).add()
