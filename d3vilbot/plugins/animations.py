@@ -1110,31 +1110,13 @@ CmdHelp("animations").add_command(
 ).add_command(
   'hack', None, 'Im a hacker bitch'
 ).add_command(
-  'hnd', '<your text>', 'A handy animation with the text,'
-).add_command(
-  'padmin', None, 'Prank promote a user'
-).add_command(
-  'owner', None, 'Use and see'
+  'hnd', '<your text>', 'A handy animation with the text'
 ).add_command(
   'padmin', None, 'Prank promote a user'
 ).add_command(
   "phub", None, "Animated PORNHUB Typing"
 ).add_command(
   "amore", None, "Animated AMORE Typing"
-).add_command(
-  "sexy", None, "Animated SEXY Typing"
-).add_command(
-  "unoob", None, "Animated text calling them noob🚶"
-).add_command(
-  "menoob", None, "Animated text claiming you noob"
-).add_command(
-  "uproo", None, "Animated text claiming you to be proooo"
-).add_command(
-  "mepro", None, "Animated text calling them proo Af!!"
-).add_command(
-  "sprinkle", None, "Use and see"
-).add_command(
-  "getwell", None, "Use and see"
 ).add_command(
   "cheer", None, "Use and see"
 ).add_command(
@@ -1149,8 +1131,6 @@ CmdHelp("animations").add_command(
   "switch", None, "Click on the switch to reveal the price✨"
 ).add_command(
   "thanos", None, "A poem on Thanos... Maybe🤐"
-).add_command(
-  "hack", None, "Use and see"
 ).add_command(
   "wahack", None, "Whatsapp Hack animation"
 ).add()
