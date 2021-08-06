@@ -126,7 +126,7 @@ CmdHelp("memify").add_command(
 ).add_command(
   "mms", "<reply to a img/stcr/gif> <upper text> ; <lower text>", "Memifies the replied image/gif/sticker with your text and sends output in image format.", "mms <reply to a img/stcr/gif> hii ; hello"
 ).add_command(
-  "gg", "<text>, "Make gogle search Sticker."
+  "gg", "<text>", "Make gogle search Sticker."
 ).add_command(
   "doge", "<text>", "Makes A Sticker of Doge with given text."
 ).add()
