@@ -2,6 +2,9 @@ import json
 
 import requests
 
+from html_telegraph_poster import TelegraphPoster
+
+
 from d3vilbot import *
 
 headers = {
@@ -37,3 +40,14 @@ async def pasty(message, extension=None):
         }
     return {"error": "Unable to reach pasty.lus.pm"}
 
+async def telegraph_paste(page_title, temxt):
+    cl1ent = TelegraphPoster(use_api=True)
+    auth = "[ ʟᴇɢᴇɴᴅʀʏ ᴀғ ᴅ3ᴠɪʟʙᴏᴛ ]"
+    cl1ent.create_api_token(auth)
+    post_page = cl1ent.post(
+        title=page_title,
+        author=auth,
+        author_url="https://t.me/D3VIL_SUPPORT",
+        text=temxt,
+    )
+    return post_page["url"]
