@@ -46,6 +46,14 @@ else:
         LOGS.error(f"BOT_TOKEN - {str(e)}")
         sys.exit()
 
+# imports plugins...
+path = "d3vilbot/plugins/*.py"
+files = glob.glob(path)
+for name in files:
+    with open(name) as f:
+        path1 = Path(f.name)
+        shortname = path1.stem
+        load_module(shortname.replace(".py", ""))
 
 # Extra Modules...
  extra_repo = Config.EXTRA_REPO or "https://github.com/TEAM-D3VIL/D3VILADDONS"
