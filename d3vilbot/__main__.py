@@ -56,20 +56,20 @@ for name in files:
         load_module(shortname.replace(".py", ""))
 
 # Extra Modules...
- extra_repo = Config.EXTRA_REPO or "https://github.com/TEAM-D3VIL/D3VILADDONS"
- if Config.EXTRA == "True":
-     try:
-         os.system(f"git clone {extra_repo}")
-     except BaseException:
-         pass
-     LOGS.info("Installing Extra Plugins")
-     path = "d3vilbot/plugins/*.py"
-     files = glob.glob(path)
-      for name in files:
-         with open(name) as ex:
-             path2 = Path(ex.name)
-             shortname = path2.stem
-             load_module(shortname.replace(".py", ""))
+# extra_repo = Config.EXTRA_REPO or "https://github.com/TEAM-D3VIL/D3VILADDONS"
+# if Config.EXTRA == "True":
+#     try:
+#         os.system(f"git clone {extra_repo}")
+#     except BaseException:
+#         pass
+#     LOGS.info("Installing Extra Plugins")
+#     path = "d3vilbot/plugins/*.py"
+#     files = glob.glob(path)
+#      for name in files:
+#         with open(name) as ex:
+#             path2 = Path(ex.name)
+#             shortname = path2.stem
+#             load_module(shortname.replace(".py", ""))
 
 # let the party begin...
 LOGS.info("𝐒𝐭𝐚𝐫𝐭𝐢𝐧𝐠 𝐁𝐨𝐭 𝐌𝐨𝐝𝐞 !")
