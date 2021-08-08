@@ -111,5 +111,3 @@ def time_formatter(milliseconds: int) -> str:
     )
     return tmp[:-2]
 
-
-# d3vilbot
