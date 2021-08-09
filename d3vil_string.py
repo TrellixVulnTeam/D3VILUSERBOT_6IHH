@@ -7,6 +7,15 @@ from telethon.sync import TelegramClient
 
 okvai = input("Enter yes/y to continue & Enter no/n to stop: ")
 if okvai == "y" or "yes":
+d3vilkrish = """ 
+ ╭━━━┳━━━┳╮╱╱╭┳━━┳╮╱╱╭━━╮╭━━━┳━━━━╮
+ ╰╮╭╮┃╭━╮┃╰╮╭╯┣┫┣┫┃╱╱┃╭╮┃┃╭━╮┃╭╮╭╮┃
+ ╱┃┃┃┣╯╭╯┣╮┃┃╭╯┃┃┃┃╱╱┃╰╯╰┫┃╱┃┣╯┃┃╰╯
+ ╱┃┃┃┣╮╰╮┃┃╰╯┃╱┃┃┃┃╱╭┫╭━╮┃┃╱┃┃╱┃┃
+ ╭╯╰╯┃╰━╯┃╰╮╭╯╭┫┣┫╰━╯┃╰━╯┃╰━╯┃╱┃┃
+ ╰━━━┻━━━╯╱╰╯╱╰━━┻━━━┻━━━┻━━━╯╱╰╯     
+"""    
+    print(d3vilkrish)
     print("Please go to my.telegram.org and get your API Id and API Hash to proceed.")
     APP_ID = int(input("Enter APP ID here: "))
     API_HASH = input("Enter API HASH here: ")
