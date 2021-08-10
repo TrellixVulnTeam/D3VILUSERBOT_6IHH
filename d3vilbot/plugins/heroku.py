@@ -28,11 +28,11 @@ async def restart(event):
             return await eor(
                 event, "`HEROKU_API_KEY` is wrong. Re-Check in config vars."
             )
-        await eor(event, f"✅ **Restarted Dynos** \n**Type** `{hl}ping` **after 1 minute to check if I am working !**")
+        await eor(event, f"**✓ʀᴇsᴛᴀʀᴛᴇᴅ ᴅʏɴᴏs** \n **𝚃𝚢𝚙𝚎** `{hl}.𝚙𝚒𝚗𝚐` **𝚊𝚏𝚝𝚎𝚛 1 𝚖𝚒𝚗𝚞𝚝𝚎 𝚝𝚘 𝚌𝚑𝚎𝚌𝚔 𝚒𝚏 𝙸 𝚊𝚖 𝚠𝚘𝚛𝚔𝚒𝚗𝚐 !**")
         app = Heroku.apps()[HEROKU_APP_NAME]
         app.restart()
     else:
-        execl(executable, executable, "bash", "HellBot")
+        execl(executable, executable, "bash", "D3vilBot")
 
 
 @bot.on(d3vil_cmd(pattern="restart$"))
@@ -52,7 +52,7 @@ async def re(d3vil):
 async def down(d3vil):
     if d3vil.fwd_from:
         return
-    await eor(d3vil, "**[ ! ]** Turning off Hêllẞø† Dynos... Manually turn me on later ಠ_ಠ")
+    await eor(d3vil, "**[ ! ]** Turning off 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍 Dynos... Manually turn me on later ಠ_ಠ")
     if HEROKU_APP is not None:
         HEROKU_APP.process_formation()["worker"].scale(0)
     else:
@@ -203,15 +203,15 @@ async def dyno_usage(d3vil):
     await asyncio.sleep(1.5)
 
     return await event.edit(
-        "⚡ **Dyno Usage** ⚡:\n\n"
-        f" ➠ __Dyno usage for__ • **{Config.HEROKU_APP_NAME}** • :\n"
-        f"     ★  `{AppHours}`**h**  `{AppMinutes}`**m**  "
+        "✯ **𝙳𝚈𝙽𝙾 𝚄𝚂𝙰𝙶𝙴** ✯:\n\n"
+        f" ➪ __𝙳𝚈𝙽𝙾 𝚄𝚂𝙰𝙶𝙴 𝙵𝙾𝚁__ • **{Config.HEROKU_APP_NAME}** • :\n"
+        f"     ✩  `{AppHours}`**h**  `{AppMinutes}`**m**  "
         f"**|**  `{AppPercentage}`**%**"
         "\n\n"
-        " ➠ __Dyno hours remaining this month__ :\n"
-        f"     ★  `{hours}`**h**  `{minutes}`**m**  "
+        " ➪ __𝙳𝚈𝙽𝙾 𝙷𝙾𝚄𝚁𝚂 𝚁𝙴𝙼𝙰𝙸𝙽𝙸𝙽𝙶 𝚃𝙷𝙸𝚂 𝙼𝙾𝙽𝚃𝙷__ :\n"
+        f"     ☆  `{hours}`**𝙷**  `{minutes}`**𝙼**  "
         f"**|**  `{percentage}`**%**"
-        f"\n\n**Owner :** {hell_mention}"
+        f"\n\n**𝙼𝙰𝚂𝚃𝙴𝚁 ➪ :** {d3vil_mention}"
     )
 
 
