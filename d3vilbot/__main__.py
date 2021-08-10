@@ -37,9 +37,9 @@ else:
                 "BOT_TOKEN", api_id=Config.APP_ID, api_hash=Config.API_HASH
             ).start(bot_token=Config.BOT_TOKEN)
             LOGS.info("Checking Completed. Proceeding to next step...")
-            LOGS.info("⚡ 𝐒𝐓𝐀𝐑𝐓𝐈𝐍𝐆 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓⚡")
+            LOGS.info("༆𝚂𝚃𝙰𝚁𝚃𝙸𝙽𝙶 𝚄𝚂𝙴𝚁𝙱𝙾𝚃༆")
             bot.loop.run_until_complete(d3vil_bot(Config.BOT_USERNAME))
-            LOGS.info("⚔️ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐒𝐭𝐚𝐫𝐭𝐮𝐩 𝐂𝐨𝐦𝐩𝐥𝐞𝐭𝐞𝐝 ⚔️")
+            LOGS.info("✵𝙳3𝚅𝙸𝙻𝙱𝙾𝚃 𝚂𝚃𝙰𝚁𝚃𝚄𝙿 𝙲𝙾𝙼𝙿𝙻𝙴𝚃𝙴𝙳✵")
         else:
             bot.start()
     except Exception as e:
@@ -72,12 +72,13 @@ for name in files:
 #             load_module(shortname.replace(".py", ""))
 
 # let the party begin...
-LOGS.info("𝐒𝐭𝐚𝐫𝐭𝐢𝐧𝐠 𝐁𝐨𝐭 𝐌𝐨𝐝𝐞 !")
+LOGS.info("➪𝚂𝚃𝙰𝚁𝚃𝙸𝙽𝙶 𝙱𝙾𝚃 𝙼𝙾𝙳𝙴")
 tbot.start()
-LOGS.info("⚡ 𝐘𝐨𝐮𝐫 𝐃3𝐯𝐢𝐥𝐁𝐨𝐭 𝐈𝐬 𝐍𝐨𝐰 𝐖𝐨𝐫𝐤𝐢𝐧𝐠 ⚡")
+LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 LOGS.info(
-    "𝐇𝐞𝐚𝐝 𝐭𝐨 @D3VIL_SUPPORT 𝐟𝐨𝐫 𝐮𝐩𝐝𝐚𝐭𝐞𝐬. 𝐀𝐥𝐬𝐨 𝐣𝐨𝐢𝐧 𝐜𝐡𝐚𝐭 𝐠𝐫𝐨𝐮𝐩 to 𝐠𝐞𝐭 𝐁𝐎𝐓 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝐭𝐨 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓."
+    "𝖧𝖾𝖺𝖽 𝗍𝗈 @D3VIL_SUPPORT 𝖿𝗈𝗋 𝖴𝗉𝖺𝖽𝗍𝖾 𝖭𝖾𝗐. 𝖠𝗅𝗌𝗈 𝗃𝗈𝗂𝗇 𝖼𝗁𝖺𝗇𝗇𝖾𝗅 to 𝗀𝖾𝗍 𝗎𝗉𝖽𝖺𝗍𝖾 𝗋𝖾𝗀𝖺𝗋𝖽𝗂𝗇𝗀 𝗍𝗈 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍."
 )
+LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 
 # that's life...
 async def d3vil_is_on():
@@ -86,7 +87,7 @@ async def d3vil_is_on():
             await bot.send_file(
                 Config.LOGGER_ID,
                 D3VIL_PIC,
-                caption=f"𝐃𝐞𝐩𝐥𝐨𝐲𝐞𝐝 𝐔𝐬𝐞𝐫𝐛𝐨𝐭 𝐒𝐮𝐜𝐜𝐞𝐬𝐬𝐟𝐮𝐥𝐥𝐲\n\n**𝔡3𝔳𝔦𝔩𝔟𝔬𝔱 - {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/D3VIL_SUPPORT) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
+                caption=f"ᴅᴇᴘʟᴏʏᴇᴅ ᴅ3ᴠɪʟʙᴏᴛ sᴜᴄᴄᴇssғᴜʟʟʏ\n\n**𝚅𝙴𝚁𝚂𝙸𝙾𝙽 ➪ {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/D3VIL_SUPPORT) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
             )
     except Exception as e:
         LOGS.info(str(e))
