@@ -28,7 +28,7 @@ async def restart(event):
             return await eor(
                 event, "`HEROKU_API_KEY` is wrong. Re-Check in config vars."
             )
-        await eor(event, f"**✓ʀᴇsᴛᴀʀᴛᴇᴅ ᴅʏɴᴏs** \n **𝚃𝚢𝚙𝚎** `{hl}.𝚙𝚒𝚗𝚐` **𝚊𝚏𝚝𝚎𝚛 1 𝚖𝚒𝚗𝚞𝚝𝚎 𝚝𝚘 𝚌𝚑𝚎𝚌𝚔 𝚒𝚏 𝙸 𝚊𝚖 𝚠𝚘𝚛𝚔𝚒𝚗𝚐 !**")
+        await eor(event, f"**✓ʀᴇsᴛᴀʀᴛᴇᴅ ᴅʏɴᴏs** \n **𝚃𝚢𝚙𝚎** `{hl}ping` **𝚊𝚏𝚝𝚎𝚛 1 𝚖𝚒𝚗𝚞𝚝𝚎 𝚝𝚘 𝚌𝚑𝚎𝚌𝚔 𝚒𝚏 𝙸 𝚊𝚖 𝚠𝚘𝚛𝚔𝚒𝚗𝚐 !**")
         app = Heroku.apps()[HEROKU_APP_NAME]
         app.restart()
     else:
