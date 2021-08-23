@@ -418,6 +418,79 @@ async def _(event):
             else:
                 await event.edit(f"**😉 Done!! Edited sticker emoji**\n\nNew Emoji(s) :- {d3vil}")
 
+
+@bot.on(d3vil_cmd(pattern="pkang ?(.*)"))
+@bot.on(sudo_cmd(pattern="pkang ?(.*)", allow_sudo=True))
+async def _(event):
+    d3vl_ = await eor(event, "`Preparing pack kang...`")
+    rply = await event.get_reply_message()
+    d3vil = event.text[7:]
+    bot_ = Config.BOT_USERNAME
+    bot_un = bot_.replace("@", "")
+    user = await bot.get_me()
+    un = f"@{user.username}" if user.username else user.first_name
+    un_ = user.username if user.username else d3vilkrish
+    if not rply:
+        return await eod(d3vl_, "`Reply to a stciker to kang that pack.`")
+    if d3vil == "":
+        pname = f"{un}'s ᴅ3ᴠɪʟʙᴏᴛ ᴘᴀᴄᴋ"
+    else:
+        pname = d3vil
+    if rply and rply.media and rply.media.document.mime_type == "image/webp":
+        d3vil_id = rply.media.document.attributes[1].stickerset.id
+        d3vil_hash = rply.media.document.attributes[1].stickerset.access_hash
+        got_stcr = await bot(
+            functions.messages.GetStickerSetRequest(
+                stickerset=types.InputStickerSetID(id=d3vil_id, access_hash=d3vil_hash)
+            )
+        )
+        stcrs = []
+        for sti in got_stcr.documents:
+            inp = get_input_document(sti)
+            stcrs.append(
+                types.InputStickerSetItem(
+                    document=inp,
+                    emoji=(sti.attributes[1]).alt,
+                )
+            )
+        try:
+            gvarstat("PKANG")
+        except BaseException:
+            addgvar("PKANG", "0")
+        x = gvarstat("PKANG")
+        try:
+            pack = int(x) + 1
+        except BaseException:
+            pack = 1
+        await d3vl_.edit("`Starting kang process...`")
+        try:
+            create_st = await tbot(
+                functions.stickers.CreateStickerSetRequest(
+                    user_id=d3vilkrish,
+                    title=pname,
+                    short_name=f"d3vil_{un_}_pack{pack}_by_{bot_un}",
+                    stickers=stcrs,
+                )
+            )
+            addgvar("PKANG", str(pack))
+        except PackShortNameOccupiedError:
+            await asyncio.sleep(1)
+            await d3vl_.edit("`Pack name already occupied... making new pack`")
+            pack += 1
+            create_st = await tbot(
+                functions.stickers.CreateStickerSetRequest(
+                    user_id=d3vilkrish,
+                    title=pname,
+                    short_name=f"d3vil_{un_}_pack{pack}_by_{bot_un}",
+                    stickers=stcrs,
+                )
+            )
+            addgvar("PKANG", str(pack))
+        await d3vl_.edit(f"✔︎** This Sticker Pack iz [kanged](t.me/addstickers/{create_st.set.short_name}) successfully **")
+    else:
+        await d3vl_.edit("Unsupported File. Please Reply to a sticker only.")
+
+
 @bot.on(d3vil_cmd(pattern="text (.*)"))
 @bot.on(sudo_cmd(pattern="text (.*)", allow_sudo=True))
 async def sticklet(event):
