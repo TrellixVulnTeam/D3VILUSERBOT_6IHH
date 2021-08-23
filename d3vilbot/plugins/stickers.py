@@ -585,4 +585,6 @@ CmdHelp("stickers").add_command(
   "text", "<word>", "Sends the written text in sticker format."
 ).add_command(
   "waifu", "<word>", "Waifu writes the word for you."
+).add_command(
+  "pkang", "<reply to a sticker> <pack name>", "Kangs all the stickers in replied pack to your pack. Also supports custom pack name. Just give name after command.", "pkang My kang pack"
 ).add()
