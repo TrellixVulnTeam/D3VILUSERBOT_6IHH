@@ -34,34 +34,21 @@ async def _(event):
     if event.fwd_from:
         return
     tgbotusername = Config.BOT_USERNAME
-    chat = "@Botfather"
+    input_str = event.pattern_match.group(1)
+    try:
+        if not input_str == "":
+            if input_str in CMD_HELP:
+                await eor(event, str(CMD_HELP[args]))
+    except:
+        pass
     if tgbotusername is not None:
-        try:
-            results = await event.client.inline_query(tgbotusername, "d3vilbot_help")
-            await results[0].click(
-                event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
-            )
-            await event.delete()
-        except noinline:
-            d3vil = await eor(event, "**Inline Mode is disabled.** \n__Turning it on, please wait for a minute...__")
-            async with bot.conversation(chat) as conv:
-                try:
-                    first = await conv.send_message("/setinline")
-                    second = await conv.get_response()
-                    third = await conv.send_message(tgbotusername)
-                    fourth = await conv.get_response()
-                    fifth = await conv.send_message(perf)
-                    sixth = await conv.get_response()
-                    await bot.send_read_acknowledge(conv.chat_id)
-                except YouBlockedUserError:
-                    return await d3vil.edit("Unblock @Botfather first.")
-                await d3vil.edit(f"**Turned On Inline Mode Successfully.** \n\nDo `{hl}help` again to get the help menu.")
-            await bot.delete_messages(
-                conv.chat_id, [first.id, second.id, third.id, fourth.id, fifth.id, sixth.id]
-            )
+        results = await event.client.inline_query(tgbotusername, "d3vilbot_d3vlp")
+        await results[0].click(
+            event.chat_id, reply_to=event.reply_to_msg_id, hide_via=True
+        )
+        await event.delete()
     else:
-        await eor(event, "**⚠️ ERROR !!** \nPlease Re-Check BOT_TOKEN & BOT_USERNAME on Heroku.")
-
+        await eor(event, "**⚠️ 𝖤𝖱𝖱𝖮𝖱 !!** \nPlease Re-Check BOT_TOKEN & BOT_USERNAME on Heroku.")
 
 
 @bot.on(d3vil_cmd(pattern="plinfo(?: |$)(.*)", outgoing=True))
