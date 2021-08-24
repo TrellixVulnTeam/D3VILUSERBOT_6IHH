@@ -59,10 +59,3 @@ async def _(event):
             await event.client.send_file(event.chat_id, response.message)
 
             
-CmdHelp("adult_zone2").add_command(
-  "xxshort", None, "For Short Se* Videos (Warning 18+ Only) NSFW"
-).add_command(
-  "xxlong", None, "For Long Se* Video"
-).add_warning(
-  "For 18+ only kids don't use"
-).add()
