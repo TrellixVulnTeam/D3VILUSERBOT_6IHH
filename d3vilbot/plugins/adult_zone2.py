@@ -1,4 +1,5 @@
 #Kang With Credits Developed By @P_4_PEEYUSH
+# modified by @D3_krish & SHINCAN
 #Two Word For Kangers without Credit 
 #you are madherchod 
 
