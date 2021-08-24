@@ -24,8 +24,8 @@ async def _(event):
     await event.get_reply_message()
     img = await convert_to_image(event, bot)
     imagePath = img
-    maskPath = "./d3villbot/resources/pics/mask (1).png"
-    cascPath = "./d3vilbot/resources/xmls/haarcascade_frontalface_default.xml"
+    maskPath = "./resources/Pics/mask.png"
+    cascPath = "./resources/xmls/haarcascade_frontalface_default.xml"
     faceCascade = cv2.CascadeClassifier(cascPath)
     image = cv2.imread(imagePath)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
