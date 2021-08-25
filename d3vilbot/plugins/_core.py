@@ -110,12 +110,12 @@ async def install(event):
                             b = 1
                         await d3vil.edit(a)
                     return await d3vil.edit(f"✅ **Installed module** :- `{shortname}` \n✨ BY :- {d3vil_mention}\n\n{string}\n\n        ⚡ **[ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ]({chnl_link})** ⚡", link_preview=False)
-                return await hell.edit(f"Installed module `{os.path.basename(downloaded_file_name)}`")
+                return await d3vil.edit(f"Installed module `{os.path.basename(downloaded_file_name)}`")
             else:
                 os.remove(downloaded_file_name)
-                return await eod(hell, f"**Failed to Install** \n`Error`\nModule already installed or unknown format")
+                return await eod(d3vil, f"**Failed to Install** \n`Error`\nModule already installed or unknown format")
         except Exception as e: 
-            await eod(hell, f"**Failed to Install** \n`Error`\n{str(e)}")
+            await eod(d3vil, f"**Failed to Install** \n`Error`\n{str(e)}")
             return os.remove(downloaded_file_name)
 
 @bot.on(d3vil_cmd(pattern=r"uninstall (?P<shortname>\w+)", outgoing=True))
