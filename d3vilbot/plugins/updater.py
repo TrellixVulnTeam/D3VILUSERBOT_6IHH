@@ -102,6 +102,7 @@ async def update(event, repo, ups_rem, ac_br):
 @bot.on(d3vil_cmd(outgoing=True, pattern=r"update(| now)$"))
 @bot.on(sudo_cmd(pattern="update(| now)$", allow_sudo=True))
 async def upstream(event):
+    thumb = upadte_logo
     conf = event.pattern_match.group(1).strip()
     event = await edit_or_reply(event, "`Checking for new updates...`")
     off_repo = UPSTREAM_REPO_URL
@@ -157,7 +158,7 @@ async def upstream(event):
         )
         return repo.__del__()
     if conf == "" and not force_update:
-        await print_changelogs(event, ac_br, changelog)
+        await print_changelogs(event, ac_br, changelog , thumb)
         await event.delete()
         return await event.respond(f"🌚 Do `{hl}update build` to update your ** 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍** !!")
 
