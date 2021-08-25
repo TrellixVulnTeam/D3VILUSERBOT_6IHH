@@ -150,7 +150,7 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            f"{d3vil_logo}"
+            f"{update_logo}"
             "\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐔𝐏-𝐓𝐎-𝐃𝐀𝐓𝐄༆**"
             f"\n\n**ᴠᴇʀsɪᴏɴ ➪**  {d3vil_ver}"
             f"\n**ᴍᴀsᴛᴇʀ ➪**  {d3vil_mention}"
