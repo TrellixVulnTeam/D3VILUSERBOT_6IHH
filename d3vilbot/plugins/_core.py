@@ -51,7 +51,7 @@ async def send(event):
     message_id = event.message.id
     thumb = d3vil_logo
     input_str = event.pattern_match.group(1)
-    omk = f"**• 𝔓𝔩𝔲𝔤𝔦𝔫 𝔫𝔞𝔪𝔢 ☞** `{input_str}`\n**• 𝔘𝔭𝔩𝔬𝔞𝔡𝔢𝔡 𝔟𝔶 ☞** {d3vil_mention}\n\n⚡ **[✪ℓεgεη∂αяү αғ тεαм ∂3vιℓ✪]({chnl_link})** ⚡"
+    omk = f"**• ᴘʟᴜɢɪɴ ɴᴀᴍᴇ ☞** `{input_str}`\n**• ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ ☞** {d3vil_mention}\n\n⚡ **[ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ]({chnl_link})** ⚡"
     the_plugin_file = "./d3vilbot/plugins/{}.py".format(input_str)
     if os.path.exists(the_plugin_file):
         lauda = await event.client.send_file(
@@ -68,22 +68,31 @@ async def send(event):
         await eod(event, "𝖥𝗂𝗅𝖾 𝗇𝗈𝗍 𝖿𝗈𝗎𝗇𝖽..... 𝖪𝖾𝗄")
 
 
-@bot.on(d3vil_cmd(pattern="install$", outgoing=True))
-@bot.on(sudo_cmd(pattern="install$", allow_sudo=True))
+@bot.on(d3vil_cmd(pattern="install ?(.*)"))
+@bot.on(sudo_cmd(pattern="install ?(.*)", allow_sudo=True))
 async def install(event):
     if event.fwd_from:
         return
-    a = "__Installing.__"
     b = 1
-    await event.edit(a)
-    if event.fwd_from:
-        return
+    owo = event.text[9:]
+    d3vil = await eor(event, "__Installing.__")
     if event.reply_to_msg_id:
         try:
             downloaded_file_name = await event.client.download_media(  # pylint:disable=E0602
                 await event.get_reply_message(),
                 "./d3vilbot/plugins/"  # pylint:disable=E0602
             )
+            if owo != "-f":
+                op = open(downloaded_file_name, "r")
+                rd = op.read()
+                op.close()
+                try:
+                    for harm in HARMFUL:
+                        if harm in rd:
+                            os.remove(downloaded_file_name)
+                            return await d3vil.edit(f"**⚠️ WARNING !!** \n\n__Replied plugin file contains some harmful & hacking codes. Please consider checking the file. If you still want to install then use__ `{hl}install -f`. \n\n**Codes Detected :** \n• {harm}")
+                except BaseException:
+                    pass
             if "(" not in downloaded_file_name:
                 path1 = Path(downloaded_file_name)
                 shortname = path1.stem
@@ -99,14 +108,14 @@ async def install(event):
                         else:
                             a = "__Installing...__"
                             b = 1
-                        await eor(event, a)
-                    return await eor(event, f"✔️**ℑ𝔫𝔰𝔱𝔞𝔩𝔩𝔢𝔡 𝔪𝔬𝔡𝔲𝔩𝔢** :- `{shortname}` \n✨ 𝔅𝔜 :- {d3vil_mention}\n\n{string}\n\n        ⚡ **[ℓεgεη∂αяү αғ тεαм ∂3vιℓ]({chnl_link})** ⚡", link_preview=False)
-                return await eor(event, f"Installed module `{os.path.basename(downloaded_file_name)}`")
+                        await d3vil.edit(a)
+                    return await d3vil.edit(f"✔︎ **𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍 𝚖𝚘𝚍𝚞𝚕𝚎** :- `{shortname}` \n✨ 𝙱𝚈 :- {d3vil_mention}\n\n{string}\n\n        ⚡ **[ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ]({chnl_link})** ⚡", link_preview=False)
+                return await d3vil.edit(f"Installed module `{os.path.basename(downloaded_file_name)}`")
             else:
                 os.remove(downloaded_file_name)
-                return await eod(event, f"**Failed to Install** \n`Error`\nModule already installed or unknown format")
+                return await eod(d3vil, f"**Failed to Install** \n`Error`\nModule already installed or unknown format")
         except Exception as e: 
-            await eod(event, f"**Failed to Install** \n`Error`\n{str(e)}")
+            await eod(d3vil, f"**Failed to Install** \n`Error`\n{str(e)}")
             return os.remove(downloaded_file_name)
 
 @bot.on(d3vil_cmd(pattern=r"uninstall (?P<shortname>\w+)", outgoing=True))

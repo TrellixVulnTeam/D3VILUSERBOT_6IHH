@@ -10,7 +10,7 @@ class Development(Config):
 
   # the name to display in your alive message.
   # If not filled anything then default value is I'm Hêll.
-  YOUR_NAME = "I'm 🔥🔥❌•𝐃3𝐕𝐈𝐋•❌🔥🔥"
+  YOUR_NAME = "🔥🔥❌•𝐃3𝐕𝐈𝐋•❌🔥🔥"
 
   # create any PostgreSQL database.
   # I recommend to use elephantsql and paste that link here

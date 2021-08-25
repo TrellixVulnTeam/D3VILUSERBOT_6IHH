@@ -186,6 +186,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 buttons=[
                     [Button.url("📑 𝖱𝖾𝗉𝗈 📑", "https://github.com/TEAM-D3VIL/D3vilBot")],
                     [Button.url("🚀 𝖣𝖾𝗉𝗅𝗈𝗒 🚀", "https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot&template=https%3A%2F%2Fgithub.com%2FTEAM-D3VIL%2FD3vilBot")],
+                    [Button.url("✵ 𝖮𝗐𝗇𝖾𝗋 ✵", "https://t.me/D3_krish")],
                 ],
             )
 

@@ -30,7 +30,7 @@ async def repo(event):
 
 @bot.on(d3vil_cmd(pattern="help ?(.*)", outgoing=True))
 @bot.on(sudo_cmd(pattern="help ?(.*)", allow_sudo=True))
-async def yardim(event):
+async def _(event):
     if event.fwd_from:
         return
     tgbotusername = Config.BOT_USERNAME

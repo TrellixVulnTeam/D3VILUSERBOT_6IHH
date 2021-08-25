@@ -13,7 +13,7 @@ from . import *
 @bot.on(d3vil_cmd("kickme", outgoing=True))
 async def leave(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("😪 **KThnxBye** See u all in d3vil!!")
+        await e.edit("😪 **I am leaving this group** See u all in `@D3VIL_BOT_SUPPORT`!!")
         time.sleep(1)
         if "-" in str(e.chat_id):
             await bot(LeaveChannelRequest(e.chat_id))
@@ -25,7 +25,7 @@ async def leave(e):
 async def _(event):
     if event.fwd_from:
         return
-    result = await borg(functions.d3vlp.GetNearestDcRequest())
+    result = await borg(functions.help.GetNearestDcRequest())
     await eor(event, result.stringify())
 
 
@@ -34,7 +34,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    result = await borg(functions.d3vlp.GetConfigRequest())
+    result = await borg(functions.help.GetConfigRequest())
     result = result.stringify()
     logger.info(result)
     await eor("Config Saved In You Heroku Logs.")
