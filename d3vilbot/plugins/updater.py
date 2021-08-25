@@ -151,14 +151,15 @@ async def upstream(event):
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
     if changelog == "" and not force_update:
         await event.edit(
-            f"\n**[༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐔𝐏-𝐓𝐎-𝐃𝐀𝐓𝐄༆]({update_logo})**"
+            f"{update_logo}\n"
+            f"\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐔𝐏-𝐓𝐎-𝐃𝐀𝐓𝐄༆**"
             f"\n\n**ᴠᴇʀsɪᴏɴ ➪**  {d3vil_ver}"
             f"\n**ᴍᴀsᴛᴇʀ ➪**  {d3vil_mention}"
             f"\n**ᴍᴀɪɴ ʙʀᴀɴᴄʜ ➪**  {UPSTREAM_REPO_BRANCH}\n"
         )
         return repo.__del__()
     if conf == "" and not force_update:
-        await print_changelogs(event, ac_br, changelog , thumb)
+        await print_changelogs(event, ac_br, changelog)
         await event.delete()
         return await event.respond(f"🌚 Do `{hl}update build` to update your ** 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍** !!")
 
