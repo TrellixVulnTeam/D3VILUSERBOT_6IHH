@@ -19,7 +19,7 @@ hl = Config.HANDLER
 shl = Config.SUDO_HANDLER
 d3vil_ver = __d3vil__
 tel_ver = version.__version__
-update_logo = "https://telegra.ph/file/c00cbf9a5331faad7913d.mp4"
+update_logo = "https://telegra.ph/file/252f9c8a46b29ee1bca1e.jpg"
 
 async def get_user_id(ids):
     if str(ids).isdigit():
