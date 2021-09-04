@@ -7,7 +7,7 @@ bothandler = Config.BOT_HANDLER
 
 def d3vilbot_cmd(add_cmd, is_args=False):
     def cmd(func):
-        hellbot = bot.tgbot
+        d3vilbot = bot.tgbot
         if is_args:
             pattern = bothandler + add_cmd + "(?: |$)(.*)"
         elif is_args == "simp":
