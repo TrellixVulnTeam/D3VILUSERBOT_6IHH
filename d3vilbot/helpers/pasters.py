@@ -47,7 +47,7 @@ async def telegraph_paste(page_title, temxt):
     post_page = cl1ent.post(
         title=page_title,
         author=auth,
-        author_url="https://t.me/D3VIL_SUPPORT",
+        author_url="https://t.me/@D3VIL_BOT_OFFICIAL",
         text=temxt,
     )
     return post_page["url"]
