@@ -18,9 +18,9 @@ jobs:
 
         with:
 
-          find: "D3VIL_SUPPORT"
+          find: "@D3VIL_SUPPORT"
 
-          replace: "@D3VIL_BOT_OFFICIAL"
+          replace: "D3VIL_BOT_OFFICIAL"
 
       - name: Create Pull Request
 
