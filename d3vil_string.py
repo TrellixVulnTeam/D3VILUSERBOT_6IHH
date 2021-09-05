@@ -18,4 +18,4 @@ if okvai == "y" or "yes":
         client.send_message("me", "Above is your #D3VILBOT_SESSION \nPaste this string in Heroku Var.\n\n[Team D3VIL](t.me/the_D3VIL_SUPPORT)")
 
 else:
-    print("Your D3vil string session genreted successfully. Join for query @D3VIL_SUPPORT")
+    print("Your D3vil string session genreted successfully. Join for query @D3VIL_BOT_OFFICIAL")
