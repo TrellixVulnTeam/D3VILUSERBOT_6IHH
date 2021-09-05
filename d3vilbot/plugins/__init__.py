@@ -49,7 +49,7 @@ if "@" in my_channel:
 if "@" in my_group:
     my_group = my_group.replace("@", "")
 
-chnl_link = "https://t.me/@D3VIL_BOT_OFFICIAL"
+chnl_link = "https://t.me/D3VIL_BOT_OFFICIAL"
 d3vil_channel = f"[тнε ᗪ3vιℓ υρ∂αтεs]({chnl_link})"
 grp_link = "https://t.me/D3VIL_BOT_SUPPORT"
 d3vil_grp = f"[тнε ᗪ3vιℓ cнαт]({grp_link})"
