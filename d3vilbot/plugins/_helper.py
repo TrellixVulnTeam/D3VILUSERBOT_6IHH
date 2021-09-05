@@ -10,7 +10,7 @@ msg = f"""
 **⚡ ℓεgεη∂αяү αғ тεαм ∂3vιℓ ⚡**
 
   •        [⚜️ 𝐑𝐞𝐩𝐨 ⚜️](https://github.com/D3KRISH/D3vilBot)
-  •        [⚡ 𝐒𝐮𝐩𝐩𝐨𝐫𝐭 ⚡](https://t.me/@D3VIL_BOT_OFFICIAL)
+  •        [⚡ 𝐒𝐮𝐩𝐩𝐨𝐫𝐭 ⚡](https://t.me/D3VIL_BOT_OFFICIAL)
 
   •  ©️ {d3vil_channel} ™
 """

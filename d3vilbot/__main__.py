@@ -76,7 +76,7 @@ LOGS.info("➪𝚂𝚃𝙰𝚁𝚃𝙸𝙽𝙶 𝙱𝙾𝚃 𝙼𝙾𝙳𝙴")
 tbot.start()
 LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 LOGS.info(
-    "𝖧𝖾𝖺𝖽 𝗍𝗈 @D3VIL_BOT_OFFICIAL 𝖿𝗈𝗋 𝖴𝗉𝖺𝖽𝗍𝖾 𝖭𝖾𝗐. 𝖠𝗅𝗌𝗈 𝗃𝗈𝗂𝗇 𝖼𝗁𝖺𝗇𝗇𝖾𝗅 to 𝗀𝖾𝗍 𝗎𝗉𝖽𝖺𝗍𝖾 𝗋𝖾𝗀𝖺𝗋𝖽𝗂𝗇𝗀 𝗍𝗈 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍."
+    "𝖧𝖾𝖺𝖽 𝗍𝗈 D3VIL_BOT_OFFICIAL 𝖿𝗈𝗋 𝖴𝗉𝖺𝖽𝗍𝖾 𝖭𝖾𝗐. 𝖠𝗅𝗌𝗈 𝗃𝗈𝗂𝗇 𝖼𝗁𝖺𝗇𝗇𝖾𝗅 to 𝗀𝖾𝗍 𝗎𝗉𝖽𝖺𝗍𝖾 𝗋𝖾𝗀𝖺𝗋𝖽𝗂𝗇𝗀 𝗍𝗈 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍."
 )
 LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 
@@ -87,7 +87,7 @@ async def d3vil_is_on():
             await bot.send_file(
                 Config.LOGGER_ID,
                 D3VIL_PIC,
-                caption=f"ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ\n\nᴅᴇᴘʟᴏʏᴇᴅ ᴅ3ᴠɪʟʙᴏᴛ sᴜᴄᴄᴇssғᴜʟʟʏ\n\n**𝚅𝙴𝚁𝚂𝙸𝙾𝙽 ➪ {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/@D3VIL_BOT_OFFICIAL) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
+                caption=f"ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ\n\nᴅᴇᴘʟᴏʏᴇᴅ ᴅ3ᴠɪʟʙᴏᴛ sᴜᴄᴄᴇssғᴜʟʟʏ\n\n**𝚅𝙴𝚁𝚂𝙸𝙾𝙽 ➪ {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/D3VIL_BOT_OFFICIAL) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
             )
     except Exception as e:
         LOGS.info(str(e))
