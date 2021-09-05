@@ -201,7 +201,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
 
         else:
             result = builder.article(
-                "@D3VIL_BOT_OFFICIAL",
+                "D3VIL_BOT_OFFICIAL",
                 text="""**𝖧𝖾𝗒! 𝖳𝗁𝗂𝗌 𝗂𝗌 [✘•𝙳3𝚅𝙸𝙻𝙱𝙾𝚃•✘](https://t.me/D3VIL_OP_BOLTE)  \𝗇𝖸𝗈𝗎 𝖼𝖺𝗇 𝗄𝗇𝗈𝗐 𝗆𝗈𝗋𝖾 𝖺𝖻𝗈𝗎𝗍 𝗆𝖾 𝖿𝗋𝗈𝗆 𝗍𝗁𝖾 𝗅𝗂𝗇𝗄𝗌 𝗀𝗂𝗏𝖾𝗇 𝖻𝖾𝗅𝗈𝗐 👇**""",
                 buttons=[
                     [
