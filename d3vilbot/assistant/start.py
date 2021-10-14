@@ -5,8 +5,6 @@ import re
 from telethon import Button, custom, events
 from telethon.tl.functions.users import GetFullUserRequest
 
-assistantpic = Config.ALIVE_PIC
-
 from d3vilbot import bot
 from d3vilbot.sql.blacklist_assistant import (
     add_nibba_in_db,
@@ -51,7 +49,7 @@ async def start(event):
             add_usersid_in_db(event.sender_id)
         await tgbot.send_message(
             event.chat_id,
-            message=starttext, assistantpic,
+            message=starttext,
             link_preview=False,
             buttons=[
                 [custom.Button.inline("『𝙳𝙴𝙿𝙻𝙾𝚈』", data="deploy")],
