@@ -20,11 +20,11 @@ PING_PIC = Config.ALIVE_PIC
 
 @bot.on(admin_cmd(pattern="ping$", outgoing=True))
 @bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
-async def _(d3vil):
+async def _(event):
     if event.fwd_from:
         return
     start = datetime.datetime.now()
-    event = await eor(d3vil, "__**❝❄ᑭ♨ɳց…!❄❞__**")
+    event = await eor(event, "__**❝❄ᑭ♨ɳց…!❄❞__**")
     end = datetime.datetime.now()
     ms = (end - start).microseconds / 1000
     if PING_PIC:
