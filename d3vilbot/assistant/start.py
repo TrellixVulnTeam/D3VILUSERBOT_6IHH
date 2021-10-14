@@ -54,8 +54,8 @@ async def start(event):
             buttons=[
                 [custom.Button.inline("『𝙳𝙴𝙿𝙻𝙾𝚈』", data="deploy")],
                 [Button.url("𝚂𝚄𝙿𝙿𝙾𝚁𝚃 ❓", "https://t.me/D3VIL_BOT_SUPPORT")],
-             ],
-        )
+           ],
+       )
 
 
 # Data's
