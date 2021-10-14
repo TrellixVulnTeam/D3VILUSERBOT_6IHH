@@ -97,7 +97,7 @@ LOGS.info(
 )
 LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 
-# that's life...
+# that's life... Devil Boy is Op
 async def d3vil_is_on():
     try:
         if Config.LOGGER_ID != 0:
