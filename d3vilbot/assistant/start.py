@@ -4,6 +4,7 @@ import re
 
 from telethon import Button, custom, events
 from telethon.tl.functions.users import GetFullUserRequest
+ASSISTANT_PIC = Config.ALIVE_PIC
 
 from d3vilbot import bot
 from d3vilbot.sql.blacklist_assistant import (
@@ -29,6 +30,7 @@ async def start(event):
     vent = event.chat_id
     starttext = f"Hello, {firstname} \n! Nice To Meet You, Well I Am {bot_id}, An Powerfull Assistant Bot. \n\nMy [➤ Master](tg://user?id={bot.uid}) \nYou Can Talk/Contact My Master Using This Bot. \n\nIf You Want Your Own Assistant You Can Deploy From Button Below. \n\nPowered By [『ᗪ3ʋɨʟɮօȶ』](https://t.me/D3VIL_BOT_OFFICIAL)"
     if event.sender_id == bot.uid:
+    if ASSISTANT_PIC:
         await tgbot.send_message(
             vent,
             message=f"Hi Sir/Miss, It's Me {bot_id}, Your Assistant ! \nHow Can I help U?",
@@ -49,7 +51,7 @@ async def start(event):
             add_usersid_in_db(event.sender_id)
         await tgbot.send_message(
             event.chat_id,
-            message=starttext,
+            message=starttext, ASSISTANT_PIC,
             link_preview=False,
             buttons=[
                 [custom.Button.inline("『𝙳𝙴𝙿𝙻𝙾𝚈』", data="deploy")],
