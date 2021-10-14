@@ -9,10 +9,13 @@ from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRe
 
 from d3vilbot import LOGS, bot, tbot
 from d3vilbot.config import Config
-from d3vilbot.utils import load_module
+from d3vilbot.utils import load_module, start_assistant
 from d3vilbot.version import __d3vil__ as d3vilver
 hl = Config.HANDLER
 D3VIL_PIC = Config.ALIVE_PIC or "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
+
+LOAD_USERBOT = os.environ.get("LOAD_USERBOT", True)
+LOAD_ASSISTANT = os.environ.get("LOAD_ASSISTANT", True)    
 
 # let's get the bot ready
 async def d3vil_bot(bot_token):
@@ -55,6 +58,20 @@ for name in files:
         shortname = path1.stem
         load_module(shortname.replace(".py", ""))
 
+assistant = os.environ.get("ASSISTANT", None)
+async def assistants():
+    if assistant == "ON":
+        path = "d3vilbot/assistant/*.py"
+        files = glob.glob(path)
+        for name in files:
+            with open(name) as f:
+                path1 = Path(f.name)
+                shortname = path1.stem
+                start_assistant(shortname.replace(".py", ""))
+
+
+bot.loop.run_until_complete(assistants())
+
 # Extra Modules...
 # extra_repo = Config.EXTRA_REPO or "https://github.com/TEAM-D3VIL/D3VILADDONS"
 # if Config.EXTRA == "True":
@@ -76,7 +93,7 @@ LOGS.info("➪𝚂𝚃𝙰𝚁𝚃𝙸𝙽𝙶 𝙱𝙾𝚃 𝙼𝙾𝙳𝙴")
 tbot.start()
 LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 LOGS.info(
-    "𝖧𝖾𝖺𝖽 𝗍𝗈 D3VIL_BOT_OFFICIAL 𝖿𝗈𝗋 𝖴𝗉𝖺𝖽𝗍𝖾 𝖭𝖾𝗐. 𝖠𝗅𝗌𝗈 𝗃𝗈𝗂𝗇 𝖼𝗁𝖺𝗇𝗇𝖾𝗅 to 𝗀𝖾𝗍 𝗎𝗉𝖽𝖺𝗍𝖾 𝗋𝖾𝗀𝖺𝗋𝖽𝗂𝗇𝗀 𝗍𝗈 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍."
+    "𝖧𝖾𝖺𝖽 𝗍𝗈 @D3VIL_SUPPORT 𝖿𝗈𝗋 𝖴𝗉𝖺𝖽𝗍𝖾 𝖭𝖾𝗐. 𝖠𝗅𝗌𝗈 𝗃𝗈𝗂𝗇 𝖼𝗁𝖺𝗇𝗇𝖾𝗅 to 𝗀𝖾𝗍 𝗎𝗉𝖽𝖺𝗍𝖾 𝗋𝖾𝗀𝖺𝗋𝖽𝗂𝗇𝗀 𝗍𝗈 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍."
 )
 LOGS.info("➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖")
 
@@ -87,14 +104,14 @@ async def d3vil_is_on():
             await bot.send_file(
                 Config.LOGGER_ID,
                 D3VIL_PIC,
-                caption=f"ʟɛɢɛռɖaʀʏ ᴀғ ᴛᴇᴀᴍ ᴅ3ᴠɪʟ\n\nᴅᴇᴘʟᴏʏᴇᴅ ᴅ3ᴠɪʟʙᴏᴛ sᴜᴄᴄᴇssғᴜʟʟʏ\n\n**𝚅𝙴𝚁𝚂𝙸𝙾𝙽 ➪ {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/D3VIL_BOT_OFFICIAL) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
+                caption=f"ʟɛɢɛռɖaʀʏ ᴀғ ᴅ3ᴠɪʟʙᴏᴛ\n\n**𝚅𝙴𝚁𝚂𝙸𝙾𝙽 ➪ {d3vilver}**\n\n𝐓𝐲𝐩𝐞 `{hl}ping` or `{hl}alive` 𝐭𝐨 𝐜𝐡𝐞𝐜𝐤! \n\nJoin [𝔡3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱](t.me/D3VIL_SUPPORT) for Updates & [𝔇3𝔳𝔦𝔩𝔲𝔰𝔢𝔯𝔅𝔬𝔱 𝔠𝔥𝔞𝔱](t.me/D3VIL_BOT_SUPPORT) 𝐟𝐨𝐫 𝐚𝐧𝐲 𝐪𝐮𝐞𝐫𝐲 𝐫𝐞𝐠𝐚𝐫𝐝𝐢𝐧𝐠 𝔡3𝔳𝔦𝔩𝔅𝔬𝔱",
             )
     except Exception as e:
         LOGS.info(str(e))
 
 
     try:
-        await bot(JoinChannelRequest("D3VIL_BOT_OFFICIAL"))
+        await bot(JoinChannelRequest("@D3VIL_SUPORT"))
     except BaseException:
         pass
 
