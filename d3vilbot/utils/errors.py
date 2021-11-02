@@ -36,7 +36,7 @@ def errors_handler(func):
 
             text = "**𝓓3𝓿𝓲𝓵𝓫𝓸𝓽 𝓒𝓡𝓐𝓢𝓗 𝓡𝓔𝓟𝓞𝓡𝓣**\n\n"
 
-            link = "[here](https://t.me/D3_krish)"
+            link = "[here](https://t.me/D3VIL_BOT_SUPPORT)"
             text += "If you wanna you can report it"
             text += f"- just forward this message {link}.\n"
             text += "Nothing is logged except the fact of error and date\n"
@@ -74,66 +74,3 @@ def errors_handler(func):
             ftext += result
 
     return wrapper
-
-#Assistant
-def start_assistant(shortname):
-    if shortname.startswith("__"):
-        pass
-    elif shortname.endswith("_"):
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        print("Starting Your Assistant Bot.")
-        print("Assistant Sucessfully imported " + shortname)
-    else:
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        mod.tgbot = bot.tgbot
-        spec.loader.exec_module(mod)
-        sys.modules["d3vilbot.assistant" + shortname] = mod
-        print("Assistant Has imported " + shortname) 
-
-#Assistant
-def start_assistant(shortname):
-    if shortname.startswith("__"):
-        pass
-    elif shortname.endswith("_"):
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        print("Starting Your Assistant Bot.")
-        print("Assistant Sucessfully imported " + shortname)
-    else:
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        mod.tgbot = bot.tgbot
-        spec.loader.exec_module(mod)
-        sys.modules["d3vilbot.assistant" + shortname] = mod
-        print("[🤴Assistant🤴 2.1] ~ HAS ~ ⚡Installed⚡ ~" + shortname)  
-
-
-# d3vilbot
