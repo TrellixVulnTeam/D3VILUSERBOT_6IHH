@@ -5,6 +5,7 @@ import re
 from telethon import Button, custom, events
 from telethon.tl.functions.users import GetFullUserRequest
 
+from d3vilbot.config import Config
 from d3vilbot import bot
 from d3vilbot.sql.blacklist_assistant import (
     add_nibba_in_db,
@@ -27,10 +28,12 @@ async def start(event):
     replied_user = await event.client(GetFullUserRequest(event.sender_id))
     firstname = replied_user.user.first_name
     vent = event.chat_id
+    d3vil_pic = Config.ALIVE_PIC or "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
     starttext = f"Hello, {firstname} \n! Nice To Meet You, Well I Am {bot_id}, An Powerfull Assistant Bot. \n\nMy [➤ Master](tg://user?id={bot.uid}) \nYou Can Talk/Contact My Master Using This Bot. \n\nIf You Want Your Own Assistant You Can Deploy From Button Below. \n\nPowered By [『ᗪ3ʋɨʟɮօȶ』](https://t.me/D3VIL_BOT_OFFICIAL)"
     if event.sender_id == bot.uid:
         await tgbot.send_message(
             vent,
+            file=d3vil_pic,
             message=f"Hi Sir/Miss, It's Me {bot_id}, Your Assistant ! \nHow Can I help U?",
             buttons=[
                 [custom.Button.inline("Show Users 🔥", data="users")],
@@ -49,13 +52,14 @@ async def start(event):
             add_usersid_in_db(event.sender_id)
         await tgbot.send_message(
             event.chat_id,
+            file=d3vil_pic,
             message=starttext,
             link_preview=False,
             buttons=[
                 [custom.Button.inline("『𝙳𝙴𝙿𝙻𝙾𝚈』", data="deploy")],
                 [Button.url("𝚂𝚄𝙿𝙿𝙾𝚁𝚃 ❓", "https://t.me/D3VIL_BOT_SUPPORT")],
-           ],
-       )
+             ],
+        )
 
 
 # Data's
