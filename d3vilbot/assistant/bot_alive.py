@@ -16,7 +16,7 @@ pm_caption += (
 )
 pm_caption += f"╔══════════════════╗\n"
 pm_caption += f"╠•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `1.23.0` \n"
-pm_caption += f"╠•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `2.0.5`\n"
+pm_caption += f"╠•➳➠ `𝖵𝖾𝗋𝗌𝗂𝗈𝗇:` `2.0.6`\n"
 pm_caption += f"╠•➳➠ `𝖢𝗁𝖺𝗇𝗇𝖾𝗅:` [𝙹𝗈𝗂𝗇](https://t.me/D3VIL_SUPPORT)\n"
 pm_caption += f"╠•➳➠ `𝖢𝗋𝖾𝖺𝗍𝗈𝗋:` [𝙳3𝙺𝚁𝙸𝚂𝙷](https://t.me/D3_krish)\n"
 pm_caption += f"╠•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄𝙻𝚂𝙷𝙰𝙽](https://t.me/D3VILGULSHAN)\n"
