@@ -109,7 +109,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     apn.append(y)
             result = await builder.article(
                 f"Hey! Only use .help please",
-                text=f"**『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍**Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n**🎒Pαցҽ⭆** : 1/{veriler[0]}",
+                text=f"**『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆ `{len(CMD_HELP)}` \n📍**Tοταℓ Cοммαи∂ѕ** ⭆ `{len(apn)}`\n**🎒Pαցҽ⭆** 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -260,14 +260,14 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"𝖠𝗁𝗁!! 𝖸𝗈𝗎 𝗁𝖾𝗋𝖾 𝗍𝗈 𝖽𝗈 chat!!\𝗇𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍 𝖿𝗈𝗋 {d3vil_mention} 𝗍𝗈 𝖼𝗈𝗆𝖾. 𝖳𝗂𝗅𝗅 𝗍𝗁𝖾𝗇 𝗄𝖾𝖾𝗉 𝗉𝖺𝗍𝗂𝖾𝗇𝖼𝖾 𝖺𝗇𝖽 𝖽𝗈𝗇'𝗍 𝗌𝗉𝖺𝗆."
+                f"𝖠𝗁𝗁!! 𝖸𝗈𝗎 𝗁𝖾𝗋𝖾 𝗍𝗈 𝖽𝗈 chat!!\n 𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍 𝖿𝗈𝗋 {d3vil_mention} 𝗍𝗈 𝖼𝗈𝗆𝖾. 𝖳𝗂𝗅𝗅 𝗍𝗁𝖾𝗇 𝗄𝖾𝖾𝗉 𝗉𝖺𝗍𝗂𝖾𝗇𝖼𝖾 𝖺𝗇𝖽 𝖽𝗈𝗇'𝗍 𝗌𝗉𝖺𝗆."
             )
             target = await event.client(GetFullUserRequest(event.query.user_id))
             ok = event.query.user_id
             first_name = html.escape(target.user.first_name)
             if first_name is not None:
                 first_name = first_name.replace("\u2060", "")
-            tosend = f"**👀 𝖧𝖾𝗒 {d3vil_mention} !!** \n\n⚜️ 𝖸𝗈𝗎 𝖦𝗈𝗍 𝖠 𝖯𝖬 𝖿𝗋𝗈𝗆  [{first_name}](tg://user?id={ok})  𝖿𝗈𝗋 𝗋𝖺𝗇𝖽𝗈𝗆 𝖼𝗁𝖺𝗍𝗌!!"
+            tosend = f"**👀 𝖧𝖾𝗒 {d3vil_mention} !!** \n\n ⚜️ 𝖸𝗈𝗎 𝖦𝗈𝗍 𝖠 𝖯𝖬 𝖿𝗋𝗈𝗆  [{first_name}](tg://user?id={ok})  𝖿𝗈𝗋 𝗋𝖺𝗇𝖽𝗈𝗆 𝖼𝗁𝖺𝗍𝗌!!"
             await bot.send_message(LOG_GP, tosend)
 
 
@@ -278,7 +278,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
         else:
             await event.edit(
-                f"🥴 **𝖭𝗂𝗄𝖺𝗅 𝗆𝖺𝖽𝖾𝗋𝖼𝗁𝗈𝖽\n𝖯𝖾𝗁𝗅𝗂 𝖿𝗎𝗋𝗌𝖺𝗍 𝗆𝖾 𝗇𝗂𝗄𝖺𝗅**"
+                f"🥴 **𝖭𝗂𝗄𝖺𝗅 𝗆𝖺𝖽𝖾𝗋𝖼𝗁𝗈𝖽\n 𝖯𝖾𝗁𝗅𝗂 𝖿𝗎𝗋𝗌𝖺𝗍 𝗆𝖾 𝗇𝗂𝗄𝖺𝗅**"
             )
             await bot(functions.contacts.BlockRequest(event.query.user_id))
             target = await event.client(GetFullUserRequest(event.query.user_id))
@@ -322,7 +322,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     for y in x:
                         apn.append(y)
                 await event.edit(
-                    f"**『{d3vil_mention}』**\n\n📍 **𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n🎒 **Pαցҽ** ⭆ : 1/{veriler[0]}",
+                    f"**『{d3vil_mention}』**\n\n📍 **𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆ `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ `{len(apn)}`\n🎒 **Pαցҽ** ⭆ 1/{veriler[0]}",
                     buttons=simp[1],
                     link_preview=False,
                 )
@@ -351,7 +351,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 apn.append(y)
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f" **『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n🎒 **Pαցҽ** ⭆ : 1/{veriler[0]}",
+                f" **『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ `{len(apn)}`\n🎒 **Pαցҽ** ⭆ 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
