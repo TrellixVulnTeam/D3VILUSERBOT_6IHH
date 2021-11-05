@@ -109,7 +109,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     apn.append(y)
             result = await builder.article(
                 f"Hey! Only use .help please",
-                text=f"**『{d3vil_mention}』**\n\n📜 __No.of Plugins__ : `{len(CMD_HELP)}` \n🗂️ __Commands__ : `{len(apn)}`\n🗒️ __Page__ : 1/{veriler[0]}",
+                text=f"**『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍**Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n**🎒Pαցҽ⭆** : 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
@@ -322,7 +322,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                     for y in x:
                         apn.append(y)
                 await event.edit(
-                    f"**『{d3vil_mention}』**\n\n📜 __No.of Plugins__ : `{len(CMD_HELP)}` \n🗂️ __Commands__ : `{len(apn)}`\n🗒️ __Page__ : 1/{veriler[0]}",
+                    f"**『{d3vil_mention}』**\n\n📍 **𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n🎒 **Pαցҽ** ⭆ : 1/{veriler[0]}",
                     buttons=simp[1],
                     link_preview=False,
                 )
@@ -351,7 +351,7 @@ if Config.BOT_USERNAME is not None and tgbot is not None:
                 apn.append(y)
         if event.query.user_id == bot.uid or event.query.user_id in Config.SUDO_USERS:
             await event.edit(
-                f" **『{d3vil_mention}』**\n\n📜 __No.of Plugins__ : `{len(CMD_HELP)}` \n🗂️ __Commands__ : `{len(apn)}`\n🗒️ __Page__ : 1/{veriler[0]}",
+                f" **『{d3vil_mention}』**\n\n📍**𝚃𝚘𝚝𝚊𝚕 𝙼𝚘𝚍𝚞𝚕𝚎𝚜 𝙸𝚗𝚜𝚝𝚊𝚕𝚕𝚎𝚍** ⭆  : `{len(CMD_HELP)}` \n📍 **Tοταℓ Cοммαи∂ѕ** ⭆ : `{len(apn)}`\n🎒 **Pαցҽ** ⭆ : 1/{veriler[0]}",
                 buttons=veriler[1],
                 link_preview=False,
             )
