@@ -5,7 +5,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from . import *
 
 
-@borg.on(d3vil_cmd(pattern="xnxx?(.*)"))
+@d3vilbot.on(d3vil_cmd(pattern="xnxx?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
