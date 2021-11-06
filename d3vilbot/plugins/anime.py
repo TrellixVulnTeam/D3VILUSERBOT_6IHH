@@ -67,8 +67,8 @@ async def formatJSON(outData):
         return msg
 
 
-@bot.on(d3vil_cmd(pattern="anilist (.*)"))
-@bot.on(sudo_cmd(pattern="anilist (.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="anilist (.*)"))
+@d3vilbot.on(sudo_cmd(pattern="anilist (.*)", allow_sudo=True))
 async def anilist(event):
     if event.fwd_from:
         return
@@ -79,8 +79,8 @@ async def anilist(event):
     await event.edit(msg, link_preview=True)
 
 
-@bot.on(d3vil_cmd(pattern="anime(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="anime(?: |$)(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="anime(?: |$)(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="anime(?: |$)(.*)", allow_sudo=True))
 async def nope(d3vl_):
     d3vil = d3vl_.pattern_match.group(1)
     if not d3vil:
@@ -102,8 +102,8 @@ async def nope(d3vl_):
     await d3vl_.delete()
     
     
-@bot.on(d3vil_cmd(pattern="manga(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="manga(?: |$)(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="manga(?: |$)(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="manga(?: |$)(.*)", allow_sudo=True))
 async def nope(d3vl_):
     d3vil = d3vl_.pattern_match.group(1)
     if not d3vil:
@@ -125,8 +125,8 @@ async def nope(d3vl_):
     await d3vl_.delete()
     
 
-@bot.on(d3vil_cmd(pattern="character(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="character(?: |$)(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="character(?: |$)(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="character(?: |$)(.*)", allow_sudo=True))
 async def nope(d3vl_):
     d3vil = d3vl_.pattern_match.group(1)
     if not d3vil:
