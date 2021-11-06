@@ -3,8 +3,8 @@ import requests
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern="app (.*)"))
-@bot.on(sudo_cmd(pattern="app (.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="app (.*)"))
+@d3vilbot.on(sudo_cmd(pattern="app (.*)", allow_sudo=True))
 async def apk(event):
     if event.fwd_from:
         return
@@ -75,8 +75,8 @@ async def apk(event):
         await event.edit("Exception Occured:- " + str(err))
 
 
-@bot.on(d3vil_cmd(pattern="appr (.*)"))
-@bot.on(sudo_cmd(pattern="appr (.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="appr (.*)"))
+@d3vibot.on(sudo_cmd(pattern="appr (.*)", allow_sudo=True))
 async def apkr(event):
     if event.fwd_from:
         return
@@ -148,8 +148,8 @@ async def apkr(event):
         await event.edit("Exception Occured:- " + str(err))
 
 
-@bot.on(d3vil_cmd(pattern="mods ?(.*)"))
-@bot.on(sudo_cmd(pattern="mods ?(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="mods ?(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="mods ?(.*)", allow_sudo=True))
 async def mod(event):
     if event.fwd_from:
         return
