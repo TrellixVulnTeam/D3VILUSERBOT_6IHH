@@ -1,5 +1,6 @@
 from telethon.tl.types import ChannelParticipantAdmin as admin
 from telethon.utils import get_display_name
+from telethon import custom, events
 
 from . import *
 
@@ -14,7 +15,7 @@ async def tag(event):
         users = f"{d3vil}"
     else:
         users = ""
-    async for members in event.client.iter_partcipants(event.chat_id, 99):
+    async for members in event.client.iter_partcipants(event.chat_id, 50):
         part = part + 1
         y = members.participants
         if isinstance(y, admin):
