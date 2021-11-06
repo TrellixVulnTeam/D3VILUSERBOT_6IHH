@@ -13,8 +13,8 @@ DEVICES_DATA = (
 )
 
 
-@bot.on(d3vil_cmd(pattern=r"magisk"))
-@bot.on(sudo_cmd(pattern=r"magisk", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern=r"magisk"))
+@d3vilbot.on(sudo_cmd(pattern=r"magisk", allow_sudo=True))
 async def _(magisk):
     if magisk.fwd_from:
         return
@@ -42,8 +42,8 @@ async def _(magisk):
     await eor(magisk, releases)
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"device(?: |$)(\S*)"))
-@bot.on(sudo_cmd(pattern=r"device(?: |$)(\S*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"device(?: |$)(\S*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"device(?: |$)(\S*)", allow_sudo=True))
 async def device_info(request):
     if request.fwd_from:
         return
@@ -77,8 +77,8 @@ async def device_info(request):
     await edit_or_reply(request, reply)
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)"))
-@bot.on(sudo_cmd(pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
 async def codename_info(request):
     if request.fwd_from:
         return
@@ -124,8 +124,8 @@ async def codename_info(request):
     await edit_or_reply(request, reply)
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)"))
-@bot.on(sudo_cmd(pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
 async def devices_specifications(request):
     if request.fwd_from:
         return
@@ -189,8 +189,8 @@ async def devices_specifications(request):
     await edit_or_reply(request, reply)
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"twrp(?: |$)(\S*)"))
-@bot.on(sudo_cmd(pattern=r"twrp(?: |$)(\S*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"twrp(?: |$)(\S*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"twrp(?: |$)(\S*)", allow_sudo=True))
 async def twrp(request):
     if request.fwd_from:
         return
