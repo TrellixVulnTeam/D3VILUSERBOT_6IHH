@@ -13,7 +13,7 @@ ANTI_FLOOD_WARN_MODE = ChatBannedRights(
 )
 
 
-@bot.on(admin_cmd(incoming=True))
+@d3vilbot.on(admin_cmd(incoming=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -56,8 +56,8 @@ because he reached the defined flood limit.""".format(
         )
 
 
-@bot.on(admin_cmd(pattern="setflood(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="setflood(?: |$)(.*)", allow_sudo=True))
+@d3vilbot.on(admin_cmd(pattern="setflood(?: |$)(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="setflood(?: |$)(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
