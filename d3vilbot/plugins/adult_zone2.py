@@ -9,7 +9,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from . import *
 
 
-@borg.on(d3vil_cmd(pattern="xxshort?(.*)"))
+@d3vilbot.on(d3vil_cmd(pattern="xxshort?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -34,7 +34,7 @@ async def _(event):
             await event.client.send_file(event.chat_id, response.message)
 
 
-@borg.on(d3vil_cmd(pattern="xxlong?(.*)"))
+@d3vilbot.on(d3vil_cmd(pattern="xxlong?(.*)"))
 async def _(event):
     if event.fwd_from:
         return
