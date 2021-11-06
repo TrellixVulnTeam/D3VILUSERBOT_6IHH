@@ -76,7 +76,7 @@ async def apk(event):
 
 
 @d3vilbot.on(d3vil_cmd(pattern="appr (.*)"))
-@d3vibot.on(sudo_cmd(pattern="appr (.*)", allow_sudo=True))
+@d3vilbot.on(sudo_cmd(pattern="appr (.*)", allow_sudo=True))
 async def apkr(event):
     if event.fwd_from:
         return
