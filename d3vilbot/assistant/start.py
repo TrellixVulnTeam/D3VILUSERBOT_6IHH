@@ -225,6 +225,6 @@ async def starkisnoob(event):
             user_id, "Congo! You Have Been Unblacklisted By My Master."
         )
 
-CMD_HELP_BOT("admin").add_command(
- "ban", None, "Use of this command you give ban to user from a group or channel."
-).add()
+#CMD_HELP_BOT("admin").command(
+ #"ban", None, "Use of this command you give ban to user from a group or channel."
+#).add()
