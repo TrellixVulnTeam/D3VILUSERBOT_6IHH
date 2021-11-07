@@ -22,7 +22,7 @@ dwlpath = Config.TMP_DOWNLOAD_DIRECTORY
 
 
 # make a image
-async def convert_to_image(event, bot):
+async def convert_to_image(event, client):
     d3vil = await event.get_reply_message()
     if not (
             d3vil.gif
@@ -39,7 +39,7 @@ async def convert_to_image(event, bot):
     else:
         try:
             c_time = time.time()
-            downloaded_file_name = await bot.download_media(
+            downloaded_file_name = await event.client.download_media(
                 d3vil.media,
                 dwlpath,
                 progress_callback=lambda d, t: asyncio.get_event_loop().create_task(
@@ -119,7 +119,6 @@ def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:
         lottie.exporters.gif.export_gif(lottie.parsers.tgs.parse_tgs(sticker_path), t_g, quality, 1)
     os.remove(sticker_path)
     return semx
-
 
 # deal with it...
 EMOJI_PATTERN = re.compile(
