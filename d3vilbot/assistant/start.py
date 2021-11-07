@@ -13,7 +13,7 @@ from d3vilbot.utils import *
 from d3vilbot.random_strings import *
 from d3vilbot.version import __d3vil__
 from telethon import version
-from d3vilbot.plugin._inhelp import *
+from d3vilbot.plugins._inhelp import *
 from d3vilbot import bot
 from d3vilbot.sql.blacklist_assistant import (
     add_nibba_in_db,
