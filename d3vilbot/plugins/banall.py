@@ -33,8 +33,8 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 
-@bot.on(d3vil_cmd(pattern=r"kickall ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"kickall ?(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern=r"kickall ?(.*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"kickall ?(.*)", allow_sudo=True))
 async def _(event):
     result = await event.client(
         functions.channels.GetParticipantRequest(event.chat_id, event.client.uid)
@@ -69,8 +69,8 @@ async def _(event):
     )
 
 
-@bot.on(d3vil_cmd(pattern=r"banall ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"banall ?(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern=r"banall ?(.*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"banall ?(.*)", allow_sudo=True))
 async def _(event):
     result = await event.client(
         functions.channels.GetParticipantRequest(event.chat_id, event.client.uid)
@@ -107,8 +107,8 @@ async def _(event):
     )
     
 
-@bot.on(d3vil_cmd(pattern=r"unbanall ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"unbanall ?(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern=r"unbanall ?(.*)"))
+@d3vilbot.on(sudo_cmd(pattern=r"unbanall ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
@@ -138,8 +138,8 @@ async def _(event):
         await edit_or_reply(event, "{}: {} unbanned".format(event.chat_id, p))
 
 
-@bot.on(d3vil_cmd(pattern="ikuck ?(.*)"))
-@bot.on(sudo_cmd(pattern="ikuck ?(.*)", allow_sudo=True))
+@d3vilbot.on(d3vil_cmd(pattern="ikuck ?(.*)"))
+@d3vilbot.on(sudo_cmd(pattern="ikuck ?(.*)", allow_sudo=True))
 async def _(event):
     if event.fwd_from:
         return
