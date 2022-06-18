@@ -46,6 +46,7 @@ async def start(event):
             buttons=[
                 [custom.Button.inline("Show Users 🔥", data="users")],
                 [custom.Button.inline("Commands For Assistant", data="gibcmd")],
+                [custom.Button.inline("MY GROUP AND CHANNEL", data="alive")],
                 [
                     Button.url(
                         "Add Me to Group 👥", f"t.me/{bot_username}?startgroup=true"
