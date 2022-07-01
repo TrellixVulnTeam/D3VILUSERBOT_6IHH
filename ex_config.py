@@ -1,6 +1,4 @@
-
-
-
+#TERMUX RUN CODE
 from d3vil_config import Config
 
 class Development(Config):
