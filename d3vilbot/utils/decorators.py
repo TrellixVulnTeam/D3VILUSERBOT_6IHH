@@ -1,28 +1,22 @@
-import asyncio
 import datetime
-import importlib
 import inspect
-import logging
-import math
 import os
 import re
 import sys
-import time
-import traceback
+
 from pathlib import Path
-from time import gmtime, strftime
 
-from telethon import events
-from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
+from telethon import TelegramClient, events
+from telethon.errors import MessageIdInvalidError, MessageNotModifiedError
 
-from d3vilbot import *
-from d3vilbot.helpers import *
+from d3vilbot import LOGS, bot, tbot
+from d3vilbot.clients import D2, D3, D4, D5
 from d3vilbot.config import Config
-from d3vilbot.sql import sudo_sql as s_ql
+from d3vilbot.helpers import *
+
 
 # admin cmd or normal user cmd
-def d3vil_cmd(pattern=None, command=None, **args):
+def admin_cmd(pattern=None, command=None, **args):
     args["func"] = lambda e: e.via_bot_id is None
     stack = inspect.stack()
     previous_stack_frame = stack[1]
@@ -86,7 +80,7 @@ def d3vil_cmd(pattern=None, command=None, **args):
         del args["allow_edited_updates"]
 
     # plugin check for outgoing commands
-
+    
     return events.NewMessage(**args)
 
 
@@ -159,10 +153,16 @@ on = bot.on
 def on(**args):
     def decorator(func):
         async def wrapper(event):
-            # check if sudo
             await func(event)
-
-        client.add_event_handler(wrapper, events.NewMessage(**args))
+        bot.add_event_handler(wrapper, events.NewMessage(**args))
+        if D2:
+            D2.add_event_handler(wrapper, events.NewMessage(**args))
+        if D3:
+            D3.add_event_handler(wrapper, events.NewMessage(**args))
+        if D4:
+            D4.add_event_handler(wrapper, events.NewMessage(**args))
+        if D5:
+            D5.add_event_handler(wrapper, events.NewMessage(**args))
         return wrapper
 
     return decorater
@@ -221,6 +221,14 @@ def register(**args):
         if not disable_edited:
             bot.add_event_handler(func, events.MessageEdited(**args))
         bot.add_event_handler(func, events.NewMessage(**args))
+        if D2:
+            D2.add_event_handler(func, events.NewMessage(**args))
+        if D3:
+            D3.add_event_handler(func, events.NewMessage(**args))
+        if D4:
+            D4.add_event_handler(func, events.NewMessage(**args))
+        if D5:
+            D5.add_event_handler(func, events.NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
         except Exception:
@@ -289,6 +297,14 @@ def command(**args):
         if allow_edited_updates:
             bot.add_event_handler(func, events.MessageEdited(**args))
         bot.add_event_handler(func, events.NewMessage(**args))
+        if D2:
+            D2.add_event_handler(func, events.NewMessage(**args))
+        if D3:
+            D3.add_event_handler(func, events.NewMessage(**args))
+        if D4:
+            D4.add_event_handler(func, events.NewMessage(**args))
+        if D5:
+            D5.add_event_handler(func, events.NewMessage(**args))
         try:
             LOAD_PLUG[file_test].append(func)
         except BaseException:
@@ -296,5 +312,3 @@ def command(**args):
         return func
 
     return decorator
-
-# d3vilbot
