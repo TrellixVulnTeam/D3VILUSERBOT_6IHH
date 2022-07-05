@@ -8,3 +8,4 @@ if os.path.exists("config.py"):
 else:
     from .d3vil_config import Config
 
+#d3vilbot
