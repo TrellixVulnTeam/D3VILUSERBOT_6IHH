@@ -51,19 +51,21 @@ def load_module(shortname):
         name = "d3vilbot.plugins.{}".format(shortname)
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
-        mod.bot = bot
-        mod.tgbot = bot.tgbot
+        mod.bot = d3vil
+        mod.tgbot = d3vil.tgbot
         mod.command = command
         mod.logger = logging.getLogger(shortname)
         # support for uniborg
         sys.modules["uniborg.util"] = d3vilbot.utils
         mod.Config = Config
-        mod.borg = bot
+        mod.borg = d3vil
         mod.d3vilbot = bot
         mod.edit_or_reply = edit_or_reply
         mod.eor = edit_or_reply
         mod.delete_d3vil = delete_d3vil
         mod.eod = delete_d3vil
+        mod._d3vilutils = _d3vilutils
+        mod._d3viltools = _d3viltools
         mod.Var = Config
         mod.admin_cmd = d3vil_cmd
         # support for other userbots
@@ -181,12 +183,12 @@ def load_addons(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
 #        mod.d3vil = d3vil
-        mod.bot = bot
-        mod.bot = bot
+        mod.bot = d3vil
+        mod.bot = d3vil
         mod.command = command
-        mod.borg = bot
+        mod.borg = d3vil
         mod.d3vilbot = bot
-        mod.tgbot = bot.tgbot
+        mod.tgbot = d3vil.tgbot
         mod.Var = Config
         mod.Config = Config
         mod.edit_or_reply = edit_or_reply
