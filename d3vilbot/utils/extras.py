@@ -13,13 +13,15 @@ from pathlib import Path
 from time import gmtime, strftime
 
 from telethon import events
+from telethon.tl import functions
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
 
 from d3vilbot import *
-from d3vilbot.helpers import *
+from d3vilbot.helpers.pasters import pasty
+from d3vilbot.helpers.int_str import make_int
 from d3vilbot.config import Config
-
+from d3vilbot.sql.gvar_sql import gvarstat
 
 # either edit or reply that msg
 async def edit_or_reply(
@@ -54,22 +56,8 @@ async def edit_or_reply(
             text = re.sub(rf"\{i}", "", text)
     if aslink or deflink:
         linktext = linktext or "Message was to big so pasted to bin"
-        try:
-            key = (
-                requests.post(
-                    "https://nekobin.com/api/documents", json={"content": text}
-                )
-                .json()
-                .get("result")
-                .get("key")
-            )
-            text = linktext + f" [here](https://nekobin.com/{key})"
-        except Exception:
-            text = re.sub(r"•", ">>", text)
-            kresult = requests.post(
-                "https://del.dog/documents", data=text.encode("UTF-8")
-            ).json()
-            text = linktext + f" [here](https://del.dog/{kresult['key']})"
+        response = await pasty(event, text)
+        text = linktext + f"[BIN]({response['url']}) •• [RAW]({response['raw']})"
         if event.sender_id in Config.SUDO_USERS:
             if reply_to:
                 return await reply_to.reply(text, link_preview=link_preview)
@@ -113,5 +101,3 @@ async def delete_d3vil(event, text, time=None, parse_mode=None, link_preview=Non
         )
     await asyncio.sleep(time)
     return await d3vilevent.delete()
-
-# d3vilbot
