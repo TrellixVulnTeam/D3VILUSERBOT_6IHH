@@ -1,0 +1,47 @@
+name: sameerpanthi
+
+on: push
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - name: Find and Replace
+
+        uses: jacobtomlinson/gha-find-replace@master
+
+        with:
+
+          find: "@bot.on(d3vil_cmd(pattern=" ?(.*)"))
+@bot.on(sudo_cmd(pattern=" ?(.*)", allow_sudo=True))
+"
+
+          replace: "@d3vil.d3vil_cmd(
+    pattern="json$",
+    command=("json", menu_category),
+    info={
+        "header": "To get details of that message in json format.",
+        "usage": "{tr}json reply to message",
+    },
+)"
+
+      - name: Create Pull Request
+
+        uses: stefanzweifel/git-auto-commit-action@v4
+
+        with:
+
+          commit_message: 'Things'
+
+          commit_options: '--no-verify'
+
+          repository: .
+
+          commit_user_name: d3vilkrish
+          commit_user_email: legendmaster0535@gmail.com
