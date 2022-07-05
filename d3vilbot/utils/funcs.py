@@ -34,8 +34,8 @@ async def is_admin(client, chat_id, user_id):
     if not str(chat_id).startswith("-100"):
         return False
     try:
-        d3vilkrish = await client(GetParticipantRequest(channel=chat_id, user_id=user_id))
-        chat_participant = d3vilkrish.participant
+        d3vilboy = await client(GetParticipantRequest(channel=chat_id, user_id=user_id))
+        chat_participant = d3vilboy.participant
         if isinstance(
             chat_participant, (ChannelParticipantCreator, ChannelParticipantAdmin)
         ):
