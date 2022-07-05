@@ -14,9 +14,10 @@ from time import gmtime, strftime
 
 from telethon import events
 from telethon.tl.functions.channels import GetParticipantRequest
-from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, InputMessagesFilterDocument
 
 from d3vilbot import *
+from d3vilbot.clients import *
 from d3vilbot.helpers import *
 from d3vilbot.config import *
 from d3vilbot.utils import *
@@ -43,7 +44,7 @@ def load_module(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        LOGS.info("𝚃𝙴𝙰𝙼 𝙳3𝚅𝙸𝙻 - 𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝙸𝙼𝙿𝙾𝚁𝚃𝙴𝙳 " + shortname)
+        LOGS.info("ᗪ3ʋɨʟɮօȶ - Successfully imported " + shortname)
     else:
         import d3vilbot.utils
 
@@ -52,22 +53,32 @@ def load_module(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.bot = d3vil
-        mod.tgbot = d3vil.tgbot
+        mod.D1 = d3vil
+        mod.D2 = D2
+        mod.D3 = D3
+        mod.D4 = D4
+        mod.D5 = D5
+        mod.d3vil = d3vil
+        mod.d3vilbot = d3vilbot
+        mod.tbot = d3vilbot
+        mod.tgbot = bot.tgbot
         mod.command = command
+        mod.CmdHelp = CmdHelp
+        mod.client_id = client_id
         mod.logger = logging.getLogger(shortname)
         # support for uniborg
         sys.modules["uniborg.util"] = d3vilbot.utils
         mod.Config = Config
-        mod.borg = d3vil
+        mod.borg = bot
         mod.d3vilbot = bot
         mod.edit_or_reply = edit_or_reply
         mod.eor = edit_or_reply
         mod.delete_d3vil = delete_d3vil
         mod.eod = delete_d3vil
-        mod._d3vilutils = _d3vilutils
-        mod._d3viltools = _d3viltools
         mod.Var = Config
-        mod.admin_cmd = d3vil_cmd
+        mod.admin_cmd = admin_cmd
+        mod.d3vil_cmd = d3vil_cmd
+        mod.sudo_cmd = sudo_cmd
         # support for other userbots
         sys.modules["userbot.utils"] = d3vilbot.utils
         sys.modules["userbot"] = d3vilbot
@@ -76,7 +87,7 @@ def load_module(shortname):
         spec.loader.exec_module(mod)
         # for imports
         sys.modules["d3vilbot.plugins." + shortname] = mod
-        LOGS.info("✘ 𝚃𝙴𝙰𝙼 𝐃3𝚅𝙸𝙻 ✘  - 𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝙸𝙼𝙿𝙾𝚁𝚃𝙴𝙳 " + shortname)
+        LOGS.info("⚡ ᗪ3ʋɨʟɮօȶ ⚡ - Successfully Imported " + shortname)
 
 
 # remove plugins
@@ -97,112 +108,28 @@ def remove_plugin(shortname):
     except BaseException:
         raise ValueError
 
-#Assistant
-def start_assistant(shortname):
-    if shortname.startswith("__"):
-        pass
-    elif shortname.endswith("_"):
-        import importlib
-        import sys
-        from pathlib import Path
 
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        print("Starting Your Assistant Bot.")
-        print("Assistant Sucessfully imported " + shortname)
-    else:
-        import importlib
-        import sys
-        from pathlib import Path
+async def plug_channel(client, channel):
+    if channel:
+        LOGS.info("⚡ D3VILBOT ⚡ - PLUGIN CHANNEL DETECTED.")
+        LOGS.info("⚡ D3VILBOT ⚡ - Starting to load extra plugins.")
+        plugs = await client.get_messages(channel, None, filter=InputMessagesFilterDocument)
+        total = int(plugs.total)
+        for plugins in range(total):
+            plug_id = plugs[plugins].id
+            plug_name = plugs[plugins].file.name
+            if os.path.exists(f"d3vilbot/plugins/{plug_name}"):
+                return
+            downloaded_file_name = await client.download_media(
+                await client.get_messages(channel, ids=plug_id),
+                "d3vilbot/plugins/",
+            )
+            path1 = Path(downloaded_file_name)
+            shortname = path1.stem
+            try:
+                load_module(shortname.replace(".py", ""))
+            except Exception as e:
+                LOGS.error(str(e))
 
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        mod.tgbot = bot.tgbot
-        spec.loader.exec_module(mod)
-        sys.modules["d3vilbot.assistant" + shortname] = mod
-        print("Assistant Has imported " + shortname) 
 
-#Assistant
-def start_assistant(shortname):
-    if shortname.startswith("__"):
-        pass
-    elif shortname.endswith("_"):
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        print("Starting Your Assistant Bot.")
-        print("Assistant Sucessfully imported " + shortname)
-    else:
-        import importlib
-        import sys
-        from pathlib import Path
-
-        path = Path(f"d3vilbot/assistant/{shortname}.py")
-        name = "d3vilbot.assistant.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        mod.tgbot = bot.tgbot
-        spec.loader.exec_module(mod)
-        sys.modules["d3vilbot.assistant" + shortname] = mod
-        print("[⚡Assistant⚡ 2.0] ~ HAS ~ •Installed۝۝"+ shortname)  
-
-#Addons...
-
-def load_addons(shortname):
-    if shortname.startswith("__"):
-        pass
-    elif shortname.endswith("_"):
-        import userbot.utils
-        import sys
-        import importlib
-        from pathlib import Path
-        path = Path(f"D3VILADDONS/{shortname}.py")
-        name = "D3VILADDONS.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        LOGS.info("♦️Extra Plugin♦️ ~ " + shortname)
-    else:
-        import userbot.utils
-        import sys
-        import importlib
-        from pathlib import Path
-        path = Path(f"D3VILADDONS/{shortname}.py")
-        name = "D3VILADDONS.{}".format(shortname)
-        spec = importlib.util.spec_from_file_location(name, path)
-        mod = importlib.util.module_from_spec(spec)
-#        mod.d3vil = d3vil
-        mod.bot = d3vil
-        mod.bot = d3vil
-        mod.command = command
-        mod.borg = d3vil
-        mod.d3vilbot = bot
-        mod.tgbot = d3vil.tgbot
-        mod.Var = Config
-        mod.Config = Config
-        mod.edit_or_reply = edit_or_reply
-        mod.delete_d3vil = delete_d3vil
-        mod.eod = delete_d3vil
-        mod.admin_cmd = d3vil_cmd
-        mod.logger = logging.getLogger(shortname)
-        # support for D3VILBOT originals
-#        sys.modules["userbot.utils"] = d3vilbot.utils
-#        sys.modules["userbot"] = d3vilbot
-        # support for paperplaneextended
-#        sys.modules["userbot.events"] = d3vilbot
-        spec.loader.exec_module(mod)
-        # for imports
-        sys.modules["D3VILADDONS." + shortname] = mod
-        LOGS.info("🔱Extra Plugin🔱 ~ " + shortname)
-#d3vilbot
+# d3vilbot
