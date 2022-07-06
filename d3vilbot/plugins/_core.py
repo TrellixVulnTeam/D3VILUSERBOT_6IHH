@@ -10,8 +10,7 @@ from telethon.tl.types import InputMessagesFilterDocument
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern=r"cmds"))
-@bot.on(sudo_cmd(pattern=r"cmds", allow_sudo=True))
+@d3vil_cmd(pattern=r"cmds$")
 async def kk(event):
     if event.fwd_from:
         return
@@ -42,9 +41,7 @@ async def kk(event):
             await edit_or_reply(d3vil_file, f"Output Too Large. This is the file for the list of plugins in bot.\n\n**BY :-** {D3VIL_USER}")
             await event.delete()
 
-
-@bot.on(d3vil_cmd(pattern=r"send (?P<shortname>\w+)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)", allow_sudo=True))
+@d3vil_cmd(pattern="send ([\s\S]*)")
 async def send(event):
     if event.fwd_from:
         return
@@ -67,9 +64,7 @@ async def send(event):
     else:
         await eod(event, "𝖥𝗂𝗅𝖾 𝗇𝗈𝗍 𝖿𝗈𝗎𝗇𝖽..... 𝖪𝖾𝗄")
 
-
-@bot.on(d3vil_cmd(pattern="install ?(.*)"))
-@bot.on(sudo_cmd(pattern="install ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="install(?:\s|$)([\s\S]*)")
 async def install(event):
     if event.fwd_from:
         return
@@ -118,8 +113,7 @@ async def install(event):
             await eod(d3vil, f"**Failed to Install** \n`Error`\n{str(e)}")
             return os.remove(downloaded_file_name)
 
-@bot.on(d3vil_cmd(pattern=r"uninstall (?P<shortname>\w+)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"uninstall (?P<shortname>\w+)", allow_sudo=True))
+@d3vil_cmd(pattern="uninstall ([\s\S]*)")
 async def uninstall(d3vilkrish):
     if d3vilkrish.fwd_from:
         return
@@ -149,9 +143,7 @@ async def unload(event):
             )
         )
 
-
-@bot.on(d3vil_cmd(pattern=r"load (?P<shortname>\w+)$"))
-@bot.on(sudo_cmd(pattern=r"load (?P<shortname>\w+)$", allow_sudo=True))
+@d3vil_cmd(pattern="unload ([\s\S]*)")
 async def load(event):
     if event.fwd_from:
         return
