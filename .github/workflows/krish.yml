@@ -18,18 +18,9 @@ jobs:
 
         with:
 
-          find: "@bot.on(d3vil_cmd(pattern=" ?(.*)"))
-@bot.on(sudo_cmd(pattern=" ?(.*)", allow_sudo=True))
-"
+          find: "@bot.on(d3vil_cmd"
 
-          replace: "@d3vil.d3vil_cmd(
-    pattern="json$",
-    command=("json", menu_category),
-    info={
-        "header": "To get details of that message in json format.",
-        "usage": "{tr}json reply to message",
-    },
-)"
+          replace: "@d3vil_cmd"
 
       - name: Create Pull Request
 
