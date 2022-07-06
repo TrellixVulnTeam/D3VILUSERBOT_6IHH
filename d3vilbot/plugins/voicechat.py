@@ -1,11 +1,5 @@
 from telethon.tl.functions.channels import GetFullChannelRequest
-from telethon.tl.functions.phone import CreateGroupCallRequest
-from telethon.tl.functions.phone import DiscardGroupCallRequest
-from telethon.tl.functions.phone import GetGroupCallRequest
-from telethon.tl.functions.phone import InviteToGroupCallRequest
-
-from . import *
-
+from telethon.tl.functions.phone import CreateGroupCallRequest, DiscardGroupCallRequest, GetGroupCallRequest, InviteToGroupCallRequest
 
 async def getvc(event):
     chat_ = await event.client(GetFullChannelRequest(event.chat_id))
@@ -17,30 +11,25 @@ def all_users(a, b):
         yield a[c : c + b]
 
 
-@bot.on(d3vil_cmd(pattern="startvc$"))
-@bot.on(sudo_cmd(pattern="startvc$", allow_sudo=True))
+@d3vil_cmd(pattern="startvc$")
 async def _(event):
     try:
         await event.client(CreateGroupCallRequest(event.chat_id))
         await eor(event, "**🔊 Voice Chat Started Successfully**")
     except Exception as e:
-        await eor(event, f"`{str(e)}`")
+        await eod(event, f"`{str(e)}`")
 
-
-@bot.on(d3vil_cmd(pattern="endvc$"))
-@bot.on(sudo_cmd(pattern="endvc$", allow_sudo=True))
+@d3vil_cmd(pattern="endvc$")
 async def _(event):
     try:
-        await bot(DiscardGroupCallRequest(await getvc(event)))
-        await eor(event, "**❌ Voice Chat Ended Successfully !!**")
+        await event.client(DiscardGroupCallRequest(await getvc(event)))
+        await eor(event, "**📍 Voice Chat Ended Successfully !!**")
     except Exception as e:
-        await eor(event, f"`{str(e)}`")
+        await eod(event, f"`{str(e)}`")
 
-
-@bot.on(d3vil_cmd(pattern="vcinvite$"))
-@bot.on(sudo_cmd(pattern="vcinvite$", allow_sudo=True))
+@d3vil_cmd(pattern="vcinvite$")
 async def _(event):
-    d3vil = await eor(event, "`👥 Inviting Users To Join Voice Chat....`")
+    d3vil = await eor(event, "`🧐 Inviting Users To Voice Chat....`")
     users = []
     i = 0
     async for j in event.client.iter_participants(event.chat_id):
@@ -49,16 +38,21 @@ async def _(event):
     d3_ = list(all_users(users, 6))
     for k in d3_:
         try:
-            await bot(InviteToGroupCallRequest(call=await getvc(event), users=k))
+            await event.client(InviteToGroupCallRequest(call=await getvc(event), users=k))
             i += 6
         except BaseException:
             pass
-    await d3vil.edit(f"**👥 Invited {i} Users to  JoinVoice Chat**")
+    await d3vil.edit(f"**🚀 Invited {i} Users to Voice Chat**")
 
-CmdHelp("voicechat").add_command(
-  "startvc", None, "Starts the voice chat in Group."
+
+CmdHelp("voice_chat").add_command(
+  "startvc", None, "Starts the voice chat in current group."
 ).add_command(
-  "endvc", None, "Ends the voice chat  group."
+  "endvc", None, "Ends the voice chat in current group."
 ).add_command(
-  "vcinvite", None, "Invites members of the group to voice chat."
+  "vcinvite", None, "Invites members of the current group to voice chat."
+).add_info(
+  "Voice Chat Tools."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
