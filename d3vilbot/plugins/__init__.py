@@ -1,10 +1,15 @@
+import time
+
 import datetime
 from d3vilbot import *
+from d3vilbot.clients import *
 from d3vilbot.config import Config
 from d3vilbot.helpers import *
 from d3vilbot.utils import *
+from d3vilbot.version import __d3vil__
 from d3vilbot.random_strings import *
 from d3vilbot.version import __d3vil__
+from d3vilbot.sql.gvar_sql import gvarstat
 from telethon import version
 
 
@@ -15,6 +20,7 @@ d3vil_logo = "./resources/Pics/d3vilkrish_logo.jpg"
 cjb = "./resources/Pics/cjb.jpg"
 restlo = "./resources/Pics/rest.jpeg"
 shuru = "./resources/Pics/shuru.jpg"
+shhh = "./resources/Pics/chup_maderchod.jpeg"
 hl = Config.HANDLER
 shl = Config.SUDO_HANDLER
 d3vil_ver = __d3vil__
