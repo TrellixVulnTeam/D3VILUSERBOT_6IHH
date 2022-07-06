@@ -1,18 +1,17 @@
 import json
-
 import requests
 
 from html_telegraph_poster import TelegraphPoster
 
-
-from d3vilbot import *
+from hellbot import *
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",
     "content-type": "application/json",
 }
 
-async def pasty(message, extension=None):
+
+async def pasty(event, message, extension=None):
     siteurl = "https://pasty.lus.pm/api/v1/pastes"
     data = {"content": message}
     try:
@@ -27,9 +26,9 @@ async def pasty(message, extension=None):
             else f"https://pasty.lus.pm/{response['id']}.txt"
         )
         try:
-            await bot.send_message(
+            await event.client.send_message(
                 Config.LOGGER_ID,
-                f"**Open Paste From** [here]({purl}). \n**Delete that paste by using this token** `{response['deletionToken']}`",
+                f"#PASTE \n\n**Open Paste From** [here]({purl}). \n**Delete that paste by using this token** `{response['deletionToken']}`",
             )
         except Exception as e:
             LOGS.info(str(e))
@@ -40,6 +39,27 @@ async def pasty(message, extension=None):
         }
     return {"error": "Unable to reach pasty.lus.pm"}
 
+
+async def space_paste(message, extension=None):
+    site = "https://spaceb.in/api/v1/documents/"
+    if extension is None:
+        extension == "txt"
+    try:
+        response = requests.post(site, data={"content": message, "extension": extension})
+    except Exception as e:
+        return {"error": str(e)}
+    if response.ok:
+        response = response.json()
+        if response["error"] != "" and response["status"] < 400:
+            return {"error": response["error"]}
+        return {
+            "url": f"https://spaceb.in/{response['payload']['id']}",
+            "raw": f"{siteurl}{response['payload']['id']}/raw",
+            "bin": "Spacebin",
+        }
+    return {"error": "Unable to reach spacebin."}
+
+
 async def telegraph_paste(page_title, temxt):
     cl1ent = TelegraphPoster(use_api=True)
     auth = "[ ʟᴇɢᴇɴᴅʀʏ ᴀғ ᴅ3ᴠɪʟʙᴏᴛ ]"
@@ -47,7 +67,7 @@ async def telegraph_paste(page_title, temxt):
     post_page = cl1ent.post(
         title=page_title,
         author=auth,
-        author_url="https://t.me/D3VIL_BOT_OFFICIAL",
+        author_url="https://t.me/D3VIL_BOT_SUPPORT",
         text=temxt,
     )
     return post_page["url"]
