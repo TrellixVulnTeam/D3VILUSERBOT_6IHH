@@ -49,9 +49,7 @@ UNBAN_RIGHTS = ChatBannedRights(
 MUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=True)
 UNMUTE_RIGHTS = ChatBannedRights(until_date=None, send_messages=False)
 
-
-@bot.on(d3vil_cmd(pattern="setgpic$"))
-@bot.on(sudo_cmd(pattern="setgpic$", allow_sudo=True))
+d3vil_cmd(pattern="setgpic$")
 @errors_handler
 async def set_group_photo(gpic):
     if gpic.fwd_from:
@@ -96,9 +94,7 @@ async def set_group_photo(gpic):
                 f"CHAT: {gpic.chat.title}(`{gpic.chat_id}`)",
             )
 
-
-@bot.on(d3vil_cmd(pattern="promote(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="promote(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="promote(?:\s|$)([\s\S]*)")
 @errors_handler
 async def promote(promt):
     if promt.fwd_from:
@@ -137,8 +133,7 @@ async def promote(promt):
     )
 
 
-@bot.on(d3vil_cmd(pattern="demote(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="demote(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="demote(?:\s|$)([\s\S]*)")
 @errors_handler
 async def demote(dmod):
     if dmod.fwd_from:
@@ -184,9 +179,7 @@ async def watcher(event):
         except Exception as e:
             LOGS.info(str(e))
 
-
-@bot.on(d3vil_cmd(pattern=r"mute ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"mute ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="mute(?:\s|$)([\s\S]*)")
 async def muth(d3vil):
     if d3vil.is_private:
         await eor(d3vil, "**Enough of your bullshit  !!**")
@@ -248,9 +241,7 @@ async def muth(d3vil):
             f"CHAT:  {chat.title}",
         )
         
-        
-@bot.on(d3vil_cmd(pattern=r"unmute ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"unmute ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="unmute(?:\s|$)([\s\S]*)")        
 async def nomuth(evn):
     if evn.is_private:
         await eor(evn, "Talk bich..")
@@ -307,9 +298,7 @@ async def nomuth(evn):
             f"CHAT:  {chat.title}",
         )
 
-
-@bot.on(d3vil_cmd(pattern="ban(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="ban(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="ban(?:\s|$)([\s\S]*)")
 @errors_handler
 async def ban(bon):
     if bon.fwd_from:
@@ -349,9 +338,7 @@ async def ban(bon):
         f"CHAT: {bon.chat.title}(`{bon.chat_id}`)",
     )
 
-
-@bot.on(d3vil_cmd(pattern="unban(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="unban(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="unmute(?:\s|$)([\s\S]*)")
 @errors_handler
 async def nothanos(unbon):
     if unbon.fwd_from:
@@ -380,8 +367,7 @@ async def nothanos(unbon):
         await d3vilevent.edit("Invalid UserId!! Please Recheck it!!")
 
 
-@bot.on(d3vil_cmd(pattern="pin($| (.*))"))
-@bot.on(sudo_cmd(pattern="pin($| (.*))", allow_sudo=True))
+@d3vil_cmd(pattern="pin(?:\s|$)([\s\S]*)")
 @errors_handler
 async def pin(msg):
     if msg.fwd_from:
@@ -422,8 +408,7 @@ async def pin(msg):
         pass
 
 
-@bot.on(d3vil_cmd(pattern="kick(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="kick(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="kick(?:\s|$)([\s\S]*)")
 @errors_handler
 async def kick(usr):
     if usr.fwd_from:
@@ -459,9 +444,7 @@ async def kick(usr):
         f"CHAT: {usr.chat.title}(`{usr.chat_id}`)\n",
     )
 
-
-@bot.on(d3vil_cmd(pattern=f"zombies ?(.*)"))
-@bot.on(sudo_cmd(pattern=f"zombies ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="zombies(?:\s|$)([\s\S]*)")
 async def rm_deletedacc(show):
     if show.fwd_from:
         return
@@ -514,9 +497,7 @@ async def rm_deletedacc(show):
        \nCHAT: {show.chat.title}(`{show.chat_id}`)",
     )
 
-
-@bot.on(d3vil_cmd(pattern="undlt$"))
-@bot.on(sudo_cmd(pattern="undlt$", allow_sudo=True))
+@d3vil_cmd(pattern="undlt$")
 async def _(event):
     if event.fwd_from:
         return
