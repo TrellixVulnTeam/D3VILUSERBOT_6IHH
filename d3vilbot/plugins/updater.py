@@ -1,42 +1,41 @@
 import asyncio
-import os
-import sys
 import heroku3
+import json
+import os
+import requests
+import sys
 import urllib3
+
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
 
-from d3vilbot.helpers import runner
 from . import *
-
 
 HEROKU_APP_NAME = Config.HEROKU_APP_NAME or None
 HEROKU_API_KEY = Config.HEROKU_API_KEY or None
 Heroku = heroku3.from_key(Config.HEROKU_API_KEY)
 heroku_api = "https://api.heroku.com"
-
 UPSTREAM_REPO_BRANCH = "master"
-
 UPSTREAM_REPO_URL = Config.UPSTREAM_REPO
-
 REPO_REMOTE_NAME = "temponame"
 IFFUCI_ACTIVE_BRANCH_NAME = "master"
 NO_HEROKU_APP_CFGD = "No Heroku App Found!"
 HEROKU_GIT_REF_SPEC = "HEAD:refs/heads/master"
 RESTARTING_APP = "Restarting Heroku App..."
-IS_SELECTED_DIFFERENT_BRANCH = (
-    "looks like a custom branch {branch_name} "
-    "is being used:\n"
-    "in this case, Updater is unable to identify the branch to be updated."
-    "please check out to an official branch, and re-start the updater."
-)
-
-
+IS_SELECTED_DIFFERENT_BRANCH = "Looks like a custom branch {branch_name} is being used!\nIn this case, updater is unable to identify the branch to be updated. Please check out to an official branch, and re-start the updater."
+d3vilbot_info = "https://raw.githubusercontent.com/D3KRISH/D3vilUserbot/master/d3vilbot-info.json"
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+requirements_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "requirements.txt")
 
-requirements_path = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "requirements.txt"
-)
+
+async def d3vil_info(d3vilbot_info):
+    infos = requests.get(d3vilbot_info).json()
+    _version = infos['D3VILBOT-INFO']['version']
+    _release = infos['D3VILBOT-INFO']['release-date']
+    _branch = infos['D3VILBOT-INFO']['branch']
+    _author = infos['D3VILBOT-INFO']['author']
+    _auturl = infos['D3VILBOT-INFO']['author-url']
+    return _version, _release, _branch, _author, _auturl
 
 
 async def gen_chlog(repo, diff):
@@ -52,7 +51,7 @@ async def print_changelogs(event, ac_br, changelog):
         f"🔥 **New UPDATE available for [{ac_br}]:\n\n📑 CHANGELOG:**\n`{changelog}`"
     )
     if len(changelog_str) > 4096:
-        await event.edit("`Changelog is too big, view the file to see it.`")
+        await eor(event, "`Changelog is too big, view the file to see it.`")
         with open("output.txt", "w+") as file:
             file.write(changelog_str)
         await event.client.send_file(
@@ -91,27 +90,22 @@ async def update(event, repo, ups_rem, ac_br):
     except GitCommandError:
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
-    await event.edit(
-        "✔︎ Successfully updated D3vilBot!\n\nBot is restarting please wait for a minute."
-    )
+    await eor(event, "✔︎ Successfully updated D3vilBot!\n\nBot is restarting please wait for a minute.")
     args = [sys.executable, "-m", "d3vilbot"]
     os.execle(sys.executable, *args, os.environ)
     return
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"update(| now)$"))
-@bot.on(sudo_cmd(pattern="update(| now)$", allow_sudo=True))
+@d3vil_cmd(pattern="update(| now)$")
 async def upstream(event):
     conf = event.pattern_match.group(1).strip()
-    event = await edit_or_reply(event, "`Checking for new updates...`")
+    event = await eor(event, "`Checking for new updates...`")
     off_repo = UPSTREAM_REPO_URL
     force_update = False
     if HEROKU_API_KEY is None or HEROKU_APP_NAME is None:
-        return await edit_or_reply(
-            event, "Set  `HEROKU_APP_NAME`  and  `HEROKU_API_KEY`  to update your bot 🥴"
-        )
+        return await eod(event, "Set  `HEROKU_APP_NAME`  and  `HEROKU_API_KEY`  to update your bot 🥴")
+    txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
     try:
-        txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await event.edit(f"{txt}\n`directory {error}  not found`")
@@ -148,22 +142,23 @@ async def upstream(event):
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
     changelog = await gen_chlog(repo, f"HEAD..upstream/{ac_br}")
+    cid = await client_id(event)
+    d3vil_mention = cid[2]
     if changelog == "" and not force_update:
-        await event.edit(
-            f"\n**༆𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐔𝐏-𝐓𝐎-𝐃𝐀𝐓𝐄༆**"
-            f"\n\n**ᴠᴇʀsɪᴏɴ ➪**  {d3vil_ver}"
-            f"\n**ᴍᴀsᴛᴇʀ ➪**  {d3vil_mention}"
-            f"\n**ᴍᴀɪɴ ʙʀᴀɴᴄʜ ➪**  {UPSTREAM_REPO_BRANCH}\n"
-        )
+        _version, _release, _branch, _author, _auturl = await d3vil_info(d3vilbot_info)
+        output_ = f"**Your Bot Version :** `{d3vil_ver}` \n**Owner :** {d3vil_mention} \n\n**Official D3vilBot Version :** `{_version}` \n**Release Date :** `{_release}` \n**Official Repo Branch :** `{_branch}` \n**Update By :** [{_author}]({_auturl})"
+        if str(_version) not in str(d3vil_ver):
+            output_ += f"\n\n**Do** `{hl}update build` **to update your D3vilBot to latest version.**"
+        await event.edit(output_)
         return repo.__del__()
     if conf == "" and not force_update:
         await print_changelogs(event, ac_br, changelog)
         await event.delete()
-        return await event.respond(f"🌚 Do `{hl}update build` to update your ** 𝖣3𝗏𝗂𝗅𝖡𝗈𝗍** !!")
+        return await event.respond(f"🌚 Do `{hl}update build` to update your **ᗪ3ᏉᎥᏝᏰᎧᏖ** !!")
 
     if force_update:
         await event.edit(
-            "`✔️ Force-Updating ᗪ3ᏉᎥᏝᏰᎧᏖ. Please wait...`"
+            "`Force-Updating ᗪ3ᏉᎥᏝᏰᎧᏖ. Please wait...`"
         )
     if conf == "now":
         await event.edit("`Update In Progress! Please Wait....`")
@@ -191,9 +186,8 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
                 f"{txt}\n" "`Invalid Heroku vars for updating."
             )
             return repo.__del__()
-        await event.edit(
-            "`Updating Userbot In Progress...Please wait upto 5 minutes.`"
-        )
+        _version, _release, _branch, _author, _auturl = await d3vil_info(d3vilbot_info)
+        await event.edit(f"<b><i>ᗪ3ᏉᎥᏝᏰᎧᏖ Docker Build In Progress !!!</b></i> \n\n<b><i><u>Update Information :</b></i></u> \n<b>• Branch :</b> {_branch} \n<b>• Release Date :</b> {_release} \n<b>• Version :</b> {_version} \n<b>• Author :</b> <a href='{_auturl}'>{_author}</a>", link_preview=False, parse_mode="HTML")
         ups_rem.fetch(ac_br)
         repo.git.reset("--hard", "FETCH_HEAD")
         heroku_git_url = heroku_app.git_url.replace(
@@ -216,25 +210,24 @@ async def deploy(event, repo, ups_rem, ac_br, txt):
             )
             await asyncio.sleep(5)
             return await event.delete()
-        await event.edit(f"**Your  ᗪ3ᏉᎥᏝᏰᎧᏖ Is UpToDate**\n\n**Version :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
+        await event.edit(f"**Your ᗪ3ᏉᎥᏝᏰᎧᏖ Is UpToDate**\n\n**Version :**  __{d3vil_ver}__\n**Oɯɳҽɾ :**  {d3vil_mention}")
     else:
         await event.edit("**Please set up**  `HEROKU_API_KEY`  **from heroku to update!**")
     return
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"update build$"))
-@bot.on(sudo_cmd(pattern="update build$", allow_sudo=True))
+@d3vil_cmd(pattern="update build$")
 async def upstream(event):
-    event = await edit_or_reply(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
+    event = await eor(event, "`Hard-Update In Progress... \nPlease wait until docker build is finished...`")
     off_repo = "https://github.com/TEAM-D3VIL/D3vilBot"
     os.chdir("/app")
     git_d3vil = f"rm -rf .git"
     try:
-        await runner.runcmd(git_hell)
+        await runcmd(git_d3vil)
     except BaseException:
         pass
+    txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
     try:
-        txt = "😕 `Updater cannot continue due to some problems occured`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await event.edit(f"{txt}\n`directory {error}  not found`")
@@ -256,7 +249,8 @@ async def upstream(event):
     ac_br = repo.active_branch.name
     ups_rem = repo.remote("upstream")
     ups_rem.fetch(ac_br)
-    await event.edit(f"**ᗪ3ᏉᎥᏝᏰᎧᏖ Docker Build In Progress... Type** `{hl}ping`  **after 5 mins to check if Bot is working!**")
+    _version, _release, _branch, _author, _auturl = await d3vil_info(d3vilbot_info)
+    await event.edit(f"<b><i>ᗪ3ᏉᎥᏝ Docker Build In Progress !!</b></i> \n\n<b><i><u>Update Information :</b></i></u> \n<b>• Branch :</b> {_branch} \n<b>• Release Date :</b> {_release} \n<b>• Version :</b> {_version} \n<b>• Author :</b> <a href='{_auturl}'>{_author}</a>", link_preview=False, parse_mode="HTML")
     await deploy(event, repo, ups_rem, ac_br, txt)
 
 
@@ -266,4 +260,8 @@ CmdHelp("update").add_command(
   "update now", None, "Soft-Update Your ᗪ3ᏉᎥᏝᏰᎧᏖ. Basically if you restart dyno it will go back to previous deploy."
 ).add_command(
   "update build", None, "Hard-Update Your ᗪ3ᏉᎥᏝᏰᎧᏖ. This won't take you back to your previous deploy. This will be triggered even if there is no changelog."
+).add_info(
+  "ᗪ3ᏉᎥᏝᏰᎧᏖ Updater."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
