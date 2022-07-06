@@ -7,14 +7,14 @@ from telethon import Button, TelegramClient
 from telethon.utils import get_peer_id
 
 from d3vilbot import LOGS, bot, tbot
-from d3vilbot.clients.session import d3vil, D2, D3, D4, D5
+from d3vilbot.clients.session import D3vil, D2, D3, D4, D5
 from d3vilbot.config import Config
 from d3vilbot.utils import join_it, load_module, logger_check, start_msg, update_sudo, plug_channel
 from d3vilbot.version import __d3vil__ as d3vilver
 
 hl = Config.HANDLER
 
-d3vil_PIC = "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
+D3VIL_PIC = "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
 
 
 # Client Starter
@@ -62,7 +62,7 @@ bot.loop.run_until_complete(assistants())
 async def d3vil_is_on(total):
     await update_sudo()
     await logger_check(bot)
-    await start_msg(tbot, d3vil_PIC, d3vilver, total)
+    await start_msg(tbot, D3VIL_PIC, d3vilver, total)
     await join_it(bot)
     await join_it(D2)
     await join_it(D3)
