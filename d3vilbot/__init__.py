@@ -1,20 +1,18 @@
+import heroku3
 import os
 import sys
 import time
+
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
 
-import heroku3
-from dotenv import load_dotenv
-from requests import get
-from telethon import TelegramClient
-from telethon.sessions import StringSession
-
+from d3vilbot.clients.session import D2, D3, D4, D5, D3vil, D3vilBot
 from d3vilbot.config import Config
 
-StartTime = time.time()
 
+StartTime = time.time()
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
+
 
 if CONSOLE_LOGGER_VERBOSE:
     basicConfig(
@@ -24,7 +22,42 @@ if CONSOLE_LOGGER_VERBOSE:
 else:
     basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                 level=INFO)
+
+
 LOGS = getLogger(__name__)
+
+bot = D3vil
+tbot = D3vilBot
+
+
+if not Config.API_HASH:
+    LOGS.warning("Please fill var API_HASH to continue.")
+    quit(1)
+
+
+if not Config.APP_ID:
+    LOGS.warning("Please fill var APP_ID to continue.")
+    quit(1)
+
+
+if not Config.BOT_TOKEN:
+    LOGS.warning("Please fill var BOT_TOKEN to continue.")
+    quit(1)
+    
+    
+# if not Config.BOT_USERNAME:
+#     LOGS.warning("Please fill var BOT USERNAME to continue.")
+#     quit(1)
+    
+
+if not Config.DB_URI:    
+    LOGS.warning("Please fill var DATABASE_URL to continue.")
+    quit(1)
+
+
+if not Config.D3VILBOT_SESSION:
+    LOGS.warning("Please fill var D3VILBOT_SESSION to continue.")
+    quit(1)
 
 
 try:
@@ -38,32 +71,11 @@ except Exception:
     HEROKU_APP = None
 
 
-if Config.D3VILBOT_SESSION:
-    session_name = str(Config.D3VILBOT_SESSION)
-    try:
-        if session_name.endswith("="):
-            bot = TelegramClient(
-                StringSession(session_name), Config.APP_ID, Config.API_HASH
-            )
-        else:
-            bot = TelegramClient(
-                "BOT_TOKEN", api_id=Config.APP_ID, api_hash=Config.API_HASH
-            ).start(bot_token=Config.D3VILBOT_SESSION)
-    except Exception as e:
-        LOGS.warn(f"D3VILBOT_SESSION - {str(e)}")
-        sys.exit()
-else:
-    session_name = "startup"
-    bot = TelegramClient(session_name, Config.APP_ID, Config.API_HASH)
-
-tbot = TelegramClient('d3vilbot', api_id=Config.APP_ID, api_hash=Config.API_HASH).start(bot_token=Config.BOT_TOKEN)
-
-
 # global variables
 CMD_LIST = {}
 CMD_HELP = {}
 CMD_HELP_BOT = {}
-BRAIN_CHECKER = []
+CMD_INFO = {}
 INT_PLUG = ""
 LOAD_PLUG = {}
 COUNT_MSG = 0
@@ -73,6 +85,5 @@ LASTMSG = {}
 ISAFK = False
 AFKREASON = None
 SUDO_LIST = {}
-
 
 
