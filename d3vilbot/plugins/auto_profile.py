@@ -1,31 +1,30 @@
 import asyncio
 import time
-
+import random
 from telethon.errors import FloodWaitError
 from telethon.tl import functions
 from telethon.tl.functions.channels import GetAdminedPublicChannelsRequest
 
+from d3vilbot.sql.gvar_sql import addgvar, delgvar, gvarstat
 from . import *
 
-DEFAULTUSERBIO = Config.BIO_MSG
 DEL_TIME_OUT = 60
 
 
-@bot.on(d3vil_cmd(pattern="autoname"))
+@d3vil_cmd(pattern="autoname$")
 async def _(event):
-    if event.fwd_from:
-        return
-    d3vil = await edit_or_reply(event, "`Starting AutoName Please Wait`")
-    if event.fwd_from:
-        return
+    d3vil = await eor(event, "`Starting AutoName Please Wait`")
+    _id, D3VIL_USER, _ment = await client_id(event)
+    await d3vil.edit(f"Auto Name has been started my Master")
+    await event.client.send_message(Config.LOGGER_ID, "#AUTONAME \n\nAutoname Started!!")
     while True:
-        HB = time.strftime("%d-%m-%y")
-        HE = time.strftime("%H:%M")
-        name = f"🕒{HE} ⚡{D3VIL_USER}⚡ 📅{HB}"
+        DB = time.strftime("%d-%m-%y")
+        D3 = time.strftime("%H:%M")
+        name = f"🕒{D3} ⚡{D3VIL_USER}⚡ 📅{DB}"
         logger.info(name)
         try:
-            await bot(
-                functions.account.UpdateProfileRequest(  # pylint:disable=E0602
+            await event.client(
+                functions.account.UpdateProfileRequest(
                     first_name=name
                 )
             )
@@ -33,57 +32,45 @@ async def _(event):
             logger.warning(str(e))
             await asyncio.sleep(ex.seconds)
         await asyncio.sleep(DEL_TIME_OUT)
-        await d3vil.edit(f"Auto Name has been started my Master")
-        await bot.send_message(Config.LOGGER_ID, "#AUTONAME \n\nAutoname Started!!")
 
 
-@bot.on(d3vil_cmd(pattern="autobio"))  # pylint:disable=E0602
+@d3vil_cmd(pattern="autobio$")
 async def _(event):
-    if event.fwd_from:
-        return
-    await event.edit("Starting AutoBio...")
+    d3vil = await eor(event, "Starting AutoBio...")
+    await d3vil.edit("AutoBio Activated...")
+    await event.client.send_message(Config.LOGGER_ID, "#AUTOBIO \n\nAutoBio Started!!")
     while True:
         DMY = time.strftime("%d.%m.%Y")
         HM = time.strftime("%H:%M:%S")
-        bio = f"📅 {DMY} | {DEFAULTUSERBIO} | ⌚️ {HM}"
+        bio_ = gvarstat("BIO_MSG") or random.choice(bio_msgs)
+        DEFAULTUSERBIO = bio_[:66]
+        bio = f"“ {DEFAULTUSERBIO} ”"
         logger.info(bio)
         try:
-            await bot(
-                functions.account.UpdateProfileRequest(  # pylint:disable=E0602
+            await event.client(
+                functions.account.UpdateProfileRequest(
                     about=bio
                 )
             )
         except FloodWaitError as ex:
             logger.warning(str(e))
             await asyncio.sleep(ex.seconds)
-        # else:
-        # logger.info(r.stringify())
-        # await bot.send_message(  # pylint:disable=E0602
-        # Config.PRIVATE_GROUP_BOT_API_ID,  # pylint:disable=E0602
-        # "Successfully Changed Profile Bio"
-        # )
         await asyncio.sleep(DEL_TIME_OUT)
-        await event.edit("AutoBio Activated...")
-        await bot.send_message(Config.LOGGER_ID, "#AUTOBIO \n\nAutoBio Started!!")
 
 
-@bot.on(d3vil_cmd(pattern="reserved", outgoing=True))
-@bot.on(sudo_cmd(pattern="reserved", allow_sudo=True))
+@d3vil_cmd(pattern="reserved$")
 async def mine(event):
-    if event.fwd_from:
-        return
-    """ For .reserved command, get a list of your reserved usernames. """
-    result = await bot(GetAdminedPublicChannelsRequest())
+    result = await event.client(GetAdminedPublicChannelsRequest())
     output_str = ""
     for channel_obj in result.chats:
         output_str += f"{channel_obj.title}\n@{channel_obj.username}\n\n"
-    await edit_or_reply(event, output_str)
+    await eor(event, output_str)
 
 
 CmdHelp("auto_profile").add_command(
-  'autobio', None, 'Changes your bio with time. Need to set BIO_MSG in heroku vars(optional)'
+  'autobio', None, 'Changes your bio with random quotes. You can set your own bio by setting up gvar BIO_MSG.'
 ).add_command(
-  'autoname', None, 'Changes your name with time according to your ALIVE_NAME in heroku var'
+  'autoname', None, 'Changes your name with time.'
 ).add_command(
   'reserved', None, 'Gives the list of usernames reserved by you. In short gives the list of public groups or channels that you are owner in.'
 ).add_info(
