@@ -7,9 +7,10 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from telethon.tl.types import DocumentAttributeVideo
 
+from d3vilbot.sql.gvar_sql import addgvar, delgvar, gvarstat
 from . import *
 
-thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
+thumb_image_path = Config.THUMB_IMG
 
 
 def get_video_thumb(file, output=None, width=90):
@@ -36,50 +37,37 @@ def get_video_thumb(file, output=None, width=90):
         return output
 
 
-@bot.on(d3vil_cmd(pattern="rename (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="rename (.*)", allow_sudo=True))
+@d3vil _cmd(pattern="rename(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    d3vil = await eor(event, 
-        "Renaming in progress...\nThis might take some time if file is big. 🥴"
-    )
-    input_str = event.pattern_match.group(1)
+    input_str = event.text[8:]
+    if input_str == "":
+        return await eod(event, "Give a new file name..")
+    d3vil  = await eor(event, f"Renaming it to `{input_str}`")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
         start = datetime.datetime.now()
         file_name = input_str
         reply_message = await event.get_reply_message()
-        # c_time = time.time()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await bot.download_media(
+        downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
         end = datetime.datetime.now()
         ms = (end - start).seconds
         if os.path.exists(downloaded_file_name):
-            await d3vil.edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
+            await d3vil .edit("Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
             )
         else:
-            await eod(d3vil, "Error Occurred\n {}".format(input_str))
+            await eod(d3vil , "Error Occurred\n {}".format(input_str))
     else:
-        await eod(d3vil, f"Syntax `{hl}rename file.name` as reply to a Telegram media")
+        await eod(d3vil , f"**Syntax Wrong !!** \n\n• `{hl}rename new file name` as reply to a Telegram file")
 
-
-@bot.on(d3vil_cmd(pattern="rnupload (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="rnupload (.*)", allow_sudo=True))
+@d3vil _cmd(pattern="rnupload(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    thumb = None
-    if os.path.exists(thumb_image_path):
-        thumb = thumb_image_path
-    d3vil = await eor(event, 
-        "Renaming And Uploading File..."
-    )
-    input_str = event.pattern_match.group(1)
+    input_str = event.text[10:]
+    d3vil  = await eor(event, f"Renaming to `{input_str}`")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -88,17 +76,22 @@ async def _(event):
         reply_message = await event.get_reply_message()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await bot.download_media(
+        downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
         end = datetime.datetime.now()
         ms_one = (end - start).seconds
         if os.path.exists(downloaded_file_name):
             time.time()
-            await bot.send_file(
+            thumb = None
+            if os.path.exists(thumb_image_path):
+                thumb = thumb_image_path
+            else:
+                thumb = get_video_thumb(downloaded_file_name, thumb_image_path)
+            await event.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
-                force_document=False,
+                force_document=True,
                 supports_streaming=False,
                 allow_cache=False,
                 reply_to=event.message.id,
@@ -107,25 +100,16 @@ async def _(event):
             end_two = datetime.datetime.now()
             os.remove(downloaded_file_name)
             ms_two = (end_two - end).seconds
-            await d3vil.edit("Downloaded in {} seconds. Uploaded in {} seconds.".format(
-                    ms_one, ms_two
-                )
-            )
+            await d3vil .edit("Downloaded in {} seconds. Uploaded in {} seconds.".format(ms_one, ms_two))
         else:
             await eod(event, "File Not Found {}".format(input_str))
     else:
-        await d3vil.edit("Syntax // `{}rnupload file.name` as reply to a Telegram media".format(hl))
+        await d3vil .edit(f"**Syntax Wrong !!** \n\n• `{hl}rnupload new file name`")
 
-
-@bot.on(d3vil_cmd(pattern="rnsupload (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="rnsupload (.*)", allow_sudo=True))
+@d3vil _cmd(pattern="rnsupload(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    d3vil = await eor(event, 
-        "Rename & Upload as streamable format is in progress..."
-    )
-    input_str = event.pattern_match.group(1)
+    d3vil  = await eor(event, "Rename & Upload as streamable format is in progress...")
+    input_str = event.text[11:]
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
@@ -135,7 +119,7 @@ async def _(event):
         time.time()
         to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
         downloaded_file_name = os.path.join(to_download_directory, file_name)
-        downloaded_file_name = await bot.download_media(
+        downloaded_file_name = await event.client.download_media(
             reply_message, downloaded_file_name
         )
         end_one = datetime.datetime.now()
@@ -168,11 +152,11 @@ async def _(event):
                     height = metadata.get("height")
 
             try:
-                await bot.send_file(
+                await event.client.send_file(
                     event.chat_id,
                     downloaded_file_name,
                     thumb=thumb,
-                    caption="reuploaded by [D3vilBot](https://t.me/d3vilbot_official_chat)",
+                    caption="reuploaded by d3vil Bot",
                     force_document=False,
                     allow_cache=False,
                     reply_to=event.message.id,
@@ -187,21 +171,20 @@ async def _(event):
                     ],
                 )
             except Exception as e:
-                await d3vil.edit(event, str(e))
+                await d3vil .edit(event, str(e))
             else:
                 end = datetime.datetime.now()
                 os.remove(downloaded_file_name)
                 ms_two = (end - end_one).seconds
-                await d3vil.edit("Downloaded in {} seconds. Uploaded in {} seconds.".format(
+                await d3vil .edit("Downloaded in {} seconds. Uploaded in {} seconds.".format(
                         ms_one, ms_two
                     )
                 )
         else:
-            await eod(d3vil, "File Not Found {}".format(input_str))
+            await eod(d3vil , "File Not Found {}".format(input_str))
     else:
-        await d3vil.edit(
-            "Syntax // .rnsupload file.name as reply to a Telegram media"
-        )
+        await d3vil .edit(f"**Syntax Wrong !!** \n\n• `{hl}rnsupload new file name` as reply to a Telegram file")
+
 
 CmdHelp("rename").add_command(
   "rename", "<reply to media> <new name>", "Renames the replied media and downloads it to userbot local storage"
@@ -209,4 +192,8 @@ CmdHelp("rename").add_command(
   "rnupload", "<reply to media> <new name>", "Renames the replied media and directly uploads it to the chat"
 ).add_command(
   "rnsupload", "<reply to media> <new name>", "Renames the replied media and directly upload in streamable format."
+).add_info(
+  "Rename Yiur Files."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
