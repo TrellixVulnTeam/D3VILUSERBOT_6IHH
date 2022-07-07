@@ -1,69 +1,60 @@
 import math
 
-from . import *
 
-@bot.on(d3vil_cmd(pattern="sin ?(.*)"))
-@bot.on(sudo_cmd(pattern="sin ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="sin(?:\s|$)([\s\S]*)")
 async def findsin(event):
-    input_str = int(event.pattern_match.group(1))
+    input_str = float(event.text[5:])
     output = math.sin(input_str)
-    await event.edit(f"**Value of Sin** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Sin** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="cos ?(.*)"))
-@bot.on(sudo_cmd(pattern="cos ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="cos(?:\s|$)([\s\S]*)")
 async def find_cos(event):
-    input_str = int(event.pattern_match.group(1))
+    input_str = float(event.text[5:])
     output = math.cos(input_str)
-    await event.edit(f"**Value of Cos** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Cos** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="tan ?(.*)"))
-@bot.on(sudo_cmd(pattern="tan ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="tan(?:\s|$)([\s\S]*)")
 async def find_tan(event):
-    input_str = int(event.pattern_match.group(1))
+    input_str = float(event.text[5:])
     output = math.tan(input_str)
-    await event.edit(f"**Value of Tan** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Tan** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="cosec ?(.*)"))
-@bot.on(sudo_cmd(pattern="cosec ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="cosec(?:\s|$)([\s\S]*)")
 async def find_csc(event):
-    input_str = float(event.pattern_match.group(1))
+    input_str = float(event.text[7:])
     output = mpmath.csc(input_str)
-    await event.edit(f"**Value of Cosec** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Cosec** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="sec ?(.*)"))
-@bot.on(sudo_cmd(pattern="sec ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="sec(?:\s|$)([\s\S]*)")
 async def find_sec(event):
-    input_str = float(event.pattern_match.group(1))
+    input_str = float(event.text[5:])
     output = mpmath.sec(input_str)
-    await event.edit(f"**Value of Sec** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Sec** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="cot ?(.*)"))
-@bot.on(sudo_cmd(pattern="cot ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="cot(?:\s|$)([\s\S]*)")
 async def find_cot(event):
-    input_str = float(event.pattern_match.group(1))
+    input_str = float(event.text[5:])
     output = mpmath.cot(input_str)
-    await event.edit(f"**Value of Cot** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Value of Cot** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="square ?(.*)"))
-@bot.on(sudo_cmd(pattern="square ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="square(?:\s|$)([\s\S]*)")
 async def square(event):
-    input_str = float(event.pattern_match.group(1))
+    input_str = float(event.text[8:])
     output = input_str * input_str
-    await event.edit(f"**Square of** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Square of** `{input_str}`==\n`{output}`")
 
 
-@bot.on(d3vil_cmd(pattern="cube ?(.*)"))
-@bot.on(sudo_cmd(pattern="cube ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="cube(?:\s|$)([\s\S]*)")
 async def cube(event):
-    input_str = float(event.pattern_match.group(1))  
+    input_str = float(event.text[6:])  
     output = input_str * input_str * input_str
-    await event.edit(f"**Cube of** `{input_str}`==\n`{output}`")
+    await eor(event, f"**Cube of** `{input_str}`==\n`{output}`")
 
 
 CmdHelp("maths").add_command(
@@ -82,4 +73,8 @@ CmdHelp("maths").add_command(
   "sin", "<query>", "Gives the sin of given query"
 ).add_command(
   "cos", "<query>", "Gives the cos of given query"
+).add_info(
+  "A Plugin On Mathematics."
+).add_warning(
+  "✅ Harmlesss Module."
 ).add()
