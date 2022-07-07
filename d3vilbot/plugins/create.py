@@ -4,21 +4,16 @@ from telethon.tl.types import MessageEntityMentionName
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern="create (b|g|c) (.*)"))  # pylint:disable=E0602
-@bot.on(sudo_cmd(pattern="create (b|g|c) (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="create (b|g|c) ([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     type_of_group = event.pattern_match.group(1)
     group_name = event.pattern_match.group(2)
-    event = await edit_or_reply(event, "Creating wait sar.....")
+    d3vil = await eor(event, "Creating wait sar.....")
     if type_of_group == "b":
         try:
             result = await event.client(
-                functions.messages.CreateChatRequest(  # pylint:disable=E0602
+                functions.messages.CreateChatRequest(
                     users=["@MissRose_Bot"],
-                    # Not enough users (to create a chat, for example)
-                    # Telegram, no longer allows creating a chat with ourselves
                     title=group_name,
                 )
             )
@@ -33,19 +28,19 @@ async def _(event):
                     peer=created_chat_id,
                 )
             )
-            await event.edit(
+            await d3vil.edit(
                 "Group `{}` created successfully. Join {}".format(
                     group_name, result.link
                 )
             )
-        except Exception as e:  # pylint:disable=C0103,W0703
-            await event.edit(str(e))
+        except Exception as e:
+            await d3vil.edit(str(e))
     elif type_of_group in ["g", "c"]:
         try:
             r = await event.client(
                 functions.channels.CreateChannelRequest(
                     title=group_name,
-                    about="Created By 𝔇3𝔳𝔦𝔩𝔅𝔬𝔱",
+                    about="Created By ᗪ3ᏉᎥᏝᏰᎧᏖ",
                     megagroup=type_of_group != "c",
                 )
             )
@@ -56,32 +51,29 @@ async def _(event):
                     peer=created_chat_id,
                 )
             )
-            await event.edit(
+            await d3vil.edit(
                 "Channel `{}` created successfully. Join {}".format(
                     group_name, result.link
                 )
             )
-        except Exception as e:  # pylint:disable=C0103,W0703
+        except Exception as e:
             await event.edit(str(e))
     else:
-        await event.edit(f"Read `{hl}plinfo create` to know how to use me")
+        await d3vil.edit(f"Read `{hl}plinfo create` to know how to use me")
 
-@bot.on(d3vil_cmd(pattern="link(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="link(?: |$)(.*)", allow_sudo=True))
+
+@d3vil_cmd(pattern="link ([\s\S]*)")
 async def permalink(mention):
-    if mention.fwd_from:
-        return
-    """ For .link command, generates a link to the user's PM with a custom text. """
     user, custom = await get_user_from_event(mention)
     if not user:
         return
     if custom:
-        await edit_or_reply(mention, f"[{custom}](tg://user?id={user.id}) \n\n\n  ☝️ Tap To See ☝️")
+        await eor(mention, f"[{custom}](tg://user?id={user.id}) \n\n\n  ☝️ Tap To See ☝️")
     else:
         tag = (
             user.first_name.replace("\u2060", "") if user.first_name else user.username
         )
-        await edit_or_reply(mention, f"[{tag}](tg://user?id={user.id}) \n\n ☝️ Tap to See ☝️")
+        await eor(mention, f"[{tag}](tg://user?id={user.id}) \n\n\n ☝️ Tap to See ☝️")
 
 
 async def get_user_from_event(event):
@@ -141,4 +133,8 @@ CmdHelp("create").add_command(
   'create c', 'Name of your channel', 'Creates a channel and sends you link'
 ).add_command(
   'link', '<reply> <text>', 'Makes a permanent link of tagged user with a custom text'
+).add_info(
+  'Creates Groups'
+).add_warning(
+  '✅ Harmless Module'
 ).add()
