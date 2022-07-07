@@ -14,7 +14,7 @@ def ocr_space_file(
     :param overlay: Is OCR.space overlay required in your response.
                     Defaults to False.
     :param api_key: OCR.space API key.
-                    Defaults to 'd3viloworld'.
+                    Defaults to 'helloworld'.
     :param language: Language code to be used in OCR.
                     List of available language codes can be found on https://ocr.space/OCRAPI
                     Defaults to 'en'.
@@ -42,7 +42,7 @@ def ocr_space_url(url, overlay=False, api_key=Config.OCR_API, language="eng"):
     :param overlay: Is OCR.space overlay required in your response.
                     Defaults to False.
     :param api_key: OCR.space API key.
-                    Defaults to 'd3viloworld'.
+                    Defaults to 'helloworld'.
     :param language: Language code to be used in OCR.
                     List of available language codes can be found on https://ocr.space/OCRAPI
                     Defaults to 'en'.
@@ -70,11 +70,8 @@ def progress(current, total):
     )
 
 
-@bot.on(d3vil_cmd(pattern="ocrlang", outgoing=True))
-@bot.on(sudo_cmd(pattern="ocrlang", allow_sudo=True))
+@d3vil_cmd(pattern="ocrlang$")
 async def get_ocr_languages(event):
-    if event.fwd_from:
-        return
     languages = {}
     languages["English"] = "eng"
     languages["Arabic"] = "ara"
@@ -104,16 +101,13 @@ async def get_ocr_languages(event):
     await eor(event, str(a))
 
 
-@bot.on(d3vil_cmd(pattern=r"ocr (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"ocr (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="ocr(?:\s|$)([\s\S]*)")
 async def parse_ocr_space_api(event):
-    if event.fwd_from:
-        return
     d3vil = await eor(event, "Processing weit...🤓")
     if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     lang_code = event.pattern_match.group(1)
-    downloaded_file_name = await borg.download_media(
+    downloaded_file_name = await event.client.download_media(
         await event.get_reply_message(),
         Config.TMP_DOWNLOAD_DIRECTORY,
         progress_callback=progress,
@@ -142,4 +136,8 @@ CmdHelp("ocr").add_command(
   "ocr", "<reply to a img> <lang code>", "Reads and sends you the text written in replied image in selected language"
 ).add_command(
   "ocrlang", None, "Gives the list of supported languages of OCR."
+).add_info(
+  "Read Texts On Images."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
