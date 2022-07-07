@@ -9,53 +9,39 @@ from telethon.tl.types import DocumentAttributeFilename
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern="frybot$"))
-@bot.on(sudo_cmd(pattern="frybot$", allow_sudo=True))
+@d3vil_cmd(pattern="frybot$")
 async def _(event):
-    if event.fwd_from:
-        return
     if not event.reply_to_msg_id:
-        event = await eor(event, "Reply to any user message.")
+        d3vil = await eor(event, "Reply to any user message.")
         return
     reply_message = await event.get_reply_message()
     if event.is_reply:
         reply_message = await event.get_reply_message()
         data = await check_media(reply_message)
         if isinstance(data, bool):
-            event = await eor(event, "`I can't deep fry that!`")
+            await d3vil.edit("`I can't deep fry that!`")
             return
     if not event.is_reply:
-        event = await eor(
-            event, "`Reply to an image or sticker to deep fry it!`"
-        )
+        await d3vil.edit("`Reply to an image or sticker to deep fry it!`")
         return
     chat = "@image_deepfrybot"
-    if reply_message.sender.bot:
-        event = await eor(event, "Reply to actual users message.")
-        return
-    event = await eor(event, "```Processing```")
+    await d3vil.edit("```Processing```")
     async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
                 events.NewMessage(incoming=True, from_users=432858024)
             )
-            await event.client.forward_messages(chat, reply_message)
+            await event.client.send_message(chat, reply_message)
             response = await response
         except YouBlockedUserError:
-            await event.reply("Unblock @image_deepfrybot and try again")
+            await d3vil.edit("Unblock @image_deepfrybot and try again")
             return
-        await bot.send_read_acknowledge(conv.chat_id)
-        if response.text.startswith("Forward"):
-            await event.edit(
-                "```can you kindly disable your forward privacy settings for good?```"
-            )
-        else:
-            await event.client.send_file(event.chat_id, response.message.media)
-        await event.delete()
+        await event.client.send_read_acknowledge(conv.chat_id)
+        await event.client.send_file(event.chat_id, response.message.media)
+        await d3vil.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"fry(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"fry(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="fry(?:\s|$)([\s\S]*)")
 async def deepfryer(event):
     try:
         frycount = int(event.pattern_match.group(1))
@@ -72,11 +58,9 @@ async def deepfryer(event):
     if not event.is_reply:
         await eod(event, "`Reply to an image or sticker to deep fry it!`")
         return
-    # download last photo (highres) as byte array
     image = io.BytesIO()
     await event.client.download_media(data, image)
     image = Image.open(image)
-    # fry the image
     hmm = await eor(event, "`Deep frying media…`")
     for _ in range(frycount):
         image = await deepfry(image)
@@ -94,7 +78,6 @@ async def deepfry(img: Image) -> Image:
         (randint(190, 255), randint(170, 240), randint(180, 250)),
     )
     img = img.copy().convert("RGB")
-    # Crush image to d3vil and back
     img = img.convert("RGB")
     width, height = img.width, img.height
     img = img.resize(
@@ -111,12 +94,10 @@ async def deepfry(img: Image) -> Image:
     )
     img = img.resize((width, height), resample=Image.BICUBIC)
     img = ImageOps.posterize(img, randint(3, 7))
-    # Generate colour overlay
     overlay = img.split()[0]
     overlay = ImageEnhance.Contrast(overlay).enhance(uniform(1.0, 2.0))
     overlay = ImageEnhance.Brightness(overlay).enhance(uniform(1.0, 2.0))
     overlay = ImageOps.colorize(overlay, colours[0], colours[1])
-    # Overlay red and yellow onto main image and sharpen the d3vil out of it
     img = Image.blend(img, overlay, uniform(0.1, 0.4))
     img = ImageEnhance.Sharpness(img).enhance(randint(5, 300))
     return img
@@ -151,4 +132,8 @@ CmdHelp("fryer").add_command(
   "frybot", "<reply to a image/sticker>", "Fries the given sticker or image"
 ).add_command(
   "fry", "<1-9> <reply to image/sticker>", "Fries the given sticker or image based on level if you dont give anything then it is default to 2"
+).add_info(
+  "Image Destruction!"
+).add_warning(
+  "✅ Harmless Module."
 ).add()
