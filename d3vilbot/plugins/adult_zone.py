@@ -1,94 +1,43 @@
-
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
+import nekos
+import os
+import random
 
 from . import *
 
+neko_category = ['feet', 'yuri', 'trap', 'futanari', 'hololewd', 'lewdkemo', 'solog', 'feetg', 'cum', 'erokemo', 'les', 'wallpaper', 'lewdk', 'ngif', 'tickle', 'lewd', 'feed', 'gecg', 'eroyuri', 'eron', 'cum_jpg', 'bj', 'nsfw_neko_gif', 'solo', 'kemonomimi', 'nsfw_avatar', 'gasm', 'poke', 'anal', 'slap', 'hentai', 'avatar', 'erofeet', 'holo', 'keta', 'blowjob', 'pussy', 'tits', 'holoero', 'lizard', 'pussy_jpg', 'pwankg', 'classic', 'kuni', 'waifu', 'pat', '8ball', 'kiss', 'femdom', 'neko', 'spank', 'cuddle', 'erok', 'fox_girl', 'boobs', 'random_hentai_gif', 'smallboobs', 'hug', 'ero', 'smug', 'goose', 'baka', 'woof']
 
-@d3vilbot.on(d3vil_cmd(pattern="xnxx?(.*)"))
+@d3vil_cmd(pattern="nekos(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    input_str = event.pattern_match.group(1)
-    await event.get_reply_message()
-    chat = "@SeXn1bot"
-    await event.edit("```Checking...```")
-    async with event.client.conversation(chat) as conv:
-        try:
-            response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=264121194)
-            )
-            await event.client.send_message(chat, "💋2016 Videolar🔞{}".format(input_str))
-            response = await response
-        except YouBlockedUserError:
-            await event.reply("```Unblock @SeXn1bot```")
-            return
-        if response.text.startswith("I can't find that"):
-            await event.edit("😐")
-        else:
-            await event.delete()
-            await event.client.send_file(event.chat_id, response.message)
+    x = await event.get_chat()
+    y = x.id
+    if y == 1676629806:
+        return await eor(event, "Can't use this command here.")
+    if Config.ABUSE != "ON":
+        return await eor(event, "**This command is only for users with variable** `ABUSE` **as** `ON`")
+    owo = event.text[7:]
+    if owo in neko_category:
+        d3vil = await eor(event, f"`Searching {owo} ...`")
+        link = nekos.img(owo)
+        x = await event.client.send_file(event.chat_id, link, force_document=False)
+        await d3vil.delete()
+        if link.endswith((".gif")):
+            await unsave_gif(event, x)
+    elif owo == "":
+        d3vil = await eor(event, "`Searching randoms...`")
+        uwu = random.choice(neko_category)
+        link = nekos.img(uwu)
+        x = await event.client.send_file(event.chat_id, link, force_document=False)
+        await d3vil.delete()
+        if link.endswith((".gif")):
+            await unsave_gif(event, x)
+    else:
+        await eor(event, f"**Unmatched argument.** \n\n__Get all the required queries for nekos here__ -> **[Nekos Queries](http://telegra.ph/Nekos-Queries-08-20)**")
 
 
-@borg.on(d3vil_cmd(pattern="picx?(.*)"))
-async def _(event):
-    if event.fwd_from:
-        return
-    input_str = event.pattern_match.group(1)
-    await event.get_reply_message()
-    chat = "@SeXn1bot"
-    await event.edit("```Checking...```")
-    async with event.client.conversation(chat) as conv:
-        try:
-            response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=264121194)
-            )
-            await event.client.send_message(chat, "♨️Old photo👙{}".format(input_str))
-            response = await response
-        except YouBlockedUserError:
-            await event.reply("```Unblock @SeXn1bot```")
-            return
-        if response.text.startswith("I can't find that"):
-            await event.edit("😐")
-        else:
-            await event.delete()
-            await event.client.send_file(event.chat_id, response.message)
-
-
-@borg.on(d3vil_cmd(pattern="les?(.*)"))
-async def _(event):
-    if event.fwd_from:
-        return
-    input_str = event.pattern_match.group(1)
-    await event.get_reply_message()
-    chat = "@SeXn1bot"
-    await event.edit("```Checking...```")
-    async with event.client.conversation(chat) as conv:
-        try:
-            response = conv.wait_event(
-                events.NewMessage(incoming=True, from_users=264121194)
-            )
-            await event.client.send_message(chat, "🔞Uz_sex♨️{}".format(input_str))
-            response = await response
-        except YouBlockedUserError:
-            await event.reply("```Unblock @SeXn1bot```")
-            return
-        if response.text.startswith("I can't find that"):
-            await event.edit("😐")
-        else:
-            await event.delete()
-            await event.client.send_file(event.chat_id, response.message)
-            
 CmdHelp("adultzone").add_command(
-  "xnxx", None, "use and see For 18+ only kids don't use"
-).add_command(
-  "picx", None, "use and see For 18+ only kids don't use"
-).add_command(
-  "les", None, "use and see For 18+ only kids don't use"
-).add_command(
-  "xxshort", None, "For Short Se* Videos (Warning 18+ Only) NSFW"
-).add_command(
-  "xxlong", None, "For Long Se* Video"
+  "nekos", "<category>", "Searches and sends some SFW & NSFW neko images/gifs according to category mentioned or sends a random NSFW/SFW image/gif."
+).add_info(
+  "Some NSFW Content."
 ).add_warning(
-  "For 18+ only kids don't use"
+  "🔞 NSFW content."
 ).add()
