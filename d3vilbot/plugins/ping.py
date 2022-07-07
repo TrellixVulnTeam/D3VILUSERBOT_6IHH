@@ -3,7 +3,7 @@ import datetime
 
 from . import *
 
-PING_PIC = Config.ALIVE_PIC
+PING_PIC = "https://telegra.ph/file/12857b5dd04d57d959ca3.jpg"
 
 #@bot.on(d3vil_cmd(pattern="ping$"))
 #@bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
@@ -18,8 +18,7 @@ PING_PIC = Config.ALIVE_PIC
 #        f"█▀█ █▀█ █▄░█ █▀▀ █\n█▀▀ █▄█ █░▀█ █▄█  ▄\n\n ⚘ ριиg: {ms}\n**⚘ 𝙼𝙰𝚂𝚃𝙴𝚁:** {d3vil_mention}"
 #    )
 
-@bot.on(admin_cmd(pattern="ping$", outgoing=True))
-@bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
+@d3vil_cmd(pattern="ping(?:\s|$)([\s\S]*)")
 async def _(event):
     if event.fwd_from:
         return
