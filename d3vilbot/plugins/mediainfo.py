@@ -3,8 +3,7 @@ import os
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern="mediainfo$"))
-@bot.on(sudo_cmd(pattern="mediainfo$", allow_sudo=True))
+@d3vil_cmd(pattern="mediainfo$")
 async def mediainfo(event):
     D3VIL_MEDIA = None
     reply = await event.get_reply_message()
