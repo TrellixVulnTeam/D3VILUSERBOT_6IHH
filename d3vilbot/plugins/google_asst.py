@@ -1,22 +1,18 @@
 import asyncio
-import os
-import subprocess
 import datetime
 import emoji
+import os
+import subprocess
+
 from googletrans import Translator
 from gtts import gTTS
 
 from . import *
 
 
-@bot.on(d3vil_cmd(pattern="trt ?(.*)"))
-@bot.on(sudo_cmd(pattern="trt ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="trt(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    if "trim" in event.raw_text:
-        return
-    input_str = event.pattern_match.group(1)
+    input_str = event.text[5:]
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
@@ -24,11 +20,7 @@ async def _(event):
     elif "-" in input_str:
         lan, text = input_str.split("-")
     else:
-        await eod(
-            event,
-            f"`{hl}trt LanguageCode - message`  or  `{hl}trt LanguageCode as reply to a message.`\n\nTry `{hl}trc` to get all language codes",
-            7,
-        )
+        await eod(event, f"`{hl}trt LanguageCode - message`  or  `{hl}trt LanguageCode as reply to a message.`\n\nTry `{hl}trc` to get all language codes")
         return
     text = emoji.demojize(text.strip())
     lan = lan.strip()
@@ -36,27 +28,19 @@ async def _(event):
     try:
         translated = translator.translate(text, dest=lan)
         after_tr_text = translated.text
-        output_str = """**Translated**\nFrom {} to {}
-{}""".format(
-            translated.src, lan, after_tr_text
-        )
-        await edit_or_reply(event, output_str)
+        output_str = "**Translated From** __{}__ **to** __{}__\n\n`{}`".format(translated.src, lan, after_tr_text)
+        await eor(event, output_str)
     except Exception as exc:
-        await edit_or_reply(event, str(exc))
+        await eor(event, str(exc))
 
-@bot.on(d3vil_cmd(pattern=r"trc", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"trc", allow_sudo=True))
+@d3vil_cmd(pattern="trc$")
 async def _(d3vil):
-    if d3vil.fwd_from:
-        return
-    await edit_or_reply(d3vil, "**All The Language Codes Can Be Found** \n ⚡ [Here](https://telegra.ph/SfMæisér--𐌷𐌴ࠋࠋ𐌱𐍈𐌸-𐌾𐌰𐍀𐌾-06-04) ⚡", link_preview=False)
+    await eor(d3vil, "**All The Language Codes Can Be Found** ⚡ [Here](https://telegra.ph/3-𝗗3𝗩𝗜𝗟𖤍𓆩𝙠𝙧𝙞𝙨𝙝𓆪---Ɇ-D3VIL-07-07) ⚡", link_preview=False)
 
 
-@bot.on(d3vil_cmd(pattern="voice (.*)"))
-@bot.on(sudo_cmd(pattern="voice (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="voice(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
+    d3vil = await eor(event, "Preparing Voice....")
     input_str = event.pattern_match.group(1)
     start = datetime.datetime.now()
     if event.reply_to_msg_id:
@@ -66,7 +50,7 @@ async def _(event):
     elif "-" in input_str:
         lan, text = input_str.split("-")
     else:
-        await eod(event, "Invalid Syntax. Module stopping.")
+        await eod(d3vil, f"Invalid Syntax. Module stopping. Check out `{hl}plinfo google_asst` for help.")
         return
     text = text.strip()
     lan = lan.strip()
@@ -95,31 +79,34 @@ async def _(event):
                 command_to_execute, stderr=subprocess.STDOUT
             )
         except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
-            await event.edit(str(exc))
-            # continue sending required_file_name
+            await d3vil.edit(str(exc))
         else:
             os.remove(required_file_name)
             required_file_name = required_file_name + ".opus"
         end = datetime.datetime.now()
         ms = (end - start).seconds
-        await borg.send_file(
+        await event.client.send_file(
             event.chat_id,
             required_file_name,
+            caption=f"**• Voiced :** `{text[0:97]}....` \n**• Language :** `{lan}` \n**• Time Taken :** `{ms} seconds`",
             reply_to=event.message.reply_to_msg_id,
             allow_cache=False,
             voice_note=True,
         )
         os.remove(required_file_name)
-        await eor(event, "Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
-        await asyncio.sleep(5)
-        await event.delete()
+        await d3vil.delete()
     except Exception as e:
-        await eod(event, str(e), 10)
+        await eod(d3vil, str(e))
+
 
 CmdHelp("google_asst").add_command(
   "voice", "<reply to a msg> <lang code>", "Sends the replied msg content in audio format."
 ).add_command(
-    "trt", "<lang code> <reply to msg>", "Translates the replied message to desired language code. Type '.trc' to get all the language codes", f"trt en - d3vilo | {hl}trt en <reply to msg>"
+    "trt", "<lang code> <reply to msg>", "Translates the replied message to desired language code. Type '.trc' to get all the language codes", f"trt en - hello | {hl}trt en <reply to msg>"
 ).add_command(
   "trc", None, "Gets all the possible language codes for google translate module"
+).add_info(
+  "Google Assistant"
+).add_warning(
+  "✅ Harmless Module."
 ).add()
