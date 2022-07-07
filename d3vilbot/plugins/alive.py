@@ -29,8 +29,7 @@ pm_caption += " [⚡REPO⚡](https://github.com/TEAM-D3VIL/D3vilBot) 🔹 [📜L
 
 #-------------------------------------------------------------------------------
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern="alive$"))
-@d3vilbot.on(sudo_cmd(pattern="alive$", allow_sudo=True))
+@d3vil_cmd(pattern="alive$")
 async def up(d3vil):
     if d3vil.fwd_from:
         return
@@ -54,8 +53,7 @@ msg = f"""
 """
 botname = Config.BOT_USERNAME
 
-@d3vilbot.on(d3vil_cmd(pattern="d3vil$"))
-@d3vilbot.on(sudo_cmd(pattern="d3vil$", allow_sudo=True))
+@d3vil_cmd(pattern="d3vil$")
 async def d3vil_a(event):
     try:
         d3vil = await bot.inline_query(botname, "alive")
