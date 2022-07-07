@@ -8,9 +8,12 @@ from asyncio import sleep
 from bs4 import BeautifulSoup
 
 from d3vilbot.sql.waifu_sql import is_harem, add_grp, rm_grp, get_all_grp
+from d3vilbot.sql.husb_sql import is_husb, add_hus_grp, rm_hus_grp, get_all_hus_grp
 from . import *
 
-qt = "A qt waifu appeared!"
+qt = "Add them to your harem by sending"
+qt_bots = ["792028928", "1733263647"]
+hus_bot = ["1964681186"]
 
 def progress(current, total):
     logger.info(
@@ -19,18 +22,15 @@ def progress(current, total):
         )
     )
 
-@bot.on(d3vil_cmd(pattern="pt ?(.*)"))
-@bot.on(sudo_cmd(pattern="pt ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="pt(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
-    d3vil = await eor(event, "Hmm..")
     BASE_URL = "http://images.google.com"
     if event.reply_to_msg_id:
+        d3vil = await eor(event, "Hmm..")
         previous_message = await event.get_reply_message()
         previous_message_text = previous_message.message
         if previous_message.media:
-            downloaded_file_name = await bot.download_media(
+            downloaded_file_name = await event.client.download_media(
                 previous_message, Config.TMP_DOWNLOAD_DIRECTORY
             )
             SEARCH_URL = "{}/searchbyimage/upload".format(BASE_URL)
@@ -65,71 +65,124 @@ async def _(event):
         img_size = img_size_div.find_all("div")
         OUTPUT_STR = """/protecc {prs_text}""".format(
             **locals())
-    await d3vil.edit(OUTPUT_STR, parse_mode="HTML", link_preview=False)
+        await d3vil.edit(OUTPUT_STR, parse_mode="HTML", link_preview=False)
 
 
-@bot.on(events.NewMessage(incoming=True))
+@d3vil_handler()
 async def _(event):
     if not event.media:
         return
     if not qt in event.text:
         return
-    if not event.sender_id == 792028928:
-        return
-    if Config.WAIFU_CATCHER != "TRUE":
+    if str(event.sender_id) not in qt_bots:
         return
     all_grp = get_all_grp()
     if len(all_grp) == 0:
         return
     for grps in all_grp:
-        try:
-            dl = await bot.download_media(event.media, "resources/")
-            file = {"encoded_image": (dl, open(dl, "rb"))}
-            grs = requests.post(
-                "https://www.google.com/searchbyimage/upload", files=file, allow_redirects=False
-            )
-            loc = grs.headers.get("Location")
-            response = requests.get(
-                loc,
-                headers={
-                    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
-                },
-            )
-            qtt = BeautifulSoup(response.text, "html.parser")
-            div = qtt.find_all("div", {"class": "r5a77d"})[0]
-            alls = div.find("a")
-            text = alls.text
+        if int(grps.chat_id) == event.chat_id:
             try:
-                if "cg" in text:
-                    return
-                if "fictional character" in text:
-                    return
+                dl = await event.client.download_media(event.media, "resources/")
+                file = {"encoded_image": (dl, open(dl, "rb"))}
+                grs = requests.post(
+                    "https://www.google.com/searchbyimage/upload", files=file, allow_redirects=False
+                )
+                loc = grs.headers.get("Location")
+                response = requests.get(
+                    loc,
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
+                    },
+                )
+                qtt = BeautifulSoup(response.text, "html.parser")
+                div = qtt.find_all("div", {"class": "r5a77d"})[0]
+                alls = div.find("a")
+                text = alls.text
+                try:
+                    if "cg" in text:
+                        return
+                    if "fictional character" in text:
+                        return
+                except:
+                    pass
+                d3vil = await event.client.send_message(event.chat_id, f"/protecc {text}")
+                await sleep(2)
+                await d3vil.delete()
+                os.remove(dl)
             except:
                 pass
-            if int(grps.chat_id) == event.chat_id:
-                hell = await bot.send_message(event.chat_id, f"/protecc@loli_harem_bot {text}")
-                await sleep(2)
-                await hell.delete()
-            os.remove(dl)
-        except:
-            return
- 
 
-@bot.on(d3vil_cmd(pattern="adwaifu ?(.*)"))
-@bot.on(sudo_cmd(pattern="adwaifu ?(.*)", allow_sudo=True))
+
+@d3vil_handler()
+async def _(event):
+    if not event.media:
+        return
+    if not qt in event.text:
+        return
+    if str(event.sender_id) not in hus_bot:
+        return
+    all_grp = get_all_hus_grp()
+    if len(all_grp) == 0:
+        return
+    for grps in all_grp:
+        if int(grps.chat_id) == event.chat_id:
+            try:
+                dl = await event.client.download_media(event.media, "resources/")
+                file = {"encoded_image": (dl, open(dl, "rb"))}
+                grs = requests.post(
+                    "https://www.google.com/searchbyimage/upload", files=file, allow_redirects=False
+                )
+                loc = grs.headers.get("Location")
+                response = requests.get(
+                    loc,
+                    headers={
+                        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0"
+                    },
+                )
+                qtt = BeautifulSoup(response.text, "html.parser")
+                div = qtt.find_all("div", {"class": "r5a77d"})[0]
+                alls = div.find("a")
+                text = alls.text
+                try:
+                    if "cg" in text:
+                        return
+                    if "fictional character" in text:
+                        return
+                except:
+                    pass
+                d3vil = await event.client.send_message(event.chat_id, f"/protecc {text}")
+                await sleep(2)
+                await d3vil.delete()
+                os.remove(dl)
+            except:
+                pass
+
+
+@d3vil_cmd(pattern="adwaifu(?:\s|$)([\s\S]*)")
 async def _(event):
     if not event.is_group:
         await eod(event, "Autowaifu works in Groups Only !!")
         return
     if is_harem(str(event.chat_id)):
-        await eod(event, "This Chat is Has Already In AutoWaifu Database !!")
+        await eod(event, "This Chat is Already In AutoWaifu Database !!")
         return
     add_grp(str(event.chat_id))
     await eod(event, f"**Added Chat** {event.chat.title} **With Id** `{event.chat_id}` **To Autowaifu Database.**")
 
 
-@bot.on(d3vil_cmd(pattern="rmwaifu ?(.*)"))
-@bot.on(sudo_cmd(pattern="rmwaifu ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="adhusb(?:\s|$)([\s\S]*)")
+async def _(event):
+    if not event.is_group:
+        await eod(event, "Autohusbando works in Groups Only !!")
+        return
+    if is_husb(str(event.chat_id)):
+        await eod(event, "This Chat is Already In AutoHusbando Database !!")
+        return
+    add_hus_grp(str(event.chat_id))
+    await eod(event, f"**Added Chat** {event.chat.title} **With Id** `{event.chat_id}` **To AutoHusbando Database.**")
+
+
+@d3vil_cmd(pattern="rmwaifu(?:\s|$)([\s\S]*)")
 async def _(event):
     if not event.is_group:
         await eod(event, "Autowaifu works in groups only !!")
@@ -141,11 +194,58 @@ async def _(event):
     await eod(event, f"**Removed Chat** {event.chat.title} **With Id** `{event.chat_id}` **From AutoWaifu Database.**")
 
 
+@d3vil_cmd(pattern="rmhusb(?:\s|$)([\s\S]*)")
+async def _(event):
+    if not event.is_group:
+        await eod(event, "Autohusbando works in groups only !!")
+        return
+    if not is_husb(str(event.chat_id)):
+        await eod(event, "AutoHusbando was already disabled here.")
+        return
+    rm_hus_grp(str(event.chat_id))
+    await eod(event, f"**Removed Chat** {event.chat.title} **With Id** `{event.chat_id}` **From AutoHusbando Database.**")
+
+
+@d3vil_cmd(pattern="aw$")
+async def _(event):
+    d3vil = await eor(event, "Fetching Autowaifu chats...")
+    all_grp = get_all_grp()
+    x = "**Autowaifu enabled chats :** \n\n"
+    for i in all_grp:
+        ch = i.chat_id
+        cht = int(ch)
+        x += f"• `{cht}`\n"
+    await d3vil.edit(x)
+
+
+@d3vil_cmd(pattern="ah$")
+async def _(event):
+    d3vil = await eor(event, "Fetching Autohusbando chats...")
+    all_grp = get_all_hus_grp()
+    x = "**Autohusbando enabled chats :** \n\n"
+    for i in all_grp:
+        ch = i.chat_id
+        cht = int(ch)
+        x += f"• `{cht}`\n"
+    await d3vil.edit(x)
+
 
 CmdHelp("protecc").add_command(
   "pt", "<reply>", "Auto Protecc the waifu."
 ).add_command(
-  "adwaifu", None, "Adds the current group to AutoWaifu Database. Need to setup WAIFU_CATCHER var with value TRUE."
+  "adwaifu", None, "Adds the current group to AutoWaifu Database."
 ).add_command(
   "rmwaifu", None, "Removes the group from AutoWaifu Database."
+).add_command(
+  "aw", None, "Gives the list of all chats with Autowaifu enabled."
+).add_command(
+  "adhusb", None, "Adds the current group to AutoHusbando Database."
+).add_command(
+  "rmhusb", None, "Removes the group from AutoHusbando Database."
+).add_command(
+  "ah", None, "Gives the list of all chats with AutoHusbando enabled."
+).add_info(
+  "Waifu & Husbando Protecc."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
