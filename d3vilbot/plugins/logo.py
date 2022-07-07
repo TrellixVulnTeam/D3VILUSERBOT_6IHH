@@ -10,8 +10,8 @@ from . import *
 
 PICS_STR = []
 
-@bot.on(d3vil_cmd(pattern=r"logo ?(.*)"))
-@bot.on(sudo_cmd(pattern=r"logo ?(.*)", allow_sudo=True))
+
+@d3vil_cmd(pattern="logo(?:\s|$)([\s\S]*)")
 async def lg1(d3vilevent):
     event = await eor(d3vilevent, "`Processing.....`")
     fnt = await get_font_file(d3vilevent.client, "@D3VIL_AND_MAFIA_FONTS")
