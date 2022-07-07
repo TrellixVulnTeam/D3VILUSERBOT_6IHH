@@ -4,288 +4,725 @@ import datetime
 from telethon import events
 from telethon.tl import functions, types
 
+from d3vilbot.sql.gvar_sql import addgvar, gvarstat, delgvar
 from . import *
 
-global USER_AFK  # pylint:disable=E0602
-global afk_time  # pylint:disable=E0602
-global last_afk_message  # pylint:disable=E0602
-global afk_start
-global afk_end
-USER_AFK = {}
-afk_time = None
-last_afk_message = {}
-afk_start = {}
+
+global afk_time_1
+global last_afk_message_1
+global afk_start_1
+global afk_end_1
+afk_time_1 = None
+last_afk_message_1 = {}
+afk_start_1 = {}
 
 
-@d3vilbot.on(events.NewMessage(outgoing=True))  # pylint:disable=E0602
+global afk_time_2
+global last_afk_message_2
+global afk_start_2
+global afk_end_2
+afk_time_2 = None
+last_afk_message_2 = {}
+afk_start_2 = {}
+
+
+global afk_time_3
+global last_afk_message_3
+global afk_start_3
+global afk_end_3
+afk_time_3 = None
+last_afk_message_3 = {}
+afk_start_3 = {}
+
+
+global afk_time_4
+global last_afk_message_4
+global afk_start_4
+global afk_end_4
+afk_time_4 = None
+last_afk_message_4 = {}
+afk_start_4 = {}
+
+
+global afk_time_5
+global last_afk_message_5
+global afk_start_5
+global afk_end_5
+afk_time_5 = None
+last_afk_message_5 = {}
+afk_start_5 = {}
+
+
+@D1.on(events.NewMessage(outgoing=True))
 async def set_not_afk(event):
-    if event.fwd_from:
-        return
-    global USER_AFK  # pylint:disable=E0602
-    global afk_time  # pylint:disable=E0602
-    global last_afk_message  # pylint:disable=E0602
-    global afk_start
-    global afk_end
+    global afk_time_1
+    global last_afk_message_1
+    global afk_start_1
+    global afk_end_1
     came_back = datetime.datetime.now()
-    afk_end = came_back.replace(microsecond=0)
-    if afk_start != {}:
-        total_afk_time = str((afk_end - afk_start))
+    afk_end_1 = came_back.replace(microsecond=0)
+    if afk_start_1 != {}:
+        total_afk_time = str((afk_end_1 - afk_start_1))
     current_message = event.message.message
-    if "#" not in current_message and "yes" in USER_AFK:  # pylint:disable=E0602
+    if "#" not in current_message and gvarstat("AFK") == "YES":
         d3vilbot = await event.client.send_message(
             event.chat_id,
             "__**Back to Virtual World!**__\nNo Longer AFK.\n⏱️ Was afk for: `"
             + total_afk_time
-            + "`", file=d3vilpic
+            + "`", file=d3vilpic_1
         )
         try:
-            await event.client.send_message(  # pylint:disable=E0602
-                Config.LOGGER_ID,  # pylint:disable=E0602
-                "#AFKFALSE \n\nAFK mode = **False**\n"
-                + "__**Back to Virtual World!**__\nNo Longer afk.\n⏱️ Was afk for: "
-                + total_afk_time
+            await unsave_gif(event, d3vilbot)
+            delgvar("AFK")
+            await event.client.send_message(
+                Config.LOGGER_ID,
+                f"#AFKFALSE \n\n**AFK mode** = `False`\n**AFK Timer :** `{total_afk_time}`"
             )
-        except Exception as e:  # pylint:disable=C0103,W0703
-            await bot.send_message(  # pylint:disable=E0602
+        except Exception as e:
+            await event.client.send_message(
                 event.chat_id,
                 "Please set `LOGGER_ID` "
                 + "for the proper functioning of afk."
-                + f"Ask in {d3vil_grp} to get d3vlp!",
+                + f" Ask in {d3vil_grp} to get help!",
                 reply_to=event.message.id,
                 link_preview=False,
                 silent=True,
             )
         await asyncio.sleep(5)
         await d3vilbot.delete()
-        USER_AFK = {}  # pylint:disable=E0602
-        afk_time = None  # pylint:disable=E0602
+        afk_time_1 = None
 
 
-@d3vilbot.on(
-    events.NewMessage(  # pylint:disable=E0602
-        incoming=True, func=lambda e: bool(e.mentioned or e.is_private)
-    )
-)
+@D1.on(events.NewMessage(incoming=True, func=lambda e: bool(e.mentioned or e.is_private)))
 async def on_afk(event):
-    if event.fwd_from:
-        return
-    global USER_AFK  # pylint:disable=E0602
-    global afk_time  # pylint:disable=E0602
-    global last_afk_message  # pylint:disable=E0602
-    global afk_start
-    global afk_end
+    global afk_time_1
+    global last_afk_message_1
+    global afk_start_1
+    global afk_end_1
     cum_back = datetime.datetime.now()
-    afk_end = cum_back.replace(microsecond=0)
-    if afk_start != {}:
-        total_afk_time = str((afk_end - afk_start))
+    afk_end_1 = cum_back.replace(microsecond=0)
+    if afk_start_1 != {}:
+        total_afk_time = str((afk_end_1 - afk_start_1))
     current_message_text = event.message.message.lower()
     if "afk" in current_message_text:
-        # userbot's should not reply to other userbot's
-        # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
         return False
-    if USER_AFK and not (await event.get_sender()).bot:
+    if gvarstat("AFK") == "YES" and not (await event.get_sender()).bot:
         msg = None
-        if reason:
-            message_to_reply = (
-                f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
-                + f"\n**💬 Reason :** {reason}"
-                )
+        if reason_1 == "":
+            message_to_reply = f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`"
         else:
             message_to_reply = (
                 f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
+                + f"\n**💬 Reason :** {reason_1}"
                 )
-        msg = await event.reply(message_to_reply, file=d3vilpic)
+        msg = await event.reply(message_to_reply, file=d3vilpic_1)
+        try:
+            await unsave_gif(event, msg)
+        except:
+            pass
         await asyncio.sleep(2)
-        if event.chat_id in last_afk_message:  # pylint:disable=E0602
-            await last_afk_message[event.chat_id].delete()  # pylint:disable=E0602
-        last_afk_message[event.chat_id] = msg  # pylint:disable=E0602
+        if event.chat_id in last_afk_message_1:
+            await last_afk_message_1[event.chat_id].delete()
+        last_afk_message_1[event.chat_id] = msg
 
 
-@d3vilbot.on(d3vil_cmd(pattern=r"afk (.*)", outgoing=True))  # pylint:disable=E0602
+@D1.on(admin_cmd(pattern="afk(?:\s|$)([\s\S]*)"))
 async def _(event):
     if event.fwd_from:
         return
     d3vilkrishop = await event.get_reply_message()
-    global USER_AFK  # pylint:disable=E0602
-    global afk_time  # pylint:disable=E0602
-    global last_afk_message  # pylint:disable=E0602
-    global afk_start
-    global afk_end
-    global reason
-    global d3vilpic
-    USER_AFK = {}
-    afk_time = None
-    last_afk_message = {}
-    afk_end = {}
+    global afk_time_1
+    global last_afk_message_1
+    global afk_start_1
+    global afk_end_1
+    global reason_1
+    global d3vilpic_1
+    afk_time_1 = None
+    last_afk_message_1 = {}
+    afk_end_1 = {}
     start_1 = datetime.datetime.now()
-    afk_start = start_1.replace(microsecond=0)
-    reason = event.pattern_match.group(1)
-    d3vilpic = await event.client.download_media(d3vilkrishop)
-    if not USER_AFK:  # pylint:disable=E0602
-        last_seen_status = await bot(  # pylint:disable=E0602
+    afk_start_1 = start_1.replace(microsecond=0)
+    owo = event.text[5:]
+    reason_1 = owo
+    d3vilpic_1 = await event.client.download_media(d3vilkrishop)
+    if gvarstat("AFK") != "YES":
+        last_seen_status = await event.client(
             functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
         )
         if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
-            afk_time = datetime.datetime.now()  # pylint:disable=E0602
-        USER_AFK = f"yes: {reason} {d3vilpic}"  # pylint:disable=E0602
-        if reason:
-            await bot.send_message(
-                event.chat_id, f"**I'm going afk🚶** \n\n**Because :** {reason}", file=d3vilpic
-            )
+            afk_time_1 = datetime.datetime.now()
+        if owo == "":
+            addgvar("AFK", "YES")
+            x = await event.client.send_message(
+                event.chat_id, f"**I'm going afk🚶**", file=d3vilpic_1)
+            try:
+                await unsave_gif(event, x)
+                xy = await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `Not Mentioned`", file=d3vilpic_1
+                    )
+                try:
+                    await unsave_gif(event, xy)
+                except:
+                    pass
+            except Exception as e:
+                logger.warn(str(e))
         else:
-            await bot.send_message(
-                event.chat_id, f"**I am Going afk!**🚶", file=d3vilpic)
-        await asyncio.sleep(0.001)
-        await event.delete()
-        try:
-            if reason:
-                await bot.send_message(
-                  Config.LOGGER_ID,
-                  f"#AFKTRUE \nAFK mode = **True**\nReason  `{reason}`",file=d3vilpic
-                 )
-            else:
-                await bot.send_message(
-                  Config.LOGGER_ID,
-                  f"#AFKTRUE \nAFK mode = **True**",file=d3vilpic
+            addgvar("AFK", "YES")
+            x = await event.client.send_message(
+                event.chat_id, f"**I'm going afk🚶**\n\n**Because :** `{reason_1}`", file=d3vilpic_1)
+            try:
+                await unsave_gif(event, x)
+                xy = await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `{reason_1}`", file=d3vilpic_1
+                    )
+                try:
+                    await unsave_gif(event, xy)
+                except:
+                    pass
+            except Exception as e:
+                logger.warn(str(e))
+
+
+if D2:
+    @D2.on(events.NewMessage(outgoing=True))
+    async def set_not_afk(event):
+        global afk_time_2
+        global last_afk_message_2
+        global afk_start_2
+        global afk_end_2
+        came_back = datetime.datetime.now()
+        afk_end_2 = came_back.replace(microsecond=0)
+        if afk_start_2 != {}:
+            total_afk_time = str((afk_end_2 - afk_start_2))
+        current_message = event.message.message
+        if "#" not in current_message and gvarstat("AFK2") == "YES":
+            d3vilbot = await event.client.send_message(
+                event.chat_id,
+                "__**Back to Virtual World!**__\nNo Longer AFK.\n⏱️ Was afk for: `"
+                + total_afk_time
+                + "`", file=d3vilpic_2
             )
-        except Exception as e:  # pylint:disable=C0103,W0703
-            logger.warn(str(e))  # pylint:disable=E06
+            try:
+                await unsave_gif(event, d3vilbot)
+                delgvar("AFK2")
+                await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKFALSE \n\n**AFK mode** = `False`\n**AFK Timer :** `{total_afk_time}`"
+                )
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    "Please set `LOGGER_ID` "
+                    + "for the proper functioning of afk."
+                    + f" Ask in {d3vil_grp} to get help!",
+                    reply_to=event.message.id,
+                    link_preview=False,
+                    silent=True,
+                )
+            await asyncio.sleep(5)
+            await d3vilbot.delete()
+            afk_time_2 = None
+
+
+    @D2.on(events.NewMessage(incoming=True, func=lambda e: bool(e.mentioned or e.is_private)))
+    async def on_afk(event):
+        global afk_time_2
+        global last_afk_message_2
+        global afk_start_2
+        global afk_end_2
+        cum_back = datetime.datetime.now()
+        afk_end_2 = cum_back.replace(microsecond=0)
+        if afk_start_2 != {}:
+            total_afk_time = str((afk_end_2 - afk_start_2))
+        current_message_text = event.message.message.lower()
+        if "afk" in current_message_text:
+            return False
+        if gvarstat("AFK2") == "YES" and not (await event.get_sender()).bot:
+            msg = None
+            if reason_2 == "":
+                message_to_reply = f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`"
+            else:
+                message_to_reply = (
+                    f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
+                    + f"\n**💬 Reason :** {reason_2}"
+                    )
+            msg = await event.reply(message_to_reply, file=d3vilpic_2)
+            try:
+                await unsave_gif(event, msg)
+            except:
+                pass
+            await asyncio.sleep(2)
+            if event.chat_id in last_afk_message_2:
+                await last_afk_message_2[event.chat_id].delete()
+            last_afk_message_2[event.chat_id] = msg
+
+
+    @D2.on(admin_cmd(pattern="afk(?:\s|$)([\s\S]*)"))
+    async def _(event):
+        if event.fwd_from:
+            return
+        d3vilkrishop = await event.get_reply_message()
+        global afk_time_2
+        global last_afk_message_2
+        global afk_start_2
+        global afk_end_2
+        global reason_2
+        global d3vilpic_2
+        afk_time_2 = None
+        last_afk_message_2 = {}
+        afk_end_2 = {}
+        start_1 = datetime.datetime.now()
+        afk_start_2 = start_1.replace(microsecond=0)
+        owo = event.text[5:]
+        reason_2 = owo
+        d3vilpic_2 = await event.client.download_media(d3vilkrishop)
+        if not gvarstat("AFK2"):
+            last_seen_status = await event.client(
+                functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
+            )
+            if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
+                afk_time_2 = datetime.datetime.now()
+            if owo == "":
+                addgvar("AFK2", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**", file=d3vilpic_2)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `Not Mentioned`",file=d3vilpic_2
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+            else:
+                addgvar("AFK2", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**\n\n**Because :** `{reason_2}`", file=d3vilpic_2)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `{reason_2}`",file=d3vilpic_2
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+
+
+if D3:
+    @D3.on(events.NewMessage(outgoing=True))
+    async def set_not_afk(event):
+        global afk_time_3
+        global last_afk_message_3
+        global afk_start_3
+        global afk_end_3
+        came_back = datetime.datetime.now()
+        afk_end_3 = came_back.replace(microsecond=0)
+        if afk_start_3 != {}:
+            total_afk_time = str((afk_end_3 - afk_start_3))
+        current_message = event.message.message
+        if "#" not in current_message and gvarstat("AFK3") == "YES":
+            d3vilbot = await event.client.send_message(
+                event.chat_id,
+                "__**Back to Virtual World!**__\nNo Longer AFK.\n⏱️ Was afk for: `"
+                + total_afk_time
+                + "`", file=d3vilpic_3
+            )
+            try:
+                await unsave_gif(event, d3vilbot)
+                delgvar("AFK3")
+                await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKFALSE \n\n**AFK mode** = `False`\n**AFK Timer :** `{total_afk_time}`"
+                )
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    "Please set `LOGGER_ID` "
+                    + "for the proper functioning of afk."
+                    + f" Ask in {d3vil_grp} to get help!",
+                    reply_to=event.message.id,
+                    link_preview=False,
+                    silent=True,
+                )
+            await asyncio.sleep(5)
+            await d3vilbot.delete()
+            afk_time_3 = None
+
+
+    @D3.on(events.NewMessage(incoming=True, func=lambda e: bool(e.mentioned or e.is_private)))
+    async def on_afk(event):
+        global afk_time_3
+        global last_afk_message_3
+        global afk_start_3
+        global afk_end_3
+        cum_back = datetime.datetime.now()
+        afk_end_3 = cum_back.replace(microsecond=0)
+        if afk_start_3 != {}:
+            total_afk_time = str((afk_end_3 - afk_start_3))
+        current_message_text = event.message.message.lower()
+        if "afk" in current_message_text:
+            return False
+        if gvarstat("AFK3") == "YES" and not (await event.get_sender()).bot:
+            msg = None
+            if reason == "":
+                message_to_reply = f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`"
+            else:
+                message_to_reply = (
+                    f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
+                    + f"\n**💬 Reason :** {reason_3}"
+                    )
+            msg = await event.reply(message_to_reply, file=d3vilpic_3)
+            try:
+                await unsave_gif(event, msg)
+            except:
+                pass
+            await asyncio.sleep(2)
+            if event.chat_id in last_afk_message_3:
+                await last_afk_message_3[event.chat_id].delete()
+            last_afk_message_3[event.chat_id] = msg
+
+
+    @D3.on(admin_cmd(pattern="afk(?:\s|$)([\s\S]*)"))
+    async def _(event):
+        if event.fwd_from:
+            return
+        d3vilkrishop = await event.get_reply_message()
+        global afk_time_3
+        global last_afk_message_3
+        global afk_start_3
+        global afk_end_3
+        global reason_3
+        global d3vilpic_3
+        afk_time_3 = None
+        last_afk_message_3 = {}
+        afk_end_3 = {}
+        start_1 = datetime.datetime.now()
+        afk_start_3 = start_1.replace(microsecond=0)
+        owo = event.text[5:]
+        reason_3 = owo
+        d3vilpic_3 = await event.client.download_media(d3vilkrishop)
+        if not gvarstat("AFK3"):
+            last_seen_status = await event.client(
+                functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
+            )
+            if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
+                afk_time_3 = datetime.datetime.now()
+            if owo == "":
+                addgvar("AFK3", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**", file=d3vilpic_3)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `Not Mentioned`",file=d3vilpic_3
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+            else:
+                addgvar("AFK3", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**\n\n**Because :** `{reason_3}`", file=d3vilpic_3)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `{reason_3}`",file=d3vilpic_3
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+
+
+if D4:
+    @D4.on(events.NewMessage(outgoing=True))
+    async def set_not_afk(event):
+        global afk_time_4
+        global last_afk_message_4
+        global afk_start_4
+        global afk_end_4
+        came_back = datetime.datetime.now()
+        afk_end_4 = came_back.replace(microsecond=0)
+        if afk_start_4 != {}:
+            total_afk_time = str((afk_end_4 - afk_start_4))
+        current_message = event.message.message
+        if "#" not in current_message and gvarstat("AFK4") == "YES":
+            d3vilbot = await event.client.send_message(
+                event.chat_id,
+                "__**Back to Virtual World!**__\nNo Longer AFK.\n⏱️ Was afk for: `"
+                + total_afk_time
+                + "`", file=d3vilpic_4
+            )
+            try:
+                await unsave_gif(event, d3vilbot)
+                delgvar("AFK4")
+                await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKFALSE \n\n**AFK mode** = `False`\n**AFK Timer :** `{total_afk_time}`"
+                )
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    "Please set `LOGGER_ID` "
+                    + "for the proper functioning of afk."
+                    + f" Ask in {d3vil_grp} to get help!",
+                    reply_to=event.message.id,
+                    link_preview=False,
+                    silent=True,
+                )
+            await asyncio.sleep(5)
+            await d3vilbot.delete()
+            afk_time_4 = None
+
+
+    @D4.on(events.NewMessage(incoming=True, func=lambda e: bool(e.mentioned or e.is_private)))
+    async def on_afk(event):
+        global afk_time_4
+        global last_afk_message_4
+        global afk_start_4
+        global afk_end_4
+        cum_back = datetime.datetime.now()
+        afk_end_4 = cum_back.replace(microsecond=0)
+        if afk_start_4 != {}:
+            total_afk_time = str((afk_end_4 - afk_start_4))
+        current_message_text = event.message.message.lower()
+        if "afk" in current_message_text:
+            return False
+        if gvarstat("AFK4") == "YES" and not (await event.get_sender()).bot:
+            msg = None
+            if reason_4 == "":
+                message_to_reply = f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`"
+            else:
+                message_to_reply = (
+                    f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
+                    + f"\n**💬 Reason :** {reason_4}"
+                    )
+            msg = await event.reply(message_to_reply, file=d3vilpic_4)
+            try:
+                await unsave_gif(event, msg)
+            except:
+                pass
+            await asyncio.sleep(2)
+            if event.chat_id in last_afk_message_4:
+                await last_afk_message_4[event.chat_id].delete()
+            last_afk_message_4[event.chat_id] = msg
+
+
+    @D4.on(admin_cmd(pattern="afk(?:\s|$)([\s\S]*)"))
+    async def _(event):
+        if event.fwd_from:
+            return
+        d3vilkrishop = await event.get_reply_message()
+        global afk_time_4
+        global last_afk_message_4
+        global afk_start_4
+        global afk_end_4
+        global reason_4
+        global d3vilpic_4
+        afk_time_4 = None
+        last_afk_message_4 = {}
+        afk_end_4 = {}
+        start_1 = datetime.datetime.now()
+        afk_start_4 = start_1.replace(microsecond=0)
+        owo = event.text[5:]
+        reason_4 = owo
+        d3vilpic_4 = await event.client.download_media(d3vilkrishop)
+        if not gvarstat("AFK4"):
+            last_seen_status = await event.client(
+                functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
+            )
+            if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
+                afk_time_4 = datetime.datetime.now()
+            if owo == "":
+                addgvar("AFK4", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**", file=d3vilpic_4)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `Not Mentioned`",file=d3vilpic_4
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+            else:
+                addgvar("AFK4", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**\n\n**Because :** `{reason_4}`", file=d3vilpic_4)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `{reason_4}`",file=d3vilpic_4
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+
+
+if D5:
+    @D5.on(events.NewMessage(outgoing=True))
+    async def set_not_afk(event):
+        global afk_time_5
+        global last_afk_message_5
+        global afk_start_5
+        global afk_end_5
+        came_back = datetime.datetime.now()
+        afk_end_5 = came_back.replace(microsecond=0)
+        if afk_start_5 != {}:
+            total_afk_time = str((afk_end_5 - afk_start_5))
+        current_message = event.message.message
+        if "#" not in current_message and gvarstat("AFK5") == "YES":
+            d3vilbot = await event.client.send_message(
+                event.chat_id,
+                "__**Back to Virtual World!**__\nNo Longer AFK.\n⏱️ Was afk for: `"
+                + total_afk_time
+                + "`", file=d3vilpic_5
+            )
+            try:
+                await unsave_gif(event, d3vilbot)
+                delgvar("AFK5")
+                await event.client.send_message(
+                    Config.LOGGER_ID,
+                    f"#AFKFALSE \n\n**AFK mode** = `False`\n**AFK Timer :** `{total_afk_time}`"
+                )
+            except Exception as e:
+                await event.client.send_message(
+                    event.chat_id,
+                    "Please set `LOGGER_ID` "
+                    + "for the proper functioning of afk."
+                    + f" Ask in {d3vil_grp} to get help!",
+                    reply_to=event.message.id,
+                    link_preview=False,
+                    silent=True,
+                )
+            await asyncio.sleep(5)
+            await d3vilbot.delete()
+            afk_time_5 = None
+
+
+    @D5.on(events.NewMessage(incoming=True, func=lambda e: bool(e.mentioned or e.is_private)))
+    async def on_afk(event):
+        global afk_time_5
+        global last_afk_message_5
+        global afk_start_5
+        global afk_end_5
+        cum_back = datetime.datetime.now()
+        afk_end_5 = cum_back.replace(microsecond=0)
+        if afk_start_5 != {}:
+            total_afk_time = str((afk_end_5 - afk_start_5))
+        current_message_text = event.message.message.lower()
+        if "afk" in current_message_text:
+            return False
+        if gvarstat("AFK5") == "YES" and not (await event.get_sender()).bot:
+            msg = None
+            if reason_5 == "":
+                message_to_reply = f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`"
+            else:
+                message_to_reply = (
+                    f"**I'm currently AFK!** \n\n**⏰ AFK Since :**  `{total_afk_time}`\n"
+                    + f"\n**💬 Reason :** {reason_5}"
+                    )
+            msg = await event.reply(message_to_reply, file=d3vilpic_5)
+            try:
+                await unsave_gif(event, msg)
+            except:
+                pass
+            await asyncio.sleep(2)
+            if event.chat_id in last_afk_message_5:
+                await last_afk_message_5[event.chat_id].delete()
+            last_afk_message_5[event.chat_id] = msg
+
+
+    @D5.on(admin_cmd(pattern="afk(?:\s|$)([\s\S]*)"))
+    async def _(event):
+        if event.fwd_from:
+            return
+        d3vilkrishop = await event.get_reply_message()
+        global afk_time_5
+        global last_afk_message_5
+        global afk_start_5
+        global afk_end_5
+        global reason_5
+        global d3vilpic_5
+        afk_time_5 = None
+        last_afk_message_5 = {}
+        afk_end_5 = {}
+        start_1 = datetime.datetime.now()
+        afk_start_5 = start_1.replace(microsecond=0)
+        owo = event.text[5:]
+        reason_5 = owo
+        d3vilpic_5 = await event.client.download_media(d3vilkrishop)
+        if not gvarstat("AFK5"):
+            last_seen_status = await event.client(
+                functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
+            )
+            if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
+                afk_time_5 = datetime.datetime.now()
+            if owo == "":
+                addgvar("AFK5", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**", file=d3vilpic_5)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `Not Mentioned`",file=d3vilpic_5
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+            else:
+                addgvar("AFK5", "YES")
+                x = await event.client.send_message(
+                    event.chat_id, f"**I'm going afk🚶**\n\n**Because :** `{reason_5}`", file=d3vilpic_5)
+                try:
+                    await unsave_gif(event, x)
+                    xy = await event.client.send_message(
+                        Config.LOGGER_ID,
+                        f"#AFKTRUE \n**AFK mode** = `True`\n**Reason:** `{reason_5}`",file=d3vilpic_5
+                        )
+                    try:
+                        await unsave_gif(event, xy)
+                    except:
+                        pass
+                except Exception as e:
+                    logger.warn(str(e))
+
 
 CmdHelp("afk").add_command(
-  'afk', '<reply to media>/<reason>', 'Marks you AFK with reason also shows afk time. Media also supported.\nUse # in message to chat without breaking AFK mode.', "afk <reason>`\n📍 **Exception :** `Use # in a msg to stay in afk mode while chatting."
+  'afk', '<reply to media>/<reason>', 'Marks you AFK with reason also shows afk time. Media also supported.', "afk <reason>`"
+).add_extra(
+  "📌 Exception", "Use # in a msg to stay in afk mode while chatting."
 ).add_info(
   "Away From Keyboard"
 ).add_warning(
   "✅ Harmless Module."
-).add()
-
-
-global USER_night
-global night_time 
-global last_night_message
-USER_night = {}
-night_time = None
-last_night_message = {}
-
-
-@bot.on(events.NewMessage(outgoing=True))
-async def set_not_night(event):
-    global USER_night 
-    global night_time 
-    global last_night_message
-    current_message = event.message.message
-    if ".night" not in current_message and "yes" in USER_night:
-        try:
-            await bot.send_message(
-                Config.LOGGER_ID,
-                f"#NIGHT \n\nNight Mode :  **TRUE**",
-            )
-        except Exception as e:
-            await bot.send_message(
-                event.chat_id,
-                "Please set `LOGGER_ID` "
-                + "for the proper functioning of night functionality "
-                + "report in {}\n\n `{}`".format(d3vil_grp, str(e)),
-                reply_to=event.message.id,
-                silent=True,
-            )
-        USER_night = {}
-        night_time = None
-
-
-@bot.on(d3vil_cmd(pattern=r"night ?(.*)"))
-async def _(event):
-    if event.fwd_from:
-        return
-    global USER_night
-    global night_time
-    global last_night_message
-    global reason
-    USER_night = {}
-    night_time = None
-    last_night_message = {}
-    reason = event.pattern_match.group(1)
-    if not USER_night:
-        last_seen_status = await bot(
-            functions.account.GetPrivacyRequest(types.InputPrivacyKeyStatusTimestamp())
-        )
-        if isinstance(last_seen_status.rules, types.PrivacyValueAllowAll):
-            night_time = datetime.datetime.now()
-        USER_night = f"yes: {reason}"
-        if reason:
-            await event.edit(f"**Bye Fellas!!** \n\nTime to sleep 😴")
-        else:
-            await event.edit(f"**Bye Fellas!!** \n\nTime to sleep 😴")
-        await asyncio.sleep(5)
-        await event.delete()
-        try:
-            await bot.send_message(
-                Config.LOGGER_ID, f"Time to sleep 😴"
-            )
-        except Exception as e:
-            logger.warn(str(e))
-
-
-@bot.on(
-    events.NewMessage(
-        incoming=True, func=lambda e: bool(e.mentioned or e.is_private)
-    )
-)
-async def on_night(event):
-    if event.fwd_from:
-        return
-    global USER_night
-    global night_time
-    global last_night_message
-    night_since = "**a while ago**"
-    current_message_text = event.message.message.lower()
-    if "night" in current_message_text:
-        # userbot's should not reply to other userbot's
-        # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
-        return False
-    if USER_night and not (await event.get_sender()).bot:
-        if night_time:
-            now = datetime.datetime.now()
-            datime_since_night = now - night_time
-            time = float(datime_since_night.seconds)
-            days = time // (24 * 3600)
-            time = time % (24 * 3600)
-            hours = time // 3600
-            time %= 3600
-            minutes = time // 60
-            time %= 60
-            seconds = time
-            if days == 1:
-                night_since = "**Yesterday**"
-            elif days > 1:
-                if days > 6:
-                    date = now + datetime.timedelta(
-                        days=-days, hours=-hours, minutes=-minutes
-                    )
-                    night_since = date.strftime("%A, %Y %B %m, %H:%I")
-                else:
-                    wday = now + datetime.timedelta(days=-days)
-                    night_since = wday.strftime("%A")
-            elif hours > 1:
-                night_since = f"`{int(hours)}h{int(minutes)}m` **ago**"
-            elif minutes > 0:
-                night_since = f"`{int(minutes)}m{int(seconds)}s` **ago**"
-            else:
-                night_since = f"`{int(seconds)}s` **ago**"
-        msg = None
-        message_to_reply = (
-            f"My Master Has Been Gone For {night_since}\nWhere He Is: **On Bed Sleeping** "
-            if reason
-            else f"I'm sleeping right now!!"
-        )
-        msg = await event.reply(message_to_reply)
-        await asyncio.sleep(5)
-        if event.chat_id in last_night_message:
-            await last_night_message[event.chat_id].delete()
-        last_night_message[event.chat_id] = msg
-
-CmdHelp("night").add_command(
-  "night", None, "Same like AFK. But fixed reason and for sleeping purpose only. Sed ;_;"
-).add_info(
-  "Good Night 🌃"
 ).add()
