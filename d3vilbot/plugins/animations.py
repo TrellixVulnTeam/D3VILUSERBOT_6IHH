@@ -3,11 +3,8 @@ from collections import deque
 
 from . import *
 
-@bot.on(d3vil_cmd(pattern=r"boxs$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"boxs$", allow_sudo=True))
+@d3vil_cmd(pattern="boxs$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(event, "`boxs...`")
     deq = deque(list("🟥🟧🟨🟩🟦🟪🟫⬛⬜"))
     for _ in range(999):
@@ -16,11 +13,8 @@ async def _(event):
         deq.rotate(1)
 
 
-@bot.on(d3vil_cmd(pattern=r"rain$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"rain$", allow_sudo=True))
+@d3vil_cmd(pattern="rain$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(event, "`Raining.......`")
     deq = deque(list("🌬☁️🌩🌨🌧🌦🌥⛅🌤"))
     for _ in range(48):
@@ -29,16 +23,15 @@ async def _(event):
         deq.rotate(1)
 
 
-@bot.on(d3vil_cmd(pattern=r"deploy$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"deploy$", allow_sudo=True))
+@d3vil_cmd(pattern="deploy$")
 async def _(event):
-    if event.fwd_from:
-        return
+    cid = await client_id(event)
+    d3vil_mention = cid[2]
     animation_interval = 3
     animation_ttl = range(12)
     event = await eor(event, "`Deploying...`")
     animation_chars = [
-        "**Heroku Connecting To Latest [Github Build](D3KRISH/D3vilBot)**",
+        "**Heroku Connecting To Latest [Github Build](TEAM-D3VIL/D3vilBot)**",
         f"**Build started by user** {d3vil_mention}",
         f"**Deploy** `535a74f0` **by user** **{d3vil_mention}**",
         "**Restarting Heroku Server...**",
@@ -47,8 +40,8 @@ async def _(event):
         "**Process exited with** `status 143`",
         "**Starting process with command** `python3 -m stdborg`",
         "**State changed from starting to up**",
-        "__INFO:D3VIL:Logged in as 557667062__",
-        "__INFO:D3VIL:Successfully loaded all plugins__",
+        "__INFO:ᗪ3ᏉᎥᏝᏰᎧᏖ:Logged in as 557667062__",
+        "__INFO:ᗪ3ᏉᎥᏝᏰᎧᏖ:Successfully loaded all plugins__",
         "**Build Succeeded**",
     ]
     for i in animation_ttl:
@@ -56,11 +49,8 @@ async def _(event):
         await event.edit(animation_chars[i % 12])
 
 
-@bot.on(d3vil_cmd(pattern=r"dump$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"dump$", allow_sudo=True))
+@d3vil_cmd(pattern="dump$")
 async def _(message):
-    if event.fwd_from:
-        return
     try:
         obj = message.pattern_match.group(1)
         if len(obj) != 3:
@@ -99,11 +89,8 @@ async def _(message):
                 return
 
 
-@bot.on(d3vil_cmd(pattern=r"fleaveme$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"fleaveme$", allow_sudo=True))
+@d3vil_cmd(pattern="fleaveme$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 1
     animation_ttl = range(10)
     animation_chars = [
@@ -125,11 +112,8 @@ async def _(event):
         await event.edit(animation_chars[i % 10])
 
 
-@bot.on(d3vil_cmd(pattern=r"loveu$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"loveu$", allow_sudo=True))
+@d3vil_cmd(pattern="loveu$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.5
     animation_ttl = range(70)
     event = await eor(event, "loveu")
@@ -175,11 +159,8 @@ async def _(event):
         await event.edit(animation_chars[i % 35])
 
 
-@bot.on(d3vil_cmd(pattern=r"plane$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"plane$", allow_sudo=True))
+@d3vil_cmd(pattern="plane$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(event, "Wait for plane...")
     await event.edit("✈-------------")
     await event.edit("-✈------------")
@@ -198,11 +179,8 @@ async def _(event):
     await asyncio.sleep(3)
 
 
-@bot.on(d3vil_cmd(pattern=r"police$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"police$", allow_sudo=True))
+@d3vil_cmd(pattern="police$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.3
     animation_ttl = range(12)
     event = await eor(event, "Police")
@@ -222,12 +200,10 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 12])
-        
-@bot.on(d3vil_cmd(pattern=f"hack$", outgoing=True))
-@bot.on(sudo_cmd(pattern=f"hack$", allow_sudo=True))
+   
+     
+@d3vil_cmd(pattern=f"wahack$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.3
     animation_ttl = range(15)
     event = await eor(event, "`Hacking this kid....`")
@@ -252,11 +228,9 @@ async def _(event):
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 15])
 
-@bot.on(d3vil_cmd(pattern=r"jio$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"jio$", allow_sudo=True))
+
+@d3vil_cmd(pattern="jio$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 1
     animation_ttl = range(19)
     event = await eor(event, "jio network boosting...")
@@ -286,11 +260,8 @@ async def _(event):
         await event.edit(animation_chars[i % 19])
 
 
-@bot.on(d3vil_cmd(pattern=r"solarsystem$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"solarsystem$", allow_sudo=True))
+@d3vil_cmd(pattern="solarsystem$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.1
     animation_ttl = range(80)
     event = await eor(event, "solarsystem")
@@ -307,13 +278,10 @@ async def _(event):
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 8])
-        
-        
-@bot.on(d3vil_cmd(pattern="degi$"))
-@bot.on(sudo_cmd(pattern="degi$", allow_sudo=True))
+
+
+@d3vil_cmd(pattern="degi$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(event, "degi")
     await event.edit("WO")
     await asyncio.sleep(1.5)
@@ -334,11 +302,8 @@ async def _(event):
     await event.edit("Wo DeGi TuM eKbAr MaNg KaR tOh DeKhO😄")
 
 
-@bot.on(d3vil_cmd(pattern=f"nehi$", outgoing=True))
-@bot.on(sudo_cmd(pattern=f"nehi$", allow_sudo=True))
+@d3vil_cmd(pattern="nehi$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(event, "nehi")
     await event.edit(
         "`Wo PaKkA DeGi Tu ManG KaR ToH DekH\n AuR NaA De To UskI BheN Ko PakaD😚😚`"
@@ -346,12 +311,9 @@ async def _(event):
     await asyncio.sleep(999)
 
 
-@bot.on(d3vil_cmd(pattern="hnd (.*)"))
-@bot.on(sudo_cmd(pattern="hnd (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="hnd ([\s\S]*)")
 async def _(event):
     name = event.pattern_match.group(1)
-    if event.fwd_from:
-        return
     animation_interval = 0.5
     animation_ttl = range(6)
     event = await eor(event, "✌️")
@@ -368,20 +330,11 @@ async def _(event):
         await event.edit(animation_chars[i % 6])
 
 
-@bot.on(d3vil_cmd(pattern="phub$", outgoing=True))
-@bot.on(sudo_cmd(pattern="phub$", allow_sudo=True))
+@d3vil_cmd(pattern="phub$")
 async def _(event):
-
-    if event.fwd_from:
-
-        return
-
     animation_interval = 0.5
-
     animation_ttl = range(0, 101)
-
     await eor(event, "phub")
-
     animation_chars = [
         "P_",
         "PO_",
@@ -392,28 +345,16 @@ async def _(event):
         "PORNHUB_",
         "PORNHUB",
     ]
-
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
-
         await event.edit(animation_chars[i % 10])
 
 
-@bot.on(d3vil_cmd(pattern=r"amore$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"amore$", allow_sudo=True))
+@d3vil_cmd(pattern="amore$")
 async def _(event):
-
-    if event.fwd_from:
-
-        return
-
     animation_interval = 0.5
-
     animation_ttl = range(0, 101)
-
     await eor(event, "amore")
-
     animation_chars = [
         "A_",
         "AM_",
@@ -423,28 +364,16 @@ async def _(event):
         "AMORE❤_",
         ".-.",
     ]
-
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
-
         await event.edit(animation_chars[i % 10])
 
 
-@bot.on(d3vil_cmd(pattern=r"sexy$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"sexy$", allow_sudo=True))
+@d3vil_cmd(pattern="sexy$")
 async def _(event):
-
-    if event.fwd_from:
-
-        return
-
     animation_interval = 0.5
-
     animation_ttl = range(0, 101)
-
     await eor(event, "Sexy")
-
     animation_chars = [
         "S_",
         "SE_",
@@ -453,27 +382,16 @@ async def _(event):
         "SEXY👄_",
         "SEXY👄",
     ]
-
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
-
         await event.edit(animation_chars[i % 10])
-        
-@bot.on(d3vil_cmd(pattern="istar$", outgoing=True))
-@bot.on(sudo_cmd(pattern="istar$", allow_sudo=True))
+
+
+@d3vil_cmd(pattern="istar$")
 async def ammastar(d3vilstar):
-  
-    if d3vilstar.fwd_from:
-      
-        return
-      
     animation_interval = 2
-    
     animation_ttl = range(0, 11)
-    
     await eor(d3vilstar, "I am A Star")
-    
     animation_chars = [
         "I Party like a rockstar",
         "I Look like a movie star",
@@ -481,29 +399,20 @@ async def ammastar(d3vilstar):
         "I Fuck like a pornstar",
         "Baby I'm a superstar",
     ]
-    
     for i in animation_ttl:
-      
         await asyncio.sleep(animation_interval)
-        
         await d3vilstar.edit(animation_chars[i % 11])
-    
-        
-@bot.on(d3vil_cmd(pattern=r"lmoon", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"lmoon", allow_sudo=True))
+
+
+@d3vil_cmd(pattern="lmoon$")
 async def test(event):
-    if event.fwd_from:
-        return
     await eor(event, 
         "🌕🌕🌕🌕🌕🌕🌕🌕\n🌕🌕🌖🌔🌖🌔🌕🌕\n🌕🌕🌗🌔🌖🌓🌕🌕\n🌕🌕🌗🌔🌖🌓🌕🌕\n🌕🌕🌖🌓🌗🌔🌕🌕\n🌕🌕🌗🌑🌑🌓🌕🌕\n🌕🌕🌗👀🌑🌓🌕🌕\n🌕🌕🌘👄🌑🌓🌕🌕\n🌕🌕🌗🌑🌑🌒🌕🌕\n🌕🌖🌑🌑🌑🌑🌔🌕\n🌕🌘🌑🌑🌑🌑🌒🌕\n🌖🌑🌑🌑🌑🌑🌑🌔\n🌕🤜🏻🌑🌑🌑🌑🤛🏻🌕\n🌕🌖🌑🌑🌑🌑🌔🌕\n🌘🌑🌑🌑🌑🌑🌑🌒\n🌕🌕🌕🌕🌕🌕🌕🌕"
     )
 
 
-@bot.on(d3vil_cmd(pattern=r"city", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"city", allow_sudo=True))
+@d3vil_cmd(pattern="city$")
 async def test(event):
-    if event.fwd_from:
-        return
     await eor(event, 
         """☁☁🌞      ☁           ☁
        ☁  ✈         ☁    🚁    ☁    ☁        ☁          ☁     ☁   ☁
@@ -517,86 +426,58 @@ async def test(event):
     )
 
 
-@bot.on(d3vil_cmd(pattern=r"hii", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"hii", allow_sudo=True))
+@d3vil_cmd(pattern="hii$")
 async def hi(event):
-    if event.fwd_from:
-        return
     await eor(event, "██╗░░██╗██╗\n""██║░░██║██║\n" "███████║██║\n" "██╔══██║██║\n" "██║░░██║██║\n" "╚═╝░░╚═╝╚═╝\n")
 
 
-@bot.on(d3vil_cmd(pattern=r"cheer", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"cheer", allow_sudo=True))
+@d3vil_cmd(pattern="cheer$")
 async def cheer(event):
-    if event.fwd_from:
-        return
     await eor(event, 
         "💐💐😉😊💐💐\n☕ Cheer Up  🍵\n🍂 ✨ )) ✨  🍂\n🍂┃ (( * ┣┓ 🍂\n🍂┃*💗 ┣┛ 🍂 \n🍂┗━━┛  🍂🎂 For YOU  🍰\n💐💐😌😚💐💐"
     )
 
 
-@bot.on(d3vil_cmd(pattern=r"getwell", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"getwell", allow_sudo=True))
+@d3vil_cmd(pattern="getwell$")
 async def getwell(event):
-    if event.fwd_from:
-        return
     await eor(event, "🌹🌹🌹🌹🌹🌹🌹🌹 \n🌹😷😢😓😷😢💨🌹\n🌹💝💉🍵💊💐💝🌹\n🌹 GetBetter Soon! 🌹\n🌹🌹🌹🌹🌹🌹🌹🌹")
 
-@bot.on(d3vil_cmd(pattern="switch$", outgoing=True))
-@bot.on(sudo_cmd(pattern="switch$", allow_sudo=True))
+
+@d3vil_cmd(pattern="switch$")
 async def _(event):
-
-    if event.fwd_from:
-
-        return
-
     animation_interval = 0.5
-
     animation_ttl = range(0, 11)
-
-  #  input_str = event.pattern_match.group(1)
-
-  #  if input_str == "switch":
-
     await eor(event, "Switch")
-
     animation_chars = [
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n[👉](https://t.me/D3_krish)⬜⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬛[👉](https://t.me/D3_krish)⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜[👆](https://t.me/D3_krish)⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜[👆](https://t.me/D3_krish)⬜⬜⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬛[👉](https://t.me/D3_krish)⬜⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/D3KRISH/D3vilBot)\n⬜⬛⬛[👉](https://t.me/D3_krish)⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n[👉](https://t.me/D3_krish)⬜⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬛[👉](https://t.me/D3_krish)⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬜⬜⬜⬜⬜⬜\n⬜[👆](https://t.me/D3_krish)⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜[👆](https://t.me/D3_krish)⬜⬜⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬛[👉](https://t.me/D3_krish)⬜⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜[🔲](https://github.com/TEAM-D3VIL/D3vilBot)\n⬜⬛⬛[👉](https://t.me/D3_krish)⬜⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
          "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜🔲\n⬜⬛⬛⬛[👉](https://t.me/D3_krish)⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
-         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜[👆](https://t.m/D3_krish)⬜🔲\n⬜⬛⬛⬛⬛⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
+         "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜[👆](https://t.me/D3_krish)⬜🔲\n⬜⬛⬛⬛⬛⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
          "⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬜⬜⬜\n⬜⬜⬜⬜⬛[👉](https://t.me/D3_krish)🔲\n⬜⬛⬛⬛⬛⬜⬜\n⬜⬛⬜⬜⬜⬜⬜\n⬛⬛⬜⬜⬜⬜⬜",
          "⬛⬛⬛⬛⬛⬛⬛\n⬛⬛⬛⬛⬛⬛⬛\n⬛⬛⬛⬛⬛⬛⬛\n⬛⬛⬛⬛⬛⬛🔳\n⬛⬛⬛⬛⬛⬛⬛\n⬛⬛⬛⬛⬛⬛⬛\n⬛⬛⬛⬛⬛⬛⬛",
     ]
-
     for i in animation_ttl:
-
         await asyncio.sleep(animation_interval)
-
         await event.edit(animation_chars[i % 11])
 
 
-@bot.on(d3vil_cmd(pattern=r"sprinkle", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"sprinkle", allow_sudo=True))
+@d3vil_cmd(pattern="sprinkle$")
 async def sprinkle(event):
-    if event.fwd_from:
-        return
     await eor(event, 
         "✨.•*¨*.¸.•*¨*.¸¸.•*¨*• ƸӜƷ\n🌸🌺🌸🌺🌸🌺🌸🌺\n Sprinkled with love❤\n🌷🌻🌷🌻🌷🌻🌷🌻\n ¨*.¸.•*¨*. ¸.•*¨*.¸¸.•*¨`*•.✨\n🌹🍀🌹🍀🌹🍀🌹🍀"
     )
-    
 
-@bot.on(d3vil_cmd(outgoing=True, pattern="kiler( (.*)|$)"))
-@bot.on(sudo_cmd(pattern="kiler( (.*)|$)", allow_sudo=True))
+
+@d3vil_cmd(pattern="kiler(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     name = event.pattern_match.group(1)
+    xyz = await client_id(event)
+    d3vil_mention = xyz[2]
     if not name:
         name = "die"
     animation_interval = 0.7
@@ -617,11 +498,8 @@ async def _(event):
         await event.edit(animation_chars[i % 8])
 
 
-@bot.on(d3vil_cmd(pattern="eye$"))
-@bot.on(sudo_cmd(pattern="eye$", allow_sudo=True))
+@d3vil_cmd(pattern="eye$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 3
     animation_ttl = range(10)
     event = await eor(event, "👁👁")
@@ -644,11 +522,8 @@ async def _(event):
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern="thinking$"))
-@bot.on(sudo_cmd(pattern="thinking$", allow_sudo=True))
+@d3vil_cmd(pattern="thinking$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.01
     animation_ttl = range(288)
     event = await eor(event, "thinking..")
@@ -695,11 +570,8 @@ async def _(event):
         await event.edit(animation_chars[i % 36])
 
 
-@bot.on(d3vil_cmd(pattern=f"snake$", outgoing=True))
-@bot.on(sudo_cmd(pattern="snake$", allow_sudo=True))
+@d3vil_cmd(pattern="snake$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.3
     animation_ttl = range(27)
     event = await eor(event, "snake..")
@@ -737,12 +609,8 @@ async def _(event):
         await event.edit(animation_chars[i % 27])
 
 
-@bot.on(d3vil_cmd(pattern=f"human$", outgoing=True))
-@bot.on(sudo_cmd(pattern="human$", allow_sudo=True))
+@d3vil_cmd(pattern="human$")
 async def _(event):
-    if event.fwd_from:
-        return
-    animation_interval = 0.5
     animation_ttl = range(16)
     event = await eor(event, "human...")
     animation_chars = [
@@ -768,11 +636,8 @@ async def _(event):
         await event.edit(animation_chars[i % 16])
 
 
-@bot.on(d3vil_cmd(pattern=f"mc$", outgoing=True))
-@bot.on(sudo_cmd(pattern="mc$", allow_sudo=True))
+@d3vil_cmd(pattern="mc$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.3
     animation_ttl = range(28)
     event = await eor(event, "mc..")
@@ -811,11 +676,8 @@ async def _(event):
         await event.edit(animation_chars[i % 28])
 
 
-@bot.on(d3vil_cmd(pattern="virus$"))
-@bot.on(sudo_cmd(pattern="virus$", allow_sudo=True))
+@d3vil_cmd(pattern="virus$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 1
     animation_ttl = range(30)
     event = await eor(event, "Injecting virus....")
@@ -856,11 +718,8 @@ async def _(event):
         await event.edit(animation_chars[i % 30])
 
 
-@bot.on(d3vil_cmd(pattern=r"repe$", outgoing=True))
-@bot.on(sudo_cmd(pattern="repe$", allow_sudo=True))
+@d3vil_cmd(pattern="repe$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.2
     animation_ttl = range(30)
     event = await eor(event, "repe")
@@ -874,6 +733,7 @@ async def _(event):
         "**rape_tr**",
         "**rape_tra**",
         "**rape_trai**",
+        
         "**rape_train**",
         "**ape_train🚅**",
         "**pe_train🚅🚃🚃**",
@@ -901,11 +761,8 @@ async def _(event):
         await event.edit(animation_chars[i % 30])
 
 
-@bot.on(d3vil_cmd(pattern=f"nikal$", outgoing=True))
-@bot.on(sudo_cmd(pattern="nikal$", allow_sudo=True))
+@d3vil_cmd(pattern="nikal$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 0.5
     animation_ttl = range(6)
     event = await eor(event, "nakal")
@@ -922,11 +779,8 @@ async def _(event):
         await event.edit(animation_chars[i % 6])
 
 
-@bot.on(d3vil_cmd(pattern=f"music$", outgoing=True))
-@bot.on(sudo_cmd(pattern="music$", allow_sudo=True))
+@d3vil_cmd(pattern="music$")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 1.5
     animation_ttl = range(11)
     event = await eor(event, "starting player...")
@@ -937,7 +791,7 @@ async def _(event):
         "⬤⬤⬤ 81% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:03** ▰▰▰▱▱▱▱▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
         "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:04** ▰▰▰▰▱▱▱▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
         "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:05** ▰▰▰▰▱▱▱▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
-        "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Musi  Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:06** ▰▰▰▰▰▰▱▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
+        "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:06** ▰▰▰▰▰▰▱▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
         "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:07** ▰▰▰▰▰▰▰▱▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
         "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:08** ▰▰▰▰▰▰▰▰▱▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
         "⬤⬤◯ 80% ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`✖️`\n\n⠀⠀⠀⠀⠀[Music Player](t.me/D3VIL_BOT_OFFICIAL)\n\n⠀⠀⠀⠀**Now Playing:shape of u**\n\n**00:09** ▰▰▰▰▰▰▰▰▰▱ **00:10**\n\n⠀⠀⠀⠀⠀`🔂` `⏮️` `⏪️` `⏸️` `⏩️` `⏭️`\n\n**⠀Next Song:** __Alan Walker - Alone.__\n\n⠀⠀⠀⠀**⠀Device: Ifone XXX**",
@@ -948,11 +802,8 @@ async def _(event):
         await event.edit(animation_chars[i % 11])
 
 
-@bot.on(d3vil_cmd(pattern=f"squ$", outgoing=True))
-@bot.on(sudo_cmd(pattern="squ$", allow_sudo=True))
+@d3vil_cmd(pattern="squ$")
 async def _(event):
-    if event.fwd_from:
-        return
     event = await eor(
         event, "╔═══════════════════╗ \n  \n╚═══════════════════╝"
     )
@@ -998,11 +849,9 @@ async def _(event):
     )
     await asyncio.sleep(6)
 
-@bot.on(d3vil_cmd(pattern=r"padmin ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"padmin ?(.*)", allow_sudo=True))
+
+@d3vil_cmd(pattern="padmin ([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     animation_interval = 1
     animation_ttl = range(0, 20)
     event = await eor(event, "padmin")
@@ -1027,38 +876,36 @@ async def _(event):
         "**(8) Change Chat Info: ✅**",
         "**(9) Manage Voice Chat: ☑️**",
         "**(9) Manage Voice Chat: ✅**",
-        "**✔︎𝙿𝙴𝚁𝙼i𝚂𝚂𝙸𝙾𝙽 𝙶𝚁𝙰𝙽𝚃𝙴𝙳 𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈**",
-        "**✔︎𝙿𝚁𝙾𝙼𝙾𝚃𝙴𝙳 𝚂𝚄𝙲𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈**",
+        "**Permission Granted Successfully**",
+        "**pRoMooTeD SuCcEsSfUlLy**",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 20])
 
-@bot.on(d3vil_cmd(pattern=r"hack$", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"hack$", allow_sudo=True))
+@d3vil_cmd(pattern="hack$")
 async def _(event):
-    if event.fwd_from:
-        return
+    xyz = await client_id(event)
+    d3vil_mention = xyz[2]
     animation_interval = 2
     animation_ttl = range(0, 12)
     event = await eor(event, "hack")
     animation_chars = [
         "**Connecting To Telegram Data Centre**",
-        f"`Target Selected By Hacker:` {hell_mention}",
+        f"`Target Selected By Hacker:` {d3vil_mention}",
         "`Hacking... 0%\n▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)",
         "`Hacking... 4%\n█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package",
         "`Hacking... 8%\n██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)",
         "`Hacking... 20%\n█████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'",
         "`Hacking... 36%\n█████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e",
         "`Hacking... 52%\n█████████████▒▒▒▒▒▒▒▒▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b",
-        "`Hacking... 84%\n█████████████████████▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **✔︎ Hacked Telegram Server Database**",
-        "`Hacking... 100%\n█████████HACKED███████████ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **✔︎Successfully Hacked Telegram Server Database**\n\n\n🔹Output: Generating.....",
-        f"`Targeted Account Hacked...\n\nPay 999$ To` {hell_mention} `To Remove This Hack`\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹**Output:** Successful",
+        "`Hacking... 84%\n█████████████████████▒▒▒▒ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**",
+        "`Hacking... 100%\n█████████HACKED███████████ `\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹Output: Generating.....",
+        f"`Targeted Account Hacked...\n\nPay 999$ To` {d3vil_mention} `To Remove This Hack`\n\n\n  TERMINAL:\nDownloading Bruteforce-Telegram-0.1.tar.gz (9.3 kB)\nCollecting Data Package\n  Downloading Telegram-Data-Sniffer-7.1.1-py2.py3-none-any.whl (82 kB)\nBuilding wheel for Tg-Bruteforcing (setup.py): finished with status 'done'\nCreated wheel for telegram: filename=Telegram-Data-Sniffer-0.0.1-py3-none-any.whl size=1306 sha256=cb224caad7fe01a6649188c62303cd4697c1869fa12d280570bb6ac6a88e6b7e\n  Stored in directory: /app/.cache/pip/wheels/a2/9f/b5/650dd4d533f0a17ca30cc11120b176643d27e0e1f5c9876b5b\n\n **Successfully Hacked Telegram Server Database**\n\n\n🔹**Output:** Successful",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await event.edit(animation_chars[i % 12])
-
 
 
 CmdHelp("animations").add_command(
@@ -1118,6 +965,20 @@ CmdHelp("animations").add_command(
 ).add_command(
   "amore", None, "Animated AMORE Typing"
 ).add_command(
+  "sexy", None, "Animated SEXY Typing"
+).add_command(
+  "unoob", None, "Animated text calling them noob🚶"
+).add_command(
+  "menoob", None, "Animated text claiming you noob"
+).add_command(
+  "uproo", None, "Animated text claiming you to be proooo"
+).add_command(
+  "mepro", None, "Animated text calling them proo Af!!"
+).add_command(
+  "sprinkle", None, "Use and see"
+).add_command(
+  "getwell", None, "Use and see"
+).add_command(
   "cheer", None, "Use and see"
 ).add_command(
   "hii", None, "Use and see"
@@ -1133,4 +994,8 @@ CmdHelp("animations").add_command(
   "thanos", None, "A poem on Thanos... Maybe🤐"
 ).add_command(
   "wahack", None, "Whatsapp Hack animation"
+).add_info(
+  "Fun Animations."
+).add_warning(
+  "⚠️ Some commands may cause flood error."
 ).add()
