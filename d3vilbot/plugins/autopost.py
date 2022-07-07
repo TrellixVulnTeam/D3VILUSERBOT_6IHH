@@ -1,60 +1,93 @@
 from telethon import events
 
 from d3vilbot.sql.autopost_sql import add_post, get_all_post, is_post, remove_post
+from d3vilbot.sql.gvar_sql import gvarstat, addgvar, delgvar
+
 from . import *
 
-@bot.on(d3vil_cmd(pattern="autopost ?(.*)"))
-@bot.on(sudo_cmd(pattern="autopost ?(.*)", allow_sudo=True))
+
+@d3vil_cmd(pattern="autopost(?:\s|$)([\s\S]*)")
 async def _(event):
-    if (event.is_private or event.is_group):
-        return await eod(event, "AutoPost Can Only Be Used For Channels.")
-    d3vl_ = event.pattern_match.group(1)
-    if str(d3vl_).startswith("-100"):
-        kk = str(d3vl_).replace("-100", "")
+    if event.is_private:
+        return await eod(event, "AutoPost Can Only Be Used For Channels & Groups.")
+    d3vil = await eor(event, "Trying to start autoposting from here...")
+    cid = await client_id(event)
+    fuk  = cid[0]
+    krishna_ = event.text[10:]
+    cli_ = fuk 
+    checker = gvarstat(f"AUTOPOST_{str(cli_)}")
+    if krishna_ == "":
+        return await eod(d3vil, f"Give correct command for working of autopost. \n`{hl}autopost channel_id`")
+    if str(krishna_).startswith("-100"):
+        kk = str(krishna_).replace("-100", "")
     else:
-        kk = d3vl_
+        kk = krishna_
     if not kk.isdigit():
-        return await eod(event, "**Please Give Channel ID !!**")
+        return await eod(d3vil, "**Please Give Channel ID !!**")
     if is_post(kk , event.chat_id):
-        return await eor(event, "This Channel Is Already In AutoPost Database.")
+        if checker and checker == "True":
+            return await d3vil.edit("This channel is already in this client's autopost database.")
+        else:
+            addgvar(f"AUTOPOST_{str(cli_)}", "True")
+            return await d3vil.edit(f"**📍 Started AutoPosting from** `{krishna_}` for `{cli_}`")
     add_post(kk, event.chat_id)
-    await eor(event, f"**✔︎ Started AutoPosting from** `{d3vl_}`")
+    addgvar(f"AUTOPOST_{str(cli_)}", "True")
+    await d3vil.edit(f"**📍 Started AutoPosting from** `{krishna_}` for `{cli_}`")
 
 
-@bot.on(d3vil_cmd(pattern="rmautopost ?(.*)"))
-@bot.on(sudo_cmd(pattern="rmautopost ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="rmautopost(?:\s|$)([\s\S]*)")
 async def _(event):
-    if (event.is_private or event.is_group):
+    if event.is_private:
         return await eod(event, "AutoPost Can Only Be Used For Channels.")
-    d3vl_ = event.pattern_match.group(1)
-    if str(d3vl_).startswith("-100"):
-        kk = str(d3vl_).replace("-100", "")
+    d3vil = await eor(event, "Removing autopost...")
+    cid = await client_id(event)
+    fuk  = cid[0]
+    krishna_ = event.text[12:]
+    cli_ = fuk 
+    checker = gvarstat(f"AUTOPOST_{str(cli_)}")
+    if krishna_ == "":
+        return await eod(d3vil, f"Give correct command for removing autopost. \n`{hl}autopost channel_id`")
+    if str(krishna_).startswith("-100"):
+        kk = str(krishna_).replace("-100", "")
     else:
-        kk = d3vl_
+        kk = krishna_
     if not kk.isdigit():
         return await eod(event, "**Please Give Channel ID !!**")
     if not is_post(kk, event.chat_id):
         return await eod(event, "I don't think this channel is in AutoPost Database.")
-    remove_post(kk, event.chat_id)
-    await eor(event, f"**✔︎ Stopped AutoPosting From** `{d3vl_}`")
+    if is_post(kk, event.chat_id):
+        if checker and checker == "True":
+            remove_post(kk, event.chat_id)
+            delgvar(f"AUTOPOST_{str(cli_)}")
+            return await eod(d3vil, f"Removed `{krishna_}` from `{cli_}` autopost database.")
+        else:
+            return await eod(d3vil, f"This channel is not in `{cli_}` autopost database.")
 
-@bot.on(events.NewMessage())
+
+@d3vil_handler()
 async def _(event):
-    if event.is_private:
-        return
     chat_id = str(event.chat_id).replace("-100", "")
     channels_set  = get_all_post(chat_id)
     if channels_set == []:
         return
-    for chat in channels_set:
-        if event.media:
-            await event.client.send_file(int(chat), event.media, caption=event.text)
-        elif not event.media:
-            await bot.send_message(int(chat), event.message)
+    cid = await client_id(event)
+    fuk  = cid[0]
+    cli_ = fuk 
+    checker = gvarstat(f"AUTOPOST_{str(cli_)}")
+    if checker and checker == "True":
+        for chat in channels_set:
+            if event.media:
+                await event.client.send_file(int(chat), event.media, caption=event.text)
+            elif not event.media:
+                await event.client.send_message(int(chat), event.message)
 
 
 CmdHelp("autopost").add_command(
   "autopost", "<channel id>", "Auto Posts every new post from targeted channel to your channel.", "autopost <channelid> [in your channel]"
 ).add_command(
   "rmautopost", "<channel id>", "Stops AutoPost from targeted autoposting channel."
+).add_info(
+  "AutoPost From One Channel To Another."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
