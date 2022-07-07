@@ -1,3 +1,4 @@
+import datetime
 import os
 import random
 import time
@@ -7,35 +8,42 @@ from telethon.tl.types import InputMessagesFilterPhotos, InputMessagesFilterDocu
 
 from . import *
 
-
 PICS_STR = []
 
 
 @d3vil_cmd(pattern="logo(?:\s|$)([\s\S]*)")
-async def lg1(d3vilevent):
-    event = await eor(d3vilevent, "`Processing.....`")
-    fnt = await get_font_file(d3vilevent.client, "@D3VIL_AND_MAFIA_FONTS")
-    if d3vilevent.reply_to_msg_id:
-        rply = await d3vilevent.get_reply_message()
-        logo_ = await rply.download_media()
+async def _(event):
+    d3vil = await eor(event, "`Processing.....`")
+    text = event.text[6:]
+    if text == "":
+        await eod(d3vil, "**Give some text to make a logo !!**")
+        return
+    cid = await client_id(event)
+    d3vil_mention = cid[2]
+    start = datetime.datetime.now()
+    fnt = await get_font_file(event.client, "@D3VIL_AND_MAFIA_FONTS")
+    if event.reply_to_msg_id:
+        rply = await event.get_reply_message()
+        try:
+            logo_ = await rply.download_media()
+        except:
+            pass
     else:
-        async for i in bot.iter_messages("@D3VIL_GFX_BG", filter=InputMessagesFilterPhotos):
-    	    PICS_STR.append(i)
+        await d3vil.edit("Picked a Logo BG...")
+        async for i in event.client.iter_messages("@D3VIL_GFX_BG", filter=InputMessagesFilterPhotos):
+            PICS_STR.append(i)
         pic = random.choice(PICS_STR)
         logo_ = await pic.download_media()
-    text = d3vilevent.pattern_match.group(1)
     if len(text) <= 8:
-        font_size_ = 160
+        font_size_ = 150
         strik = 10
     elif len(text) >= 9:
         font_size_ = 50
         strik = 5
     else:
-        font_size_ = 160
+        font_size_ = 130
         strik = 20
-    if not text:
-        await eod(event, "**gιvε  sσмε тεxт тσ мαкε α ℓσgσ !!**")
-        return
+    await d3vil.edit("Making Logo...")
     img = Image.open(logo_)
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(fnt, font_size_)
@@ -54,20 +62,22 @@ async def lg1(d3vilevent):
     draw.text(
         (w_, h_), text, font=font, fill="white", stroke_width=strik, stroke_fill="black"
     )
-    file_name = "D3vilBot.png"
+    file_name = "d3vilBot.png"
+    end = datetime.datetime.now()
+    ms = (end - start).seconds
     img.save(file_name, "png")
-    await bot.send_file(
-        d3vilevent.chat_id,
+    await event.client.send_file(
+        event.chat_id,
         file_name,
-        caption=f"**мα∂ε вү :** {d3vil_mention}\n ωιтн тнε нεℓρ σғ [∂3vιℓ вαcкgяσυη∂'s](t.me/D3VIL_GFX)",
+        caption=f"**Made By :** {d3vil_mention} \n**Time Taken :** `{ms} seconds`",
     )
-    await event.delete()
+    await d3vil.delete()
     try:
         os.remove(file_name)
         os.remove(fnt)
         os.remove(logo_)
     except:
-    	pass
+        pass
 
 
 async def get_font_file(client, channel_id):
@@ -81,8 +91,10 @@ async def get_font_file(client, channel_id):
     return await client.download_media(font_file_message)
 
 
-CmdHelp("logo").add_command(
+CmdHelp("logos").add_command(
   "logo", "<reply to pic + text> or <text>", "Makes a logo with the given text. If replied to a picture makes logo on that else gets random BG."
 ).add_info(
   "Logo Maker.\n**🙋🏻‍♂️ Note :**  Currently only supports custom pics. Fonts are choosen randomly."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
