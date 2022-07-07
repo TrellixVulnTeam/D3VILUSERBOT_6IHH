@@ -1,24 +1,23 @@
 import cv2
-import numpy as np
 import math
-from vcam import vcam,meshGen
-import sys
+import numpy as np
 import os
+import sys
+
+from vcam import vcam, meshGen
+
 from . import *
 
 if not os.path.isdir("./d3vilbot/"):
     os.makedirs("./d3vilbot/")
 
 
-@bot.on(d3vil_cmd(pattern=r"feye$"))
-@bot.on(sudo_cmd(pattern=r"feye$", allow_sudo=True))
+@d3vil_cmd(pattern="feye$")
 async def fun(event):
-    if event.fwd_from:
-        return
     path = "omk"
+    d3vil = await eor(event, "Editing In Progress...")
     reply = await event.get_reply_message()
-    lol = await bot.download_media(reply.media, path)
-    await eor(event, "Editing In Progress...")
+    lol = await event.client.download_media(reply.media, path)
     file_name = "fishy.jpg"
     hehe = path + "/" + file_name
     img = cv2.imread(lol)
@@ -34,22 +33,19 @@ async def fun(event):
     output = cv2.flip(output,1)
     out1 = cv2.resize(output,(700,350))
     cv2.imwrite(file_name,out1)
-    await bot.send_file(event.chat_id, file_name)
+    await event.client.send_file(event.chat_id, file_name)
+    await d3vil.delete()
     for files in (hehe, lol):
         if files and os.path.exists(files):
             os.remove(files)
-    hoi = await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern=r"warp$"))
-@bot.on(sudo_cmd(pattern=r"warp$", allow_sudo=True))
+@d3vil_cmd(pattern="warp$")
 async def fun(event):
-    if event.fwd_from:
-        return
     path = "omk"
+    d3vil = await eor(event, "Warping In Progress...")
     reply = await event.get_reply_message()
-    lol = await bot.download_media(reply.media, path)
-    await eor(event, "Warping In Progress...")
+    lol = await event.client.download_media(reply.media, path)
     file_name = "warped.jpg"
     hehe = path + "/" + file_name
     img = cv2.imread(lol)
@@ -65,23 +61,19 @@ async def fun(event):
     output = cv2.flip(output,1)
     out1 = cv2.resize(output,(700,350))
     cv2.imwrite(file_name,out1)
-    await bot.send_file(event.chat_id, file_name)
+    await event.client.send_file(event.chat_id, file_name)
+    await d3vil.delete()
     for files in (hehe, lol):
         if files and os.path.exists(files):
             os.remove(files)
-    hoi = await event.delete()
 
 
-
-@bot.on(d3vil_cmd(pattern=r"distort$"))
-@bot.on(sudo_cmd(pattern=r"distort$", allow_sudo=True))
+@d3vil_cmd(pattern="distort$")
 async def fun(event):
-    if event.fwd_from:
-        return
     path = "omk"
+    d3vil = await eor(event, "Distortion In Progress...")
     reply = await event.get_reply_message()
-    lol = await bot.download_media(reply.media, path)
-    await eor(event, "Distortion In Progress...")
+    lol = await event.client.download_media(reply.media, path)
     file_name = "dist.jpg"
     hehe = path + "/" + file_name
     img = cv2.imread(lol)
@@ -97,11 +89,11 @@ async def fun(event):
     output = cv2.flip(output,1)
     out1 = cv2.resize(output,(700,350))
     cv2.imwrite(file_name,out1)
-    await bot.send_file(event.chat_id, file_name)
+    await event.client.send_file(event.chat_id, file_name)
+    await d3vil.delete()
     for files in (hehe, lol):
         if files and os.path.exists(files):
             os.remove(files)
-    hoi = await event.delete()
 
 
 CmdHelp("imgedits").add_command(
@@ -110,4 +102,8 @@ CmdHelp("imgedits").add_command(
   "warp", "<reply to a img/stcr>", "Edits the replied image or sticker to a funny image. `#Must_Try` !!"
 ).add_command(
   "distort", "<reply to a img/stcr>", "Edits the replied image or sticker to a funny image. `#Must_Try` !!"
+).add_info(
+  "Funs are here boiz"
+).add_warning(
+  "✅ Harmless Module."
 ).add()
