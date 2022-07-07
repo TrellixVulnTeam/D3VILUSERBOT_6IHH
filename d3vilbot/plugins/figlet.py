@@ -2,11 +2,8 @@ import pyfiglet
 
 from . import *
 
-@bot.on(d3vil_cmd(pattern="figlet ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="figlet ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="figlet ([\s\S]*)")
 async def figlet(event):
-    if event.fwd_from:
-        return
     CMD_FIG = {
         "slant": "slant",
         "3D": "3-d",
@@ -46,4 +43,8 @@ async def figlet(event):
 
 CmdHelp("figlet").add_command(
   "figlet", "text : type", "The types are slant, 3D, 5line, alpha, banner, doh, iso, letter, allig, dotm, bubble, bulb, digi"
+).add_info(
+  "Another Art plugin but figlet."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
