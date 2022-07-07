@@ -1,42 +1,25 @@
-from telethon.tl.types import (
-    ChannelParticipantAdmin,
-    ChannelParticipantCreator,
-    ChannelParticipantsAdmins,
-    ChannelParticipantsBots,
-    MessageActionChannelMigrateFrom,
-    MessageEntityMentionName,
-)
-from telethon.utils import pack_bot_file_id, get_input_location
+import emoji
+import html
+
 from datetime import datetime
 from math import sqrt
 from os import remove
-import emoji
-from telethon.errors import (
-    ChannelInvalidError,
-    ChannelPrivateError,
-    ChannelPublicGroupNaError,
-    ChatAdminRequiredError,
-)
-from telethon.errors.rpcerrorlist import MessageTooLongError
-from telethon.tl.functions.channels import (
-    GetFullChannelRequest,
-    GetParticipantsRequest,
-    LeaveChannelRequest,
-)
+
+from telethon import events
+from telethon.errors import ChannelInvalidError, ChannelPrivateError, ChannelPublicGroupNaError, ChatAdminRequiredError
+from telethon.errors.rpcerrorlist import MessageTooLongError, YouBlockedUserError
+from telethon.tl.functions.channels import GetFullChannelRequest, GetParticipantsRequest, LeaveChannelRequest
 from telethon.tl.functions.messages import GetFullChatRequest, GetHistoryRequest
 from telethon.tl.functions.photos import GetUserPhotosRequest
 from telethon.tl.functions.users import GetFullUserRequest
-import html
+from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, ChannelParticipantsAdmins, ChannelParticipantsBots, MessageActionChannelMigrateFrom, MessageEntityMentionName
+from telethon.utils import pack_bot_file_id, get_input_location
+
 from . import *
-from telethon import events
-from telethon.errors.rpcerrorlist import YouBlockedUserError
 
 
-@bot.on(d3vil_cmd(pattern="recognize ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="recognize ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="recognize(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     if not event.reply_to_msg_id:
         await eod(event, "Reply to any user's media message.")
         return
@@ -68,24 +51,21 @@ async def _(event):
             third = await response
             d3vil = third.message.message
             await eor(event, d3vil)
-            await bot.delete_messages(
-            	conv.chat_id, [first.id, second.id, third.id]
+            await event.client.delete_messages(
+                conv.chat_id, [first.id, second.id, third.id]
             )
 
         else:
             await eod(event, "sorry, I couldnt find it")
 
 
-@bot.on(d3vil_cmd(pattern="info ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="info ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="info(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     replied_user, error_i_a = await get_full_user(event)
     if replied_user is None:
-        await event.edit(str(error_i_a))
+        await eod(event, str(error_i_a))
         return False
-    replied_user_profile_photos = await bot(
+    replied_user_profile_photos = await event.client(
         GetUserPhotosRequest(
             user_id=replied_user.user.id, offset=42, max_id=0, limit=80
         )
@@ -101,7 +81,7 @@ async def _(event):
         first_name = first_name.replace("\u2060", "")
     last_name = replied_user.user.last_name
     last_name = (
-        last_name.replace("\u2060", "") if last_name else ("Name not find")
+        last_name.replace("\u2060", "") if last_name else ("Last Name not found")
     )
     user_bio = replied_user.about
     if user_bio is not None:
@@ -112,21 +92,22 @@ async def _(event):
     except Exception as e:
         dc_id = "`Need a Profile Picture to check **this**`"
         str(e)
-    caption = """<b>𖤍 𝚄𝚂𝙴𝚁 𝙸𝙽𝙵𝙾 𝙱𝚈 𝖣3𝚅𝚒𝚕 𝙱𝙾𝚃 𖤍<b>
-<b>┏━━━━━━━━━━━━━━━━━━━━</b>
-<b>┣𝚄𝚂𝙴𝚁 𝙸𝙳</b>: <code>{}</code>
-<b>┣𝙻𝙸𝙽𝙺 𝚃𝙾 𝙿𝚁𝙾𝙵𝙸𝙻𝙴</b>: <a href='tg://user?id={}'>Click Here🚪</a>
-<b>┣𝙵𝙸𝚁𝚂𝚃 𝙽𝙰𝙼𝙴</b>: <code>{}</code>
-<b>┣𝚂𝙴𝙲𝙾𝙽𝙳 𝙽𝙰𝙼𝙴</b>: <code>{}</code>
-<b>┣𝙱𝙸𝙾</b>: {}
-<b>┣𝙳𝙲 ID</b>: {}
-<b>┣𝙽𝙾 𝙾𝙵 𝙿𝚂𝚂</b> : {}
-<b>┣𝚁𝙴𝚂𝚃𝚁𝙸𝙲𝚃𝙴𝙳</b>: {}
-<b>┣𝚅𝙴𝚁𝙸𝙵𝙸𝙴𝙳</b>: {}
-<b>┣𝙱𝙾𝚃</b>: {}
-<b>┣𝙶𝚁𝙾𝚄𝙿 𝙸𝙽 𝙲𝙾𝙼𝙼𝙰𝙽</b>: {}
-<b>┗━━━━━━━━━━━━━━━━━━━━</b>
-<b> <a href='https://t.me/D3VIL_BOT_SUPPORT'>𝙵𝚁𝙾𝙼 𝙳𝙰𝚃𝙰𝙱𝙰𝚂𝙴 𝙾𝙵 𝙳3𝚅𝙸𝙻 𝙱𝙾𝚃</a>  </b>
+    caption = """
+<b><i><u>Extracted User info From Telegram</b></i></u>
+
+<b>🆔️ User ID</b>: <code>{}</code>
+<b>📎 Link To Profile</b>: <a href='tg://user?id={}'>Click Here🚪</a>
+<b>🗣️ First Name</b>: <code>{}</code>
+<b>🗣️ Second Name</b>: <code>{}</code>
+<b>👨🏿‍💻 BIO</b>: {}
+<b>🌐 DC ID</b>: {}
+<b>📸 NO OF PSS</b> : {}
+<b>🧐 RESTRICTED</b>: {}
+<b>✅ VERIFIED</b>: {}
+<b>🤖 BOT</b>: {}
+<b>👥 Groups in Common</b>: {}
+
+<b>⚡ <a href='https://t.me/D3VIL_BOT_OFFICIAL'>From DataBase of d3vilBot</a> ⚡ </b>
 """.format(
         user_id,
         user_id,
@@ -143,7 +124,7 @@ async def _(event):
     message_id_to_reply = event.message.reply_to_msg_id
     if not message_id_to_reply:
         message_id_to_reply = event.message.id
-    await bot.send_message(
+    await event.client.send_message(
         event.chat_id,
         caption,
         reply_to=message_id_to_reply,
@@ -210,16 +191,13 @@ async def get_full_user(event):
                 return None, e
 
 
-@bot.on(d3vil_cmd(pattern="chatinfo(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="chatinfo(?: |$)(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="chatinfo(?:\s|$)([\s\S]*)")
 async def info(event):
-    if event.fwd_from:
-        return
     d3vil = await eor(event, "`Analysing the chat...`")
     chat = await get_chatinfo(event)
     caption = await fetch_info(chat, event)
     try:
-        await d3vil.edit(caption, parse_mode="html")
+        await d3vil.edit(caption, parse_mode="HTML")
     except Exception as e:
         print("Exception:", e)
         await eod(d3vil, "`An unexpected error has occurred.`")
@@ -247,24 +225,23 @@ async def get_chatinfo(event):
         try:
             chat_info = await event.client(GetFullChannelRequest(chat))
         except ChannelInvalidError:
-            await edit_or_reply(event, "`Invalid channel/group`")
+            await eor(event, "`Invalid channel/group`")
             return None
         except ChannelPrivateError:
-            await edit_or_reply(event, 
+            await eor(event, 
                 "`This is a private channel/group or I am banned from there`"
             )
             return None
         except ChannelPublicGroupNaError:
-            await edit_or_reply(event, "`Channel or supergroup doesn't exist`")
+            await eor(event, "`Channel or supergroup doesn't exist`")
             return None
         except (TypeError, ValueError) as err:
-            await edit_or_reply(event, str(err))
+            await eor(event, str(err))
             return None
     return chat_info
 
 
 async def fetch_info(chat, event):
-    # chat.chats is a list so we use get_entity() to avoid IndexError
     chat_obj_info = await event.client.get_entity(chat.full_chat.id)
     broadcast = (
         chat_obj_info.broadcast if hasattr(chat_obj_info, "broadcast") else False
@@ -288,13 +265,11 @@ async def fetch_info(chat, event):
     except Exception as e:
         msg_info = None
         print("Exception:", e)
-    # No chance for IndexError as it checks for msg_info.messages first
     first_msg_valid = (
         True
         if msg_info and msg_info.messages and msg_info.messages[0].id == 1
         else False
     )
-    # Same for msg_info.users
     creator_valid = True if first_msg_valid and msg_info.users else False
     creator_id = msg_info.users[0].id if creator_valid else None
     creator_firstname = (
@@ -321,7 +296,6 @@ async def fetch_info(chat, event):
         dc_id = "Unknown"
         str(e)
 
-    # this is some spaghetti I need to change
     description = chat.full_chat.about
     members = (
         chat.full_chat.participants_count
@@ -358,7 +332,7 @@ async def fetch_info(chat, event):
     )
     exp_count = chat.full_chat.pts if hasattr(chat.full_chat, "pts") else None
     username = chat_obj_info.username if hasattr(chat_obj_info, "username") else None
-    bots_list = chat.full_chat.bot_info  # this is a list
+    bots_list = chat.full_chat.bot_info
     bots = 0
     supergroup = (
         "<b>Yes</b>"
@@ -387,10 +361,8 @@ async def fetch_info(chat, event):
     )
     username = "@{}".format(username) if username else None
     creator_username = "@{}".format(creator_username) if creator_username else None
-    # end of spaghetti block
 
     if admins is None:
-        # use this alternative way if chat.full_chat.admins_count is None, works even without being an admin
         try:
             participants_admins = await event.client(
                 GetParticipantsRequest(
@@ -412,7 +384,7 @@ async def fetch_info(chat, event):
     caption += f"🆔 ID : <code>{chat_obj_info.id}</code>\n"
     if chat_title is not None:
         caption += f"🚀 {chat_type} Name : {chat_title}\n"
-    if former_title is not None:  # Meant is the very first title
+    if former_title is not None:
         caption += f"✳️ Former name : {former_title}\n"
     if username is not None:
         caption += f"🔸 {chat_type} type : Public\n"
@@ -482,11 +454,8 @@ async def fetch_info(chat, event):
     return caption
 
 
-@bot.on(d3vil_cmd(pattern=r"users ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"users ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="users(?:\s|$)([\s\S]*)")
 async def get_users(show):
-    if show.fwd_from:
-        return
     if not show.is_group:
         await eod(show, "Are you sure this is a group?")
         return
@@ -516,9 +485,9 @@ async def get_users(show):
     except ChatAdminRequiredError as err:
         mentions += " " + str(err) + "\n"
     try:
-        await edit_or_reply(show, mentions)
+        await eor(show, mentions)
     except MessageTooLongError:
-        await edit_or_reply(show, "Damn, this is a huge group. Uploading users lists as file.")
+        await eor(show, "Damn, this is a huge group. Uploading users lists as file.")
         file = open("userslist.txt", "w+")
         file.write(mentions)
         file.close()
@@ -531,11 +500,8 @@ async def get_users(show):
         remove("userslist.txt")
 
 
-@bot.on(d3vil_cmd(pattern="admins ?(.*)"))
-@bot.on(sudo_cmd(pattern="admins ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="admins(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     mentions = "**⚜️ Admins in this Group ⚜️**: \n"
     reply_message = None
     if event.reply_to_msg_id:
@@ -549,7 +515,7 @@ async def _(event):
         try:
             chat = await event.client.get_entity(input_str)
         except Exception as e:
-            await edit_or_reply(event, str(e))
+            await eor(event, str(e))
             return None
     else:
         chat = to_write_chat
@@ -584,11 +550,8 @@ async def _(event):
     await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern="bots ?(.*)"))
-@bot.on(sudo_cmd(pattern="bots ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="bots(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     mentions = "🤖 **Bots in this Group**: \n"
     input_str = event.pattern_match.group(1)
     to_write_chat = await event.get_input_chat()
@@ -598,12 +561,12 @@ async def _(event):
     else:
         mentions = "Bots in {} group: \n".format(input_str)
         try:
-            chat = await borg.get_entity(input_str)
+            chat = await event.client.get_entity(input_str)
         except Exception as e:
             await event.edit(str(e))
             return None
     try:
-        async for x in borg.iter_participants(chat, filter=ChannelParticipantsBots):
+        async for x in event.client.iter_participants(chat, filter=ChannelParticipantsBots):
             if isinstance(x.participant, ChannelParticipantAdmin):
                 mentions += "\n ⚜️ [{}](tg://user?id={}) `{}`".format(
                     x.first_name, x.id, x.id
@@ -617,11 +580,8 @@ async def _(event):
     await event.edit(mentions)
     
     
-@bot.on(d3vil_cmd(pattern="id$"))
-@bot.on(sudo_cmd(pattern="id$", allow_sudo=True))
+@d3vil_cmd(pattern="id$")
 async def _(event):
-    if event.fwd_from:
-        return
     d3vil = await eor(event, "Fetching Ids...")
     if event.reply_to_msg_id:
         await event.get_input_chat()
@@ -659,4 +619,8 @@ CmdHelp("infos").add_command(
   "users", "<name of member> (optional)", "Retrives all the (or mentioned) users in the chat"
 ).add_command(
   "recognize", "<reply to photo>", "Sends you the details of that replied picture."
+).add_info(
+  "Basic Cmds for groups."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
