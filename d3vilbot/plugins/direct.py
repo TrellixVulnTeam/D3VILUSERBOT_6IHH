@@ -1,22 +1,21 @@
 import json
 import re
+import requests
 import urllib.parse
+
 from os import popen
 from random import choice
-
-import requests
 from bs4 import BeautifulSoup
 from humanize import naturalsize
 
 from . import *
 
 
-@bot.on(d3vil_cmd(outgoing=True, pattern=r"direct(?: |$)([\s\S]*)"))
-@bot.on(sudo_cmd(allow_sudo=True, pattern=r"direct(?: |$)([\s\S]*)"))
+@d3vil_cmd(pattern="direct(?:\s|$)([\s\S]*)")
 async def direct_link_generator(request):
     if request.fwd_from:
         return
-    d3vilevent = await edit_or_reply(request, "`Processing...`")
+    d3vilevent = await eor(request, "`Processing...`")
     textx = await request.get_reply_message()
     message = request.pattern_match.group(1)
     if message:
@@ -24,7 +23,7 @@ async def direct_link_generator(request):
     elif textx:
         message = textx.text
     else:
-        await d3vilevent.edit("`Usage: .direct <url>`")
+        await d3vilevent.edit(f"**Usage :** {hl}direct <url>`")
         return
     reply = ""
     links = re.findall(r"\bhttps?://.*\.\S+", message)
@@ -77,14 +76,12 @@ def gdrive(url: str) -> str:
     download = requests.get(url, stream=True, allow_redirects=False)
     cookies = download.cookies
     try:
-        # In case of small file size, Google downloads directly
         dl_url = download.headers["location"]
-        if "accounts.google.com" in dl_url:  # non-public file
+        if "accounts.google.com" in dl_url:
             reply += "`Link is not public!`\n"
             return reply
         name = "Direct Download Link"
     except KeyError:
-        # In case of download warning page
         page = BeautifulSoup(download.content, "lxml")
         export = drive + page.find("a", {"id": "uc-download-link"}).get("href")
         name = page.find("span", {"class": "uc-name-size"}).text
@@ -345,4 +342,8 @@ def useragent():
 
 CmdHelp("direct").add_command(
   'direct', 'link', 'Reply to a link or paste a URL to generate a direct download link.\nList of supported URLs:-\n• Google Drive\n•Cloud mail\n• Yandex.Disk\n• AFH\n• Zippy Share\n• Media fire\n• SourceForge\n• OSDN\n• Github'
+).add_info(
+  'Direct Links'
+).add_warning(
+  '✅ Harmless Module.'
 ).add()
