@@ -6,9 +6,7 @@ from telethon.tl.types import Channel, Chat, User
 
 from . import *
 
-
-@bot.on(d3vil_cmd(pattern="stats$"))
-@bot.on(sudo_cmd(pattern="stats$", allow_sudo=True))
+@d3vil_cmd(pattern="stats$")
 async def stats(
     event: NewMessage.Event,
 ) -> None:  # pylint: disable = R0912, R0914, R0915
