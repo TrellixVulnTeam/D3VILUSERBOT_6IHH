@@ -1,10 +1,10 @@
 import asyncio
 import os
 import time
+
 from datetime import datetime
 from io import BytesIO
 from pathlib import Path
-
 from telethon import functions, types
 from telethon.errors import PhotoInvalidDimensionsError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
@@ -16,11 +16,24 @@ if not os.path.isdir("./temp"):
     os.makedirs("./temp")
 
 
-@bot.on(d3vil_cmd(pattern="stoi$"))
-@bot.on(sudo_cmd(pattern="stoi$", allow_sudo=True))
+@d3vil_cmd(pattern="stog(?:\s|$)([\s\S]*)")
+async def _(event):
+    if not event.reply_to_msg_id:
+        return await eod(event, "Reply to animated sticker to make gif.")
+    d3vil = await eor(event, "Converting...")
+    if event.pattern_match.group(1):
+        quality = event.pattern_match.group(1)
+    else:
+        quality = 512
+    rply = await event.get_reply_message()
+    d3vil_ = await event.client.download_media(rply.media)
+    gifs = tgs_to_gif(d3vil_, quality)
+    await event.client.send_file(event.chat_id, file=gifs, force_document=False)
+    await d3vil.delete()
+
+
+@d3vil_cmd(pattern="stoi$")
 async def _(d3vil):
-    if d3vil.fwd_from:
-        return
     reply_to_id = d3vil.message.id
     if d3vil.reply_to_msg_id:
         reply_to_id = d3vil.reply_to_msg_id
@@ -37,7 +50,7 @@ async def _(d3vil):
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await d3vil.client.send_file(
+            await d3vil.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -51,11 +64,8 @@ async def _(d3vil):
         await event.edit(f"Syntax : `{hl}stoi` reply to a Telegram normal sticker")
 
 
-@bot.on(d3vil_cmd(pattern="itos$"))
-@bot.on(sudo_cmd(pattern="itos$", allow_sudo=True))
+@d3vil_cmd(pattern="itos$")
 async def _(d3vil):
-    if d3vil.fwd_from:
-        return
     reply_to_id = d3vil.message.id
     if d3vil.reply_to_msg_id:
         reply_to_id = d3vil.reply_to_msg_id
@@ -72,7 +82,7 @@ async def _(d3vil):
             reply_message, downloaded_file_name
         )
         if os.path.exists(downloaded_file_name):
-            caat = await d3vil.client.send_file(
+            await d3vil.client.send_file(
                 event.chat_id,
                 downloaded_file_name,
                 force_document=False,
@@ -86,21 +96,11 @@ async def _(d3vil):
         await event.edit(f"Syntax : `{hl}itos` reply to a Telegram normal sticker")
 
 
-async def silently_send_message(conv, text):
-    await conv.send_message(text)
-    response = await conv.get_response()
-    await conv.mark_read(message=response)
-    return response
-
-
-@bot.on(d3vil_cmd(pattern="ttf ?(.*)"))
-@bot.on(sudo_cmd(pattern="ttf ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="ttf(?:\s|$)([\s\S]*)")
 async def get(event):
-    if event.fwd_from:
-        return
     name = event.text[5:]
     if name is None:
-        await eod(event, f"reply to text message as `{hl}ttf <file name>`")
+        await eod(event, f"Reply to text message as `{hl}ttf <file name>`")
         return
     m = await event.get_reply_message()
     if m.text:
@@ -113,11 +113,8 @@ async def get(event):
         await eod(event, f"Reply to text message as `{hl}ttf <file name>`")
 
 
-@bot.on(d3vil_cmd(pattern="ftoi$"))
-@bot.on(sudo_cmd(pattern="ftoi$", allow_sudo=True))
+@d3vil_cmd(pattern="ftoi$")
 async def on_file_to_photo(event):
-    if event.fwd_from:
-        return
     target = await event.get_reply_message()
     hbot = await eor(event, "Converting.....")
     try:
@@ -125,11 +122,11 @@ async def on_file_to_photo(event):
     except AttributeError:
         return
     if not image.mime_type.startswith("image/"):
-        return  # This isn't an image
+        return
     if image.mime_type == "image/webp":
-        return  # Telegram doesn't let you directly send stickers as photos
+        return
     if image.size > 10 * 1024 * 1024:
-        return  # We'd get PhotoSaveFileInvalidError otherwise
+        return
     file = await event.client.download_media(target, file=BytesIO())
     file.seek(0)
     img = await event.client.upload_file(file)
@@ -149,64 +146,40 @@ async def on_file_to_photo(event):
     await hbot.delete()
 
 
-@bot.on(d3vil_cmd(pattern="gif$"))
-@bot.on(sudo_cmd(pattern="gif$", allow_sudo=True))
-async def _(event):
-    if event.fwd_from:
-        return
-    d3vilreply = await event.get_reply_message()
-    if not d3vilreply or not d3vilreply.media or not d3vilreply.media.document:
-        return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
-    if d3vilreply.media.document.mime_type != "application/x-tgsticker":
-        return await edit_or_reply(event, "`Stupid!, This is not animated sticker.`")
-    reply_to_id = event.message
+@d3vil_cmd(pattern="itof$")
+async def _(d3vil):
+    reply_to_id = d3vil.message.id
+    if d3vil.reply_to_msg_id:
+        reply_to_id = d3vil.reply_to_msg_id
+    event = await eor(d3vil, "Converting.....")
+    if not os.path.isdir(Config.TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(Config.TMP_DOWNLOAD_DIRECTORY)
     if event.reply_to_msg_id:
-        reply_to_id = await event.get_reply_message()
-    chat = "@tgstogifbot"
-    d3vilevent = await edit_or_reply(event, "`Converting to gif ...`")
-    async with bot.conversation(chat) as conv:
-        try:
-            await silently_send_message(conv, "/start")
-            await bot.send_file(chat, d3vilreply.media)
-            response = await conv.get_response()
-            await bot.send_read_acknowledge(conv.chat_id)
-            if response.text.startswith("Send me an animated sticker!"):
-                return await d3vilevent.edit("`This file is not supported`")
-            d3vilresponse = response if response.media else await conv.get_response()
-            await bot.send_read_acknowledge(conv.chat_id)
-            d3vilfile = Path(await event.client.download_media(d3vilresponse, "./temp/"))
-            d3vilgif = Path(await unzip(d3vilfile))
-            d3vilkrish = await bot.send_file(
+        filename = "d3vilbot.jpg"
+        file_name = filename
+        reply_message = await event.get_reply_message()
+        to_download_directory = Config.TMP_DOWNLOAD_DIRECTORY
+        downloaded_file_name = os.path.join(to_download_directory, file_name)
+        downloaded_file_name = await d3vil.client.download_media(
+            reply_message, downloaded_file_name
+        )
+        if os.path.exists(downloaded_file_name):
+            await d3vil.client.send_file(
                 event.chat_id,
-                d3vilgif,
-                support_streaming=True,
-                force_document=False,
+                downloaded_file_name,
+                force_document=True,
                 reply_to=reply_to_id,
             )
-            await bot(
-                functions.messages.SaveGifRequest(
-                    id=types.InputDocument(
-                        id=d3vilkrish.media.document.id,
-                        access_hash=d3vilkrish.media.document.access_hash,
-                        file_reference=d3vilkrish.media.document.file_reference,
-                    ),
-                    unsave=True,
-                )
-            )
-            await d3vilevent.delete()
-            for files in (d3vilgif, d3vilfile):
-                if files and os.path.exists(files):
-                    os.remove(files)
-        except YouBlockedUserError:
-            await d3vilevent.edit("Unblock @tgstogifbot")
-            return
+            os.remove(downloaded_file_name)
+            await event.delete()
+        else:
+            await eod(event, "Can't Convert")
+    else:
+        await event.edit(f"Syntax : `{hl}itof` reply to a sticker/image")
 
 
-@bot.on(d3vil_cmd(pattern="nfc ?(.*)"))
-@bot.on(sudo_cmd(pattern="nfc ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="nfc(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     if not event.reply_to_msg_id:
         await eod(event, "```Reply to any media file.```")
         return
@@ -216,12 +189,12 @@ async def _(event):
         return
     input_str = event.pattern_match.group(1)
     if input_str is None:
-        await eod(event, f"Try `{hl}nfc voice` or`{hl}nfc mp3`")
+        await eod(event, f"Try `{hl}nfc voice` or `{hl}nfc mp3`")
         return
     if input_str in ["mp3", "voice"]:
         event = await eor(event, "converting...")
     else:
-        await eod(event, f"Try `{hl}nfc voice` or`{hl}nfc mp3`")
+        await eod(event, f"Try `{hl}nfc voice` or `{hl}nfc mp3`")
         return
     try:
         start = datetime.datetime.now()
@@ -233,12 +206,12 @@ async def _(event):
                 progress(d, t, event, c_time, "trying to download")
             ),
         )
-    except Exception as e:  # pylint:disable=C0103,W0703
+    except Exception as e:
         await event.edit(str(e))
     else:
         end = datetime.datetime.now()
         ms = (end - start).seconds
-        await event.edit(
+        await eor(event,
             "Downloaded to `{}` in {} seconds.".format(downloaded_file_name, ms)
         )
         new_required_file_name = ""
@@ -286,14 +259,11 @@ async def _(event):
             os.remove(downloaded_file_name)
             return
         logger.info(command_to_run)
-        # TODO: re-write create_subprocess_exec 😉
         process = await asyncio.create_subprocess_exec(
             *command_to_run,
-            # stdout must a pipe to be accessible as process.stdout
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
         )
-        # Wait for the subprocess to finish
         stdout, stderr = await process.communicate()
         stderr.decode().strip()
         stdout.decode().strip()
@@ -323,11 +293,17 @@ CmdHelp("convert").add_command(
 ).add_command(
   "ftoi", "<reply to a image file", "Converts the replied file image to normal image"
 ).add_command(
-  "gif", "<reply to a animated sticker", "Converts the replied animated sticker into gif"
+  "itof", "<reply to a image/sticker>", "Converts the replied image or sticker into file."
+).add_command(
+  "stog", "<reply to a animated sticker>", "Converts the replied animated sticker into gif"
 ).add_command(
   "ttf", "<reply to text>", "Converts the given text message to required file(given file name)"
 ).add_command(
   "nfc voice", "<reply to media to extract voice>", "Converts the replied media file to voice"
 ).add_command(
   "nfc mp3", "<reply to media to extract mp3>", "Converts the replied media file to mp3"
+).add_info(
+  "Converter."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
