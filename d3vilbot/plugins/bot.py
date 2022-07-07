@@ -1,50 +1,116 @@
 import asyncio
+import datetime
 import os
 import re
 import time
 
+from random import choice
 from telethon import functions
 from telethon.errors.rpcerrorlist import YouBlockedUserError
 from telethon.tl.functions.channels import LeaveChannelRequest
 
+from ..sql.gvar_sql import gvarstat
 from . import *
 
+ping_txt = """
+<b><i>╰•★★  ℘ơŋɠ ★★•╯</b></i>
 
-@bot.on(d3vil_cmd("kickme", outgoing=True))
+    ⚘  <i>ʂ℘ɛɛɖ :</i> <code>{}</code>
+    ⚘  <i>ų℘ɬıɱɛ :</i> <code>{}</code>
+    ⚘  <i>ơῳŋɛཞ :</i> {}
+"""
+
+
+#@d3vil_cmd(pattern="ping$")
+#async def pong(d3vil):
+#    start = datetime.datetime.now()
+ #   a = gvarstat("PING_PIC")
+#    pic_list = []
+#    if a:
+#        b = a.split(" ")
+#        if len(b) >= 1:
+#            for c in b:
+#                pic_list.append(c)
+#        PIC = choice(pic_list)
+#    else:
+#        PIC = None
+#    event = await eor(d3vil, "`·.·★ ℘ıŋɠ ★·.·´")
+#    cid = await client_id(event)
+#    d3vilkridh, D3VIL_USER = cid[0], cid[1]
+ #   d3vil_mention = f"<a href='tg://user?id={d3vilkridh}'>{D3VIL_USER}</a>"
+ #   uptime = await get_time((time.time() - StartTime))
+ #   end = datetime.datetime.now()
+ #   ms = (end - start).microseconds / 1000
+ #   if PIC:
+#        await event.client.send_file(event.chat_id,
+ #                                    file=PIC,
+ #                                    caption=ping_txt.format(ms, uptime, d3vil_mention),
+ #                                    parse_mode="HTML",
+ #                                )
+ #       await event.delete()
+#    else:
+#        await event.edit(ping_txt.format(ms, uptime, d3vil_mention), parse_mode="HTML")
+
+
+@d3vil_cmd(pattern="limits$")
+async def is_limited(event):
+    chat = "@SpamBot"
+    msg = await eor(event, "Checking your account limit...")
+    async with event.client.conversation(chat) as conv:
+        try:
+            first = await conv.send_message("/start")
+            response = await conv.get_response()
+            await event.client.send_read_acknowledge(conv.chat_id)
+        except YouBlockedUserError:
+            await msg.edit('User Blocked!! Please Unblock @Spambot and try again...')
+            return
+        await msg.edit(response.text)
+        await event.client.delete_messages(conv.chat_id, [first.id, response.id])
+
+        
+@d3vil_cmd(pattern="kickme$")
 async def leave(e):
-    if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
-        await e.edit("😪 **I am leaving this group** See u all in `@D3VIL_BOT_SUPPORT`!!")
+        await e.edit("😪 **KThnxBye** See u all in d3vil!!")
         time.sleep(1)
         if "-" in str(e.chat_id):
-            await bot(LeaveChannelRequest(e.chat_id))
+            await event.client(LeaveChannelRequest(e.chat_id))
         else:
             await eod(e, "**Iz this even a grp?😑**")
 
-@bot.on(d3vil_cmd(pattern=r"dc"))
-@bot.on(sudo_cmd(pattern=r"dc", allow_sudo=True))
+
+@d3vil_cmd(pattern="dc$")
 async def _(event):
-    if event.fwd_from:
-        return
-    result = await borg(functions.help.GetNearestDcRequest())
+    result = await event.client(functions.help.GetNearestDcRequest())
     await eor(event, result.stringify())
 
 
-@bot.on(d3vil_cmd(pattern=r"config"))
-@bot.on(sudo_cmd(pattern=r"config", allow_sudo=True))
+@d3vil_cmd(pattern="config$")
 async def _(event):
-    if event.fwd_from:
-        return
-    result = await borg(functions.help.GetConfigRequest())
+    result = await event.client(functions.help.GetConfigRequest())
     result = result.stringify()
     logger.info(result)
-    await eor("Config Saved In You Heroku Logs.")
+    await eor(event, "Config Saved In You Heroku Logs.")
 
 
-@bot.on(d3vil_cmd(pattern="schd ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="schd ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="vars(?:\s|$)([\s\S]*)")
+async def lst(event):
+    flag = (event.text[6:9]).lower()
+    if flag and flag == "-db":
+        d3vil = await eor(event, "Getting DB variables..")
+        dbx = "**• List of DB Variables:** \n\n"
+        for data in db_config:
+            dbx += f"» `{data}`\n"
+        await d3vil.edit(dbx)
+    else:
+        d3vil = await eor(event, "Getting configs list...")
+        osx = "**• List of OS Configs:** \n\n"
+        for data in os_config:
+            osx += f"» `{data}`\n"
+        await d3vil.edit(osx)
+
+
+@d3vil_cmd(pattern="schd(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     input_str = event.pattern_match.group(1)
     ttl = 0
     message = f"SYNTAX: `{hl}schd <time_in_seconds> - <message to send>`"
@@ -59,11 +125,10 @@ async def _(event):
         await asyncio.sleep(int(ttl))
         await event.respond(message)
     else:
-        await event.edit(message)
+        await eor(event, message)
 
 
-@bot.on(d3vil_cmd(pattern="dm ?(.*)"))
-@bot.on(sudo_cmd(pattern="dm ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="dm(?:\s|$)([\s\S]*)")
 async def _(event):
     if len(event.text) > 3:
         if not event.text[3] == " ":
@@ -77,27 +142,39 @@ async def _(event):
     msg = ""
     hunter = await event.get_reply_message()
     if event.reply_to_msg_id:
-        await bot.send_message(chat_id, hunter)
+        await event.client.send_message(chat_id, hunter)
         await eod(event, "**[Done]**")
     for i in c[1:]:
         msg += i + " "
     if msg == "":
         return
     try:
-        await bot.send_message(chat_id, msg)
+        await event.client.send_message(chat_id, msg)
         await eod(event, "**[Done]**")
     except BaseException:
         await eod(f"**Invalid Syntax !!**\n\n`{hl}dm <Username or UserID> <message>`")
-    
+
 
 CmdHelp("bot").add_command(
     "dc", None, "Gets the DataCenter Number"
 ).add_command(
     "config", None, "😒"
 ).add_command(
+    "vars", None, "Gets the list of all available OS Config Variables."
+).add_command(
+    "vars -db", None, "Gets the list of all available DB Config Variables."
+).add_command(
     "kickme", None, "Kicks Yourself from the group."
 ).add_command(
-    "schd", "<secs> - <message>", "Sends your message in given secs", "schd 10 - Hello"
+    "ping", None, "Checks the ping speed of your BOT"
+).add_command(
+    "schd", "<secs> - <message>", "Sends your message in given secs", "schd 10 - hello"
 ).add_command(
     "dm", "<username or user id> <message>", "Sends a DM to given username with required msg"
+).add_command(
+    "limits", None, "Checks your telegram account limitations or restrictions via @SpamBot."
+).add_info(
+    "Haa vai? Kya hua?"
+).add_warning(
+    "✅ Harmless Module."
 ).add()
