@@ -5,8 +5,7 @@ import base64
 
 from . import *
 
-@bot.on(d3vil_cmd(pattern="hash (.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="hash (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="hash(?:\s|$)([\s\S]*)")
 @errors_handler
 async def gethash(hash_q):
     if hash_q.fwd_from:
@@ -54,8 +53,7 @@ async def gethash(hash_q):
         await event.delete()
 
 
-@bot.on(d3vil_cmd(pattern="encode ?(.*)"))
-@bot.on(sudo_cmd(pattern="encode (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="encode(?:\s|$)([\s\S]*)")
 async def encod(e):
     match = e.pattern_match.group(1)
     if not match and e.is_reply:
@@ -70,8 +68,7 @@ async def encod(e):
     await eor(e, f"**=>> 𝖤𝗇𝖼𝗈𝖽𝖾𝖽 𝖳𝖾𝗑𝗍 :** `{match}`\n\n**=>> 𝖮𝖴𝖳𝖯𝖴𝖳 :**\n`{atc}`")
 
 
-@bot.on(d3vil_cmd(pattern="decode ?(.*)"))
-@bot.on(sudo_cmd(pattern="decode (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="decode(?:\s|$)([\s\S]*)")
 async def encod(e):
     match = e.pattern_match.group(1)
     if not match and e.is_reply:
