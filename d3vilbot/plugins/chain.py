@@ -2,11 +2,8 @@ from telethon.tl.functions.messages import SaveDraftRequest
 
 from . import *
 
-@d3vilbot.on(d3vil_cmd(pattern="chain$"))
-@d3vilbot.on(sudo_cmd(pattern="chain$", allow_sudo=True))
+@d3vil_cmd(pattern="chain$")
 async def _(event):
-    if event.fwd_from:
-        return
     d3vil = await eor(event, "Counting...")
     count = -1
     message = event.message
@@ -25,4 +22,8 @@ async def _(event):
 
 CmdHelp("chain").add_command(
   "chain", "Reply to a message", "Reply this command to any msg so that it finds chain length of that msg"
+).add_info(
+  "Chained Messages."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
