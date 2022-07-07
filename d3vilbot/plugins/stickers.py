@@ -5,14 +5,18 @@ import os
 import random
 import textwrap
 import urllib.request
-from os import remove
 
+from os import remove
 from PIL import Image, ImageDraw, ImageFont
-from telethon import events
+from telethon import Button, events
+from telethon.errors import PackShortNameOccupiedError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl import functions, types
 from telethon.tl.functions.messages import GetStickerSetRequest
 from telethon.tl.types import DocumentAttributeFilename, DocumentAttributeSticker, InputStickerSetID, MessageMediaPhoto, InputMessagesFilterDocument
+from telethon.utils import get_input_document
 
+from d3vilbot.sql.gvar_sql import addgvar, gvarstat
 from . import *
 
 KANGING_STR = [
@@ -30,30 +34,29 @@ KANGING_STR = [
     "Turn around, Go straight and f*ck off...",
 ]
 
-d3vilbot = Config.STICKER_PACKNAME
 
-
-@bot.on(d3vil_cmd(outgoing=True, pattern="kang"))
-@bot.on(sudo_cmd(pattern="kang", allow_sudo=True))
-async def kang(args):
-    user = await bot.get_me()
-    if not user.username:
-        user.username = user.first_name
-    message = await args.get_reply_message()
+@d3vil_cmd(pattern="kang(?:\s|$)([\s\S]*)")
+async def kang(event):
+    user = await event.client.get_me()
+    d3vilkrish, D3VIL_USER, d3vil_mention = await client_id(event)
+    un = f"@{user.username}" if user.username else D3VIL_USER
+    un_ = user.username if user.username else d3vilkrish
+    message = await event.get_reply_message()
+    d3vilbot = gvarstat("STICKER_PACKNAME")
     photo = None
     emojibypass = False
     is_anim = False
+    is_vid = False
     emoji = None
-
     if message and message.media:
-        if isinstance(message.media, MessageMediaPhoto):
-            d3vil = await eor(args, f"`{random.choice(KANGING_STR)}`")
+        if message.photo:
+            d3vil = await eor(event, f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
-            photo = await bot.download_media(message.photo, photo)
+            photo = await event.client.download_media(message.photo, photo)
         elif "image" in message.media.document.mime_type.split("/"):
-            d3vil = await eor(args, f"`{random.choice(KANGING_STR)}`")
+            d3vil = await eor(event, f"`{random.choice(KANGING_STR)}`")
             photo = io.BytesIO()
-            await bot.download_file(message.media.document, photo)
+            await event.client.download_file(message.media.document, photo)
             if (
                 DocumentAttributeFilename(file_name="sticker.webp")
                 in message.media.document.attributes
@@ -61,208 +64,309 @@ async def kang(args):
                 emoji = message.media.document.attributes[1].alt
                 emojibypass = True
         elif "tgsticker" in message.media.document.mime_type:
-            d3vil = await eor(args, f"`{random.choice(KANGING_STR)}`")
-            await bot.download_file(message.media.document, "AnimatedSticker.tgs")
+            d3vil = await eor(event, f"`{random.choice(KANGING_STR)}`")
+            await event.client.download_file(message.media.document, "AnimatedSticker.tgs")
 
             attributes = message.media.document.attributes
             for attribute in attributes:
                 if isinstance(attribute, DocumentAttributeSticker):
                     emoji = attribute.alt
-
             emojibypass = True
             is_anim = True
             photo = 1
+        elif "video" in message.media.document.mime_type.split("/"):
+            if message.media.document.mime_type == "video/webm":
+                attributes = message.media.document.attributes
+                for attribute in attributes:
+                    if isinstance(attribute, DocumentAttributeSticker):
+                        d3vil = await eor(event, f"Oow! A video sticker... **[ ENCODING ]**")
+                        VS = await VSticker(event, message)
+                        await eor(d3vil, f"`{random.choice(KANGING_STR)}`")
+                        emoji = attribute.alt
+                        emojibypass = True
+            elif message.media.document.mime_type == "video/mp4":
+                d3vil = await eor(event, "Oow! A video... **[ Converting ]**")
+                VS = await VSticker(event, message)
+                await eor(d3vil, f"`{random.choice(KANGING_STR)}`")
+            is_vid = True
+            photo = 1
         else:
-            await eod(args, "`Unsupported File!`")
+            await eod(event, "`Unsupported File!`")
             return
     else:
-        await eod(args, "`I can't kang that...`")
+        await eod(event, "`I can't kang that...`")
         return
 
     if photo:
-        splat = args.text.split()
+        splat = event.text.split()
         if not emojibypass:
-            emoji = "🤣"
+            emoji = "😎"
         pack = 1
         if len(splat) == 3:
-            pack = splat[2]  # User sent both
+            pack = splat[2]
             emoji = splat[1]
         elif len(splat) == 2:
             if splat[1].isnumeric():
-                # User wants to push into different pack, but is okay with
-                # thonk as emote.
                 pack = int(splat[1])
+                emoji = "😎"
             else:
-                # User sent just custom emote, wants to push to default
-                # pack
+                pack = 1
                 emoji = splat[1]
 
-        packname = f"{user.username}_D3vilbot_{pack}"
-        packnick = (
-            f"{d3vilbot} Vol.{pack}"
-            if d3vilbot
-            else f"@{user.username}'s D3vilBot Vol.{pack}"
-        )
+        packname = f"d3vilbot_{un_}_{pack}"
+        packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Vol.{pack}"
         cmd = "/newpack"
         file = io.BytesIO()
 
-        if not is_anim:
+        if not is_anim and not is_vid:
             image = await resize_photo(photo)
             file.name = "sticker.png"
             image.save(file, "PNG")
-        else:
+        elif is_anim:
             packname += "_anim"
             packnick += " (Animated)"
             cmd = "/newanimated"
+        elif is_vid:
+            packname += "_vid"
+            packnick += " (Video)"
+            cmd = "/newvideo"
 
-        response = urllib.request.urlopen(
-            urllib.request.Request(f"http://t.me/addstickers/{packname}")
-        )
+        response = urllib.request.urlopen(urllib.request.Request(f"http://t.me/addstickers/{packname}"))
         htmlstr = response.read().decode("utf8").split("\n")
 
         if (
             "  A <strong>Telegram</strong> user has created the <strong>Sticker&nbsp;Set</strong>."
             not in htmlstr
         ):
-            async with bot.conversation("Stickers") as conv:
-                await conv.send_message("/addsticker")
-                await conv.get_response()
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.send_message(packname)
-                x = await conv.get_response()
-                while "120" in x.text:
-                    pack += 1
-                    packname = f"{user.username}_by_{user.username}_{pack}"
-                    packnick = (
-                        f"{d3vilbot} Vol.{pack}"
-                        if d3vilbot
-                        else f"@{user.username}'s D3vilBot Vol.{pack}"
-                    )
-                    await d3vil.edit(
-                        "`Switching to Pack "
-                        + str(pack)
-                        + " due to insufficient space`"
-                    )
+            async with event.client.conversation("@Stickers") as conv:
+                if not is_anim and not is_vid:
+                    await conv.send_message("/addsticker")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
                     await conv.send_message(packname)
                     x = await conv.get_response()
-                    if x.text == "Invalid pack selected.":
-                        await conv.send_message(cmd)
-                        await conv.get_response()
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await conv.send_message(packnick)
-                        await conv.get_response()
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        if is_anim:
-                            await conv.send_file("AnimatedSticker.tgs")
-                            remove("AnimatedSticker.tgs")
-                        else:
+                    while "120" in x.text:
+                        pack += 1
+                        packname = f"d3vilbot_{un_}_{pack}"
+                        packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Vol.{pack}"
+                        cmd = "/newpack"
+                        await d3vil.edit(f"`Switching to Pack {str(pack)} due to insufficient space`")
+                        await conv.send_message(packname)
+                        x = await conv.get_response()
+                        if x.text == "Invalid set selected.":
+                            await conv.send_message(cmd)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.send_message(packnick)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
                             file.seek(0)
                             await conv.send_file(file, force_document=True)
-                        await conv.get_response()
-                        await conv.send_message(emoji)
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await conv.get_response()
-                        await conv.send_message("/publish")
-                        if is_anim:
+                            await conv.get_response()
+                            await conv.send_message(emoji)
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await conv.send_message("/publish")
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.send_message("/skip")
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await conv.send_message(packname)
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await d3vil.edit(f"**Sticker added in a Different Pack !**\nThis Pack is Newly created!\nYour pack can be found [here](t.me/addstickers/{packname})")
+                            return
+                    file.seek(0)
+                    await conv.send_file(file, force_document=True)
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.get_response()
+                    await conv.send_message("/done")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+
+                if is_anim:
+                    packname = f"d3vilbot_{un_}_{pack}_anim"
+                    packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Vol.{pack} (Animated)"
+                    cmd = "/newanimated"
+                    await conv.send_message("/addsticker")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packname)
+                    x = await conv.get_response()
+                    while "50" in x.text:
+                        pack += 1
+                        await d3vil.edit(f"`Switching to Pack {str(pack)} due to insufficient space`")
+                        await conv.send_message(packname)
+                        x = await conv.get_response()
+                        if x.text == "Invalid set selected.":
+                            await conv.send_message(cmd)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.send_message(packnick)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.send_file("AnimatedSticker.tgs")
+                            remove("AnimatedSticker.tgs")
+                            await conv.get_response()
+                            await conv.send_message(emoji)
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await conv.send_message("/publish")
                             await conv.get_response()
                             await conv.send_message(f"<{packnick}>")
-                        # Ensure user doesn't get spamming notifications
-                        await conv.get_response()
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await conv.send_message("/skip")
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await conv.get_response()
-                        await conv.send_message(packname)
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await conv.get_response()
-                        # Ensure user doesn't get spamming notifications
-                        await bot.send_read_acknowledge(conv.chat_id)
-                        await d3vil.edit(
-                            f"`Sticker added in a Different Pack !\
-                            \nThis Pack is Newly created!\
-                            \nYour pack can be found [here](t.me/addstickers/{packname})",
-                            parse_mode="md",
-                        )
-                        return
-                if is_anim:
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.send_message("/skip")
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await conv.send_message(packname)
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await conv.get_response()
+                            await event.client.send_read_acknowledge(conv.chat_id)
+                            await d3vil.edit(f"**Sticker added in a Different Pack !**\nThis Pack is Newly created!\nYour pack can be found [here](t.me/addstickers/{packname})")
+                            return
                     await conv.send_file("AnimatedSticker.tgs")
                     remove("AnimatedSticker.tgs")
-                else:
-                    file.seek(0)
-                    await conv.send_file(file, force_document=True)
-                rsp = await conv.get_response()
-                if "Sorry, the file type is invalid." in rsp.text:
-                    await d3vil.edit(
-                        "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`"
-                    )
-                    return
-                await conv.send_message(emoji)
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.get_response()
-                await conv.send_message("/done")
-                await conv.get_response()
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.get_response()
+                    await conv.send_message("/done")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+
+                elif is_vid:
+                    packname = f"d3vilbot_{un_}_{pack}_vid"
+                    packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ (Video)"
+                    cmd = "/newvideo"
+                    await conv.send_message("/addsticker")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packname)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_file("VideoSticker.webm")
+                    remove("VideoSticker.webm")
+                    xy = await conv.get_response()
+                    if "50" in xy.text:
+                        pack += 1
+                        return await eod(d3vil, f"This Video sticker pack is already full. Use `{hl}kang {pack}` to add new stickers.")
+                    elif "Sorry, the file type is invalid." in xy.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.get_response()
+                    await conv.send_message("/done")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+
         else:
             await d3vil.edit("`Preparing a new pack....`")
-            async with bot.conversation("Stickers") as conv:
-                await conv.send_message(cmd)
-                await conv.get_response()
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.send_message(packnick)
-                await conv.get_response()
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                if is_anim:
-                    await conv.send_file("AnimatedSticker.tgs")
-                    remove("AnimatedSticker.tgs")
-                else:
+            async with event.client.conversation("Stickers") as conv:
+                if not is_anim and not is_vid:
+                    packname = f"d3vilbot_{un_}_{pack}"
+                    packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Vol.{pack}"
+                    cmd = "/newpack"
+                    await conv.send_message(cmd)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packnick)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
                     file.seek(0)
                     await conv.send_file(file, force_document=True)
-                rsp = await conv.get_response()
-                if "Sorry, the file type is invalid." in rsp.text:
-                    await d3vil.edit(
-                        "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`"
-                    )
-                    return
-                await conv.send_message(emoji)
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.get_response()
-                await conv.send_message("/publish")
-                if is_anim:
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
                     await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/publish")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/skip")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packname)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+            
+                if is_anim:
+                    packname = f"d3vilbot_{un_}_{pack}_anim"
+                    packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Vol.{pack} (Animated)"
+                    cmd = "/newanimated"
+                    await conv.send_message(cmd)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packnick)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_file("AnimatedSticker.tgs")
+                    remove("AnimatedSticker.tgs")
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/publish")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
                     await conv.send_message(f"<{packnick}>")
-                # Ensure user doesn't get spamming notifications
-                await conv.get_response()
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.send_message("/skip")
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.get_response()
-                await conv.send_message(packname)
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
-                await conv.get_response()
-                # Ensure user doesn't get spamming notifications
-                await bot.send_read_acknowledge(conv.chat_id)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/skip")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packname)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
 
-        await d3vil.edit(
-            f"✔︎** 𝚃𝙷𝙸𝚂 𝚂𝚃𝙸𝙲𝙺𝙴𝚁 𝙸𝚂 ➪[𝖪𝖺𝗇𝗀𝖾𝖽](t.me/addstickers/{packname}) 𝚂𝚄𝙲𝙴𝚂𝚂𝙵𝚄𝙻𝙻𝚈 𝚃𝙾 𝚈𝙾𝚄𝚁 𝙿𝙰𝙲𝙺 **✔︎",
-            parse_mode="md",
+                if is_vid:
+                    packname = f"d3vilbot_{un_}_{pack}_vid"
+                    packnick = f"{d3vilbot}" if d3vilbot else f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ (Video)"
+                    cmd = "/newvideo"
+                    await conv.send_message(cmd)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packnick)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_file("VideoSticker.webm")
+                    remove("VideoSticker.webm")
+                    rsp = await conv.get_response()
+                    if "Sorry, the file type is invalid." in rsp.text:
+                        return await eod(d3vil, "`Failed to add sticker, use` @Stickers `bot to add the sticker manually.`")
+                    await conv.send_message(emoji)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/publish")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message("/skip")
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+                    await conv.send_message(packname)
+                    await conv.get_response()
+                    await event.client.send_read_acknowledge(conv.chat_id)
+
+        await tbot.send_message(
+            Config.LOGGER_ID,
+            f"#KANG #STICKER \n\n**A sticker has been kanged into the pack of {d3vil_mention}. Click below to see the pack!**",
+            buttons=[[Button.url("View Pack", f"t.me/addstickers/{packname}")]],
         )
+        await eod(d3vil, f"⚡** This Sticker iz [kanged](t.me/addstickers/{packname}) successfully to your pack **⚡")
 
 
 async def resize_photo(photo):
-    """ Resize the given photo to 512x512 """
     image = Image.open(photo)
     maxsize = (512, 512)
     if (image.width and image.height) < 512:
@@ -286,30 +390,27 @@ async def resize_photo(photo):
     return image
 
 
-@bot.on(admin_cmd(outgoing=True, pattern="stkrinfo"))
-@bot.on(sudo_cmd(pattern="stkrinfo", allow_sudo=True))
+@d3vil_cmd(pattern="stkrinfo$")
 async def get_pack_info(event):
     if not event.is_reply:
-        await edit_or_reply(event, "`I can't fetch info from black hole!!!`")
+        await eod(event, "`I can't fetch info from black hole!!!`")
         return
-
     rep_msg = await event.get_reply_message()
     if not rep_msg.document:
-        await edit_or_reply(event, "`Reply to a sticker to get the pack details`")
+        await eod(event, "`Reply to a sticker to get the pack details`")
         return
-
     try:
         stickerset_attr = rep_msg.document.attributes[1]
-        await edit_or_reply(event, "`Fetching details of the sticker pack, please wait..`")
+        d3vil = await eor(event, "`Fetching details of the sticker pack, please wait..`")
     except BaseException:
-        await edit_or_reply(event, "`This is not a sticker. Reply to a sticker.`")
+        await eod(event, "`This is not a sticker. Reply to a sticker.`")
         return
 
     if not isinstance(stickerset_attr, DocumentAttributeSticker):
-        await edit_or_reply(event, "`This is not a sticker. Reply to a sticker.`")
+        await d3vil.edit("`This is not a sticker. Reply to a sticker.`")
         return
 
-    get_stickerset = await bot(
+    get_stickerset = await event.client(
         GetStickerSetRequest(
             InputStickerSetID(
                 id=stickerset_attr.stickerset.id,
@@ -323,78 +424,55 @@ async def get_pack_info(event):
             pack_emojis.append(document_sticker.emoticon)
 
     OUTPUT = (
-        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫 𝐓𝐢𝐭𝐥𝐞➪** `{get_stickerset.set.title}\n`"
-        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫 𝐒𝐡𝐨𝐫𝐭 𝐍𝐚𝐦𝐞➪** `{get_stickerset.set.short_name}`\n"
-        f"𖣔 **𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥➪** `{get_stickerset.set.official}`\n"
-        f"𖣔 **𝐀𝐫𝐜𝐡𝐢𝐯𝐞𝐝➪** `{get_stickerset.set.archived}`\n"
-        f"𖣔 **𝐒𝐭𝐢𝐜𝐤𝐞𝐫𝐬 𝐈𝐧 𝐏𝐚𝐜𝐤➪** `{len(get_stickerset.packs)}`\n"
-        f"𖣔 **𝐄𝐦𝐨𝐣𝐢𝐬 𝐈𝐧 𝐏𝐚𝐜𝐤➪**\n{' '.join(pack_emojis)}"
+        f"🔹 **Sticker Title :** `{get_stickerset.set.title}\n`"
+        f"🔸 **Sticker Short Name :** `{get_stickerset.set.short_name}`\n"
+        f"🔹 **Official :** `{get_stickerset.set.official}`\n"
+        f"🔸 **Archived :** `{get_stickerset.set.archived}`\n"
+        f"🔹 **Stickers In Pack :** `{len(get_stickerset.packs)}`\n"
+        f"🔸 **Emojis In Pack :**\n{' '.join(pack_emojis)}"
     )
 
-    await edit_or_reply(event, OUTPUT)
+    await d3vil.edit(OUTPUT)
 
 
-@bot.on(d3vil_cmd(pattern=r"delst ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"delst ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="delst(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     if not event.reply_to_msg_id:
-        await event.edit("`Reply to any user's message.`")
+        await eod(event, "`Reply to any user's message.`")
         return
     reply_message = await event.get_reply_message()
     chat = "@Stickers"
     reply_message.sender
-    if reply_message.sender.bot:
-        await edit_or_reply(event, "`Reply to actual user's message.`")
-        return
-    await event.edit("🥴 `Deleting sticker...`")
-    async with bot.conversation(chat) as conv:
+    d3vil = await eor(event, "🥴 `Deleting sticker...`")
+    async with event.client.conversation(chat) as conv:
         try:
             response = conv.wait_event(
                 events.NewMessage(incoming=True, from_users=429000)
             )
             await conv.send_message("/delsticker")
             await conv.get_response()
-            await asyncio.sleep(2)
-            await bot.forward_messages(chat, reply_message)
-            response = await response
+            await asyncio.sleep(1)
+            await event.client.forward_messages(chat, reply_message)
+            response = await conv.get_response()
         except YouBlockedUserError:
-            await event.reply("Please unblock @Stickers and try again")
+            await d3vil.edit("Please unblock @Stickers and try again")
             return
-        if response.text.startswith("Sorry, I can't do this, it seems that you are not the owner of the relevant pack."):
-            await event.edit("**🥴 Nashe me hai kya lawde!!**"
-            )
-        elif response.text.startswith("You don't have any sticker packs yet. You can create one using the /newpack command."):
-            await event.edit("**😪 You don't have any sticker pack to delete stickers.** \n\n@Stickers :- 'Pehle Pack Bna Lamde 🤧'")
-        elif response.text.startswith("Please send me the sticker."):
-            await event.edit("**😪 Nashe me hai kya lawde**")
-        elif response.text.startswith("Invalid pack selected."):
-            await event.edit("**😪 Nashe me hai kya lawde**")
-        else:
-            await event.edit("**😐 Deleted that replied sticker, it will stop being available to Telegram users within about an hour.**")
+        await d3vil.edit(response.text)
 
 
-@bot.on(d3vil_cmd(pattern=r"editst ?(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern=r"editst ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="editst(?:\s|$)([\s\S]*)")
 async def _(event):
-    if event.fwd_from:
-        return
     if not event.reply_to_msg_id:
-        await event.edit("`Reply to any user's message.`")
+        await eod(event, "`Reply to any user's message.`")
         return
     reply_message = await event.get_reply_message()
-    d3vil = event.pattern_match.group(1)
+    d3bot_ = event.pattern_match.group(1)
     chat = "@Stickers"
-    reply_message.sender
-    if reply_message.sender.bot:
-        await edit_or_reply(event, "`Reply to actual user's message.`")
-        return
-    await event.edit("📝 `Editing sticker emoji...`")
-    if d3vil == "":
-        await event.edit("**🤧 Nashe me hai kya lawde**")
+    d3vil = await eor(event, "📝 `Editing sticker emoji...`")
+    if d3bot_ == "":
+        await d3vil.edit("**🤧 Nashe me hai kya lawde**")
     else:
-        async with bot.conversation(chat) as conv:
+        async with event.client.conversation(chat) as conv:
             try:
                 response = conv.wait_event(
                     events.NewMessage(incoming=True, from_users=429000)
@@ -402,44 +480,38 @@ async def _(event):
                 await conv.send_message(f"/editsticker")
                 await conv.get_response()
                 await asyncio.sleep(2)
-                await bot.forward_messages(chat, reply_message)
+                await event.client.forward_messages(chat, reply_message)
                 await conv.get_response()
                 await asyncio.sleep(2)
-                await conv.send_message(f"{d3vil}")
-                response = await response
+                await conv.send_message(f"{d3bot_}")
+                response = await conv.get_response()
             except YouBlockedUserError:
-                await event.reply("Please unblock @Stickers and try again")
+                await d3vil.edit("Please unblock @Stickers and try again")
                 return
-            if response.text.startswith("Invalid pack selected."):
-                await event.edit("**🥴 Nashe me h kya lawde**"
-                )
-            elif response.text.startswith("Please send us an emoji that best describes your sticker."):
-                await event.edit("**🤧 Nashe me hai kya lawde**")
-            else:
-                await event.edit(f"**😉 Done!! Edited sticker emoji**\n\nNew Emoji(s) :- {d3vil}")
+            await d3vil.edit(f"{response.text}")
 
 
-@bot.on(d3vil_cmd(pattern="pkang ?(.*)"))
-@bot.on(sudo_cmd(pattern="pkang ?(.*)", allow_sudo=True))
+@d3vil_cmd(pattern="pkang(?:\s|$)([\s\S]*)")
 async def _(event):
-    d3vl_ = await eor(event, "`Preparing pack kang...`")
+    d3bot_ = await eor(event, "`Preparing pack kang...`")
     rply = await event.get_reply_message()
+    d3vilkrish, D3VIL_USER, d3vil_mention = await client_id(event)
     d3vil = event.text[7:]
     bot_ = Config.BOT_USERNAME
     bot_un = bot_.replace("@", "")
-    user = await bot.get_me()
+    user = await event.client.get_me()
     un = f"@{user.username}" if user.username else user.first_name
     un_ = user.username if user.username else d3vilkrish
     if not rply:
-        return await eod(d3vl_, "`Reply to a stciker to kang that pack.`")
+        return await eod(d3bot_, "`Reply to a stciker to kang that pack.`")
     if d3vil == "":
-        pname = f"{un}'s ᴅ3ᴠɪʟʙᴏᴛ ᴘᴀᴄᴋ"
+        pname = f"{un}'s ᗪ3ᏉᎥᏝᏰᎧᏖ Pack"
     else:
         pname = d3vil
     if rply and rply.media and rply.media.document.mime_type == "image/webp":
         d3vil_id = rply.media.document.attributes[1].stickerset.id
         d3vil_hash = rply.media.document.attributes[1].stickerset.access_hash
-        got_stcr = await bot(
+        got_stcr = await event.client(
             functions.messages.GetStickerSetRequest(
                 stickerset=types.InputStickerSetID(id=d3vil_id, access_hash=d3vil_hash)
             )
@@ -453,46 +525,46 @@ async def _(event):
                     emoji=(sti.attributes[1]).alt,
                 )
             )
-        try:
-            gvarstat("PKANG")
-        except BaseException:
-            addgvar("PKANG", "0")
         x = gvarstat("PKANG")
-        try:
+        if x is None:
+            y = addgvar("PKANG", "0")
+            pack = int(y) + 1
+        else:
             pack = int(x) + 1
-        except BaseException:
-            pack = 1
-        await d3vl_.edit("`Starting kang process...`")
+        await d3bot_.edit("`Starting kang process...`")
         try:
             create_st = await tbot(
                 functions.stickers.CreateStickerSetRequest(
                     user_id=d3vilkrish,
                     title=pname,
-                    short_name=f"d3vil_{un_}_pack{pack}_by_{bot_un}",
+                    short_name=f"d3vil_{un_}_V{pack}_by_{bot_un}",
                     stickers=stcrs,
                 )
             )
             addgvar("PKANG", str(pack))
         except PackShortNameOccupiedError:
             await asyncio.sleep(1)
-            await d3vl_.edit("`Pack name already occupied... making new pack`")
-            pack += 1
+            await d3bot_.edit("`Pack name already occupied... making new pack`")
+            pack = int(pack) + 1
             create_st = await tbot(
                 functions.stickers.CreateStickerSetRequest(
                     user_id=d3vilkrish,
                     title=pname,
-                    short_name=f"d3vil_{un_}_pack{pack}_by_{bot_un}",
+                    short_name=f"d3vil_{un_}_V{pack}_by_{bot_un}",
                     stickers=stcrs,
                 )
             )
             addgvar("PKANG", str(pack))
-        await d3vl_.edit(f"✔︎** This Sticker Pack iz [kanged](t.me/addstickers/{create_st.set.short_name}) successfully **")
+        await tbot.send_message(Config.LOGGER_ID,
+                                f"#PKANG #STICKER \n\n**A sticker pack has been kanged by {d3vil_mention}. Click below to see the pack!**",
+                                buttons=[[Button.url("View Pack", f"t.me/addstickers/{create_st.set.short_name}")]],
+                            )
+        await eod(d3bot_, f"⚡** This Sticker Pack iz [kanged](t.me/addstickers/{create_st.set.short_name}) successfully **⚡")
     else:
-        await d3vl_.edit("Unsupported File. Please Reply to a sticker only.")
+        await d3bot_.edit("Unsupported File. Please Reply to a sticker only.")
 
 
-@bot.on(d3vil_cmd(pattern="text (.*)"))
-@bot.on(sudo_cmd(pattern="text (.*)", allow_sudo=True))
+@d3vil_cmd(pattern="text(?:\s|$)([\s\S]*)")
 async def sticklet(event):
     R = random.randint(0, 256)
     G = random.randint(0, 256)
@@ -508,7 +580,7 @@ async def sticklet(event):
     draw = ImageDraw.Draw(image)
     fontsize = 230
 
-    FONT_FILE = await get_font_file(event.client, "@HellFonts")
+    FONT_FILE = await get_font_file(event.client, "@D3VIL_FONTSS")
 
     font = ImageFont.truetype(FONT_FILE, size=fontsize)
 
@@ -522,7 +594,7 @@ async def sticklet(event):
     )
 
     image_stream = io.BytesIO()
-    image_stream.name = "D3vilbot.webp"
+    image_stream.name = "d3vilbot.webp"
     image.save(image_stream, "WebP")
     image_stream.seek(0)
 
@@ -550,31 +622,30 @@ async def get_font_file(client, channel_id):
     return await client.download_media(font_file_message)
 
 
-@bot.on(d3vil_cmd(pattern="waifu(?: |$)(.*)", outgoing=True))
-@bot.on(sudo_cmd(pattern="waifu(?: |$)(.*)", allow_sudo=True))
-async def waifu(animu):
-    text = animu.pattern_match.group(1)
+@d3vil_cmd(pattern="waifu(?:\s|$)([\s\S]*)")
+async def waifu(event):
+    text = event.pattern_match.group(1)
     if not text:
-        if animu.is_reply:
-            text = (await animu.get_reply_message()).message
+        if event.is_reply:
+            text = (await event.get_reply_message()).message
         else:
-            await eod(animu, "Give some text... **PRO !!**")
+            await eod(event, "Give some text... **PRO !!**")
             return
     animus = [1, 3, 7, 9, 13, 22, 34, 35, 36, 37, 43, 44, 45, 52, 53, 55]
-    sticcers = await bot.inline_query(
+    sticcers = await event.client.inline_query(
         "stickerizerbot", f"#{random.choice(animus)}{(deEmojify(text))}"
     )
     await sticcers[0].click(
-        animu.chat_id,
-        reply_to=animu.reply_to_msg_id,
-        silent=True if animu.is_reply else False,
+        event.chat_id,
+        reply_to=event.reply_to_msg_id,
+        silent=True if event.is_reply else False,
         hide_via=True,
     )
-    await animu.delete()
+    await event.delete()
 
 
 CmdHelp("stickers").add_command(
-  "kang", "<emoji> <number>", "Adds the sticker to desired pack with a custom emoji of your choice. If emoji is not mentioned then default is 😎. And if number is not mentioned then Pack will go on serial wise. \n  ✓(1 pack = 120 non-animated stickers)\n  ✓(1 pack = 50 animated stickers)"
+  "kang", "<emoji> <number>", "Adds the sticker to desired pack with a custom emoji of your choice. If emoji is not mentioned then default is 😎. And if number is not mentioned then Pack will go on serial wise. \n  ✓(1 pack = 120 static stickers)\n  ✓(1 pack = 50 animated & video stickers)"
 ).add_command(
   "stkrinfo", "<reply to sticker>", "Gets all the infos of the sticker pack"
 ).add_command(
@@ -587,4 +658,8 @@ CmdHelp("stickers").add_command(
   "waifu", "<word>", "Waifu writes the word for you."
 ).add_command(
   "pkang", "<reply to a sticker> <pack name>", "Kangs all the stickers in replied pack to your pack. Also supports custom pack name. Just give name after command.", "pkang My kang pack"
+).add_info(
+  "Everything about Sticker."
+).add_warning(
+  "✅ Harmless Module."
 ).add()
