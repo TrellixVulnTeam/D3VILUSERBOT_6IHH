@@ -13,8 +13,7 @@ DEVICES_DATA = (
 )
 
 
-@d3vilbot.on(d3vil_cmd(pattern=r"magisk"))
-@d3vilbot.on(sudo_cmd(pattern=r"magisk", allow_sudo=True))
+@d3vil_cmd(pattern="magisk$")
 async def _(magisk):
     if magisk.fwd_from:
         return
@@ -42,20 +41,16 @@ async def _(magisk):
     await eor(magisk, releases)
 
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"device(?: |$)(\S*)"))
-@d3vilbot.on(sudo_cmd(pattern=r"device(?: |$)(\S*)", allow_sudo=True))
+@d3vil_cmd(pattern="device(?:\s|$)([\s\S]*)")
 async def device_info(request):
-    if request.fwd_from:
-        return
-    """ get android device basic info from its codename """
-    textx = await request.get_reply_message()
+    krishna = await request.get_reply_message()
     codename = request.pattern_match.group(1)
     if codename:
         pass
-    elif textx:
-        codename = textx.text
+    elif krishna:
+        codename = krishna.text
     else:
-        await edit_or_reply(request, "`Usage: .device <codename> / <model>`")
+        await eor(request, f"`Usage: {hl}device <codename> / <model>`")
         return
     data = json.loads(
         get(
@@ -74,26 +69,24 @@ async def device_info(request):
             )
     else:
         reply = f"`Couldn't find info about {codename}!`\n"
-    await edit_or_reply(request, reply)
+    await eor(request, reply)
 
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)"))
-@d3vilbot.on(sudo_cmd(pattern=r"codename(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
+@d3vil_cmd(pattern="codename(?: |)([\S]*)(?: |)([\s\S]*)")
 async def codename_info(request):
     if request.fwd_from:
         return
-    """ search for android codename """
-    textx = await request.get_reply_message()
+    krishna = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
     device = request.pattern_match.group(2).lower()
 
     if brand and device:
         pass
-    elif textx:
-        brand = textx.text.split(" ")[0]
-        device = " ".join(textx.text.split(" ")[1:])
+    elif krishna:
+        brand = krishna.text.split(" ")[0]
+        device = " ".join(krishna.text.split(" ")[1:])
     else:
-        await edit_or_reply(request, "`Usage: .codename <brand> <device>`")
+        await eor(request, f"`Usage: {hl}codename <brand> <device>`")
         return
 
     data = json.loads(
@@ -102,7 +95,7 @@ async def codename_info(request):
             "certified-android-devices/master/by_brand.json"
         ).text
     )
-    devices_lower = {k.lower(): v for k, v in data.items()}  # Lower brand names in JSON
+    devices_lower = {k.lower(): v for k, v in data.items()}
     devices = devices_lower.get(brand)
     results = [
         i
@@ -121,25 +114,23 @@ async def codename_info(request):
             )
     else:
         reply = f"`Couldn't find {device} codename!`\n"
-    await edit_or_reply(request, reply)
+    await eor(request, reply)
 
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)"))
-@d3vilbot.on(sudo_cmd(pattern=r"specs(?: |)([\S]*)(?: |)([\s\S]*)", allow_sudo=True))
+@d3vil_cmd(pattern="specs(?: |)([\S]*)(?: |)([\s\S]*)")
 async def devices_specifications(request):
     if request.fwd_from:
         return
-    """ Mobile devices specifications """
-    textx = await request.get_reply_message()
+    krishna = await request.get_reply_message()
     brand = request.pattern_match.group(1).lower()
     device = request.pattern_match.group(2).lower()
     if brand and device:
         pass
-    elif textx:
-        brand = textx.text.split(" ")[0]
-        device = " ".join(textx.text.split(" ")[1:])
+    elif krishna:
+        brand = krishna.text.split(" ")[0]
+        device = " ".join(krishna.text.split(" ")[1:])
     else:
-        await edit_or_reply(request, "`Usage: .specs <brand> <device>`")
+        await eor(request, f"`Usage: {hl}specs <brand> <device>`")
         return
     all_brands = (
         BeautifulSoup(
@@ -154,7 +145,7 @@ async def devices_specifications(request):
             i["href"] for i in all_brands if brand == i.text.strip().lower()
         ][0]
     except IndexError:
-        await edit_or_reply(request, f"`{brand} is unknown brand!`")
+        await eor(request, f"`{brand} is unknown brand!`")
         return
     devices = BeautifulSoup(get(brand_page_url).content, "lxml").findAll(
         "div", {"class": "model-listing-container-80"}
@@ -167,7 +158,7 @@ async def devices_specifications(request):
             if device in i.text.strip().lower()
         ]
     except IndexError:
-        await edit_or_reply(request, f"`can't find {device}!`")
+        await eor(request, f"`can't find {device}!`")
         return
     if len(device_page_url) > 2:
         device_page_url = device_page_url[:2]
@@ -186,28 +177,26 @@ async def devices_specifications(request):
                 .strip()
             )
             reply += f"**{title}**: {data}\n"
-    await edit_or_reply(request, reply)
+    await eor(request, reply)
 
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern=r"twrp(?: |$)(\S*)"))
-@d3vilbot.on(sudo_cmd(pattern=r"twrp(?: |$)(\S*)", allow_sudo=True))
+@d3vil_cmd(pattern="twrp(?:\s|$)([\s\S]*)")
 async def twrp(request):
     if request.fwd_from:
         return
-    """ get android device twrp """
-    textx = await request.get_reply_message()
+    krishna = await request.get_reply_message()
     device = request.pattern_match.group(1)
     if device:
         pass
-    elif textx:
-        device = textx.text.split(" ")[0]
+    elif krishna:
+        device = krishna.text.split(" ")[0]
     else:
-        await edit_or_reply(request, "`Usage: .twrp <codename>`")
+        await eor(request, f"`Usage: {hl}twrp <codename>`")
         return
     url = get(f"https://dl.twrp.me/{device}/")
     if url.status_code == 404:
         reply = f"`Couldn't find twrp downloads for {device}!`\n"
-        await edit_or_reply(request, reply)
+        await eor(request, reply)
         return
     page = BeautifulSoup(url.content, "lxml")
     download = page.find("table").find("tr").find("a")
@@ -220,7 +209,7 @@ async def twrp(request):
         f"[{dl_file}]({dl_link}) - __{size}__\n"
         f"**Updated:** __{date}__\n"
     )
-    await edit_or_reply(request, reply)
+    await eor(request, reply)
 
 
 CmdHelp("android").add_command(
