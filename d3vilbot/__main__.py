@@ -12,7 +12,6 @@ from d3vilbot.config import Config
 from d3vilbot.utils import join_it, load_module, logger_check, start_msg, update_sudo, plug_channel
 from d3vilbot.version import __d3vil__ as d3vilver
 
-from __init__ import *
 hl = Config.HANDLER
 
 D3VIL_PIC = "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
