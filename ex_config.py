@@ -1,7 +1,5 @@
+from d3vilbot.config.d3vil_config import Config
 
-
-
-from d3vil_config import Config
 
 class Development(Config):
   # get these values from my.telegram.org. 
