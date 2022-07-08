@@ -10,7 +10,7 @@ from d3vilbot.clients.session import D2, D3, D4, D5, D3vil, D3vilBot
 from d3vilbot.config import Config
 from d3vilbot.clients import *
 
-from __main__ import *
+from d3vilbot import CMD_LIST
 
 StartTime = time.time()
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
