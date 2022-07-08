@@ -6,10 +6,6 @@ class Development(Config):
   APP_ID = 6    # 6 is a placeholder. Fill your 6 digit api id
   API_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"   # replace this with your api hash
 
-  # the name to display in your alive message.
-  # If not filled anything then default value is I'm Hêll.
-  YOUR_NAME = "🔥🔥❌•𝐃3𝐕𝐈𝐋•❌🔥🔥"
-
   # create any PostgreSQL database.
   # I recommend to use elephantsql and paste that link here
   DB_URI = "Your value"
@@ -23,23 +19,13 @@ class Development(Config):
   # Create a bot in @BotFather
   # And fill the following values with bot token and username.
   BOT_TOKEN = "Your value" #token
-  BOT_USERNAME = "Your value" #username
-
-  # Create a private group and add rose bot to it.
-  # and type /id and paste that id here.
-  # replace that -100 with that group id.
-  LOGGER_ID = -100
 
   # Custom Command Handler. 
   HANDLER = "."
 
-  # enter the userid of sudo users.
-  # you can add multiple ids by separating them by space.
-  # fill values in [] only.
-  SUDO_USERS = []
-
   # Custom Command Handler for sudo users.
   SUDO_HANDLER = "!"
 
-# end of required config
 
+# end of required config
+# d3vilbot
