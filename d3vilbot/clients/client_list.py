@@ -49,13 +49,14 @@ async def clients_list():
 async def client_id(event, botid=None):
     if botid is not None:
         uid = await event.client(GetFullUserRequest(botid))
-        d3vilkrish  = uid.user.id
-        D3vil_USER = uid.user.first_name
-        d3vil_mention = f"[{D3vil_USER}](tg://user?id={d3vilkrish })"
+        d3vilkrish = uid.user.id
+        D3VIL_USER = uid.user.first_name
+        d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3vilkrish})"
     else:
         client = await event.client.get_me()
         uid = get_peer_id(client)
-        D3VIL_USER = uid.user.first_name
-        d3krish = uid.user.id
-        d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3krish})"
-            return d3vilkrish , D3VIL_USER, d3vil_mention
+        d3vilkrish = uid
+        D3VIL_USER = client.first_name
+        d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3vilkrish})"
+    return d3vilkrish, D3VIL_USER, d3vil_mention
+
