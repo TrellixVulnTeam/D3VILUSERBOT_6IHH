@@ -4,7 +4,6 @@ from telethon.tl.functions.users import GetFullUserRequest
 from .session import D3vil, D2, D3, D4, D5
 from d3vilbot.sql.gvar_sql import gvarstat
 
-
 async def clients_list():
     user_ids = []
     if gvarstat("SUDO_USERS"):
