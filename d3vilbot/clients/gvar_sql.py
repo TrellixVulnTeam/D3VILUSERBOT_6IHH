@@ -1,5 +1,5 @@
 from sqlalchemy import Column, String, UnicodeText
-from . import BASE, SESSION
+from d3vilbot.sql import BASE, SESSION
 
 
 class Gvar(BASE):
