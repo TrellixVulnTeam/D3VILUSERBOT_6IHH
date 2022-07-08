@@ -5,12 +5,12 @@ from pathlib import Path
 from telethon import events
 
 from .session import D2, D3, D4, D5
-from d3vil bot import CMD_LIST, LOAD_PLUG, bot
-from d3vil bot.config import Config
-from d3vil bot.sql.gvar_sql import gvarstat
+from d3vilbot import CMD_LIST, LOAD_PLUG, bot
+from d3vilbot.config import Config
+from d3vilbot.sql.gvar_sql import gvarstat
 
 
-def d3vil _cmd(
+def d3vil_cmd(
     pattern: str = None,
     allow_sudo: bool = True,
     disable_edited: bool = False,
@@ -35,25 +35,25 @@ def d3vil _cmd(
     sudo_user = Config.SUDO_USERS
 
     if pattern is not None:
-        global d3vil _reg
+        global d3vil_reg
         global sudo_reg
         if (
             pattern.startswith(r"\#")
             or not pattern.startswith(r"\#")
             and pattern.startswith(r"^")
         ):
-            d3vil _reg = sudo_reg = re.compile(pattern)
+            d3vil_reg = sudo_reg = re.compile(pattern)
         else:
-            d3vil _ = "\\" + Config.HANDLER
+            d3vil_ = "\\" + Config.HANDLER
             sudo_ = "\\" + Config.SUDO_HANDLER
-            d3vil _reg = re.compile(d3vil _ + pattern)
+            d3vil_reg = re.compile(d3vil_ + pattern)
             sudo_reg = re.compile(sudo_ + pattern)
             if command is not None:
-                cmd1 = d3vil _ + command
+                cmd1 = d3vil_ + command
                 cmd2 = sudo_ + command
             else:
                 cmd1 = (
-                    (d3vil _ + pattern).replace("$", "").replace("\\", "").replace("^", "")
+                    (d3vil_ + pattern).replace("$", "").replace("\\", "").replace("^", "")
                 )
                 cmd2 = (
                     (sudo_ + pattern).replace("$", "").replace("\\", "").replace("^", "")
@@ -66,28 +66,28 @@ def d3vil _cmd(
 
     def decorator(func):
         if not disable_edited:
-            bot.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil _reg))
-        bot.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil _reg))
+            bot.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil_reg))
+        bot.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil_reg))
         if allow_sudo:
             if not disable_edited:
                 bot.add_event_handler(func, events.MessageEdited(**args, from_users=sudo_user, pattern=sudo_reg))
             bot.add_event_handler(func, events.NewMessage(**args, from_users=sudo_user, pattern=sudo_reg))
         if D2:
             if not disable_edited:
-                D2.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil _reg))
-            D2.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil _reg))
+                D2.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil_reg))
+            D2.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil_reg))
         if D3:
             if not disable_edited:
-                D3.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil _reg))
-            D3.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil _reg))
+                D3.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil_reg))
+            D3.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil_reg))
         if D4:
             if not disable_edited:
-                D4.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil _reg))
-            D4.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil _reg))
+                D4.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil_reg))
+            D4.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil_reg))
         if D5:
             if not disable_edited:
-                D5.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil _reg))
-            D5.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil _reg))
+                D5.add_event_handler(func, events.MessageEdited(**args, outgoing=True, pattern=d3vil_reg))
+            D5.add_event_handler(func, events.NewMessage(**args, outgoing=True, pattern=d3vil_reg))
         try:
             LOAD_PLUG[file_test].append(func)
         except Exception:
@@ -97,7 +97,7 @@ def d3vil _cmd(
     return decorator
 
 
-def d3vil _handler(
+def d3vil_handler(
     **args,
 ):
     def decorator(func):
