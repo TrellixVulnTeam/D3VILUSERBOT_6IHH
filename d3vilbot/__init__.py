@@ -2,7 +2,7 @@ import heroku3
 import os
 import sys
 import time
-import d3vilbot 
+#import d3vilbot 
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
 
