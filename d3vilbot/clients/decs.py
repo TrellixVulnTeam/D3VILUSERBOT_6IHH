@@ -5,11 +5,10 @@ from pathlib import Path
 from telethon import events
 
 from .session import D2, D3, D4, D5
-from d3vilbot import CMD_LIST, LOAD_PLUG, bot
 from d3vilbot.config import Config
 from d3vilbot.clients.gvar_sql import gvarstat
-
-
+from d3vilbot import CMD_LIST, LOAD_PLUG, bot
+import d3vilbot.utils
 def d3vil_cmd(
     pattern: str = None,
     allow_sudo: bool = True,
