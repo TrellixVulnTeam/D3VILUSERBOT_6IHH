@@ -1,7 +1,7 @@
 import glob
 import os
 import sys
-
+import d3vilbot 
 from pathlib import Path
 from telethon import Button, TelegramClient
 from telethon.utils import get_peer_id
@@ -76,7 +76,7 @@ async def start_d3vilbot():
         Config.BOT_USERNAME = f"@{tbot_id.username}"
         bot.tgbot = tbot
         LOGS.info("••• Starting d3vilBot •••")
-        C1 = await d3vils(Config.d3vilBOT_SESSION, bot, "D3VILBOT_SESSION")
+        C1 = await d3vils(Config.D3VILBOT_SESSION, bot, "D3VILBOT_SESSION")
         C2 = await d3vils(Config.SESSION_2, D2, "SESSION_2")
         C3 = await d3vils(Config.SESSION_3, D3, "SESSION_3")
         C4 = await d3vils(Config.SESSION_4, D4, "SESSION_4")
