@@ -16,7 +16,6 @@ from telethon import events
 from telethon.tl.functions.channels import GetParticipantRequest
 from telethon.tl.types import ChannelParticipantAdmin, ChannelParticipantCreator, InputMessagesFilterDocument
 
-from d3vilbot import *
 from d3vilbot.clients import *
 from d3vilbot.helpers import *
 from d3vilbot.config import *
