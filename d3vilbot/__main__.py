@@ -6,7 +6,7 @@ from pathlib import Path
 from telethon import Button, TelegramClient
 from telethon.utils import get_peer_id
 
-from d3vilbot import LOGS, bot, tbot
+from d3vilbot import *
 from d3vilbot.clients.session import D3vil, D2, D3, D4, D5
 from d3vilbot.config import *
 from d3vilbot.utils import join_it, load_module, logger_check, start_msg, update_sudo, plug_channel
