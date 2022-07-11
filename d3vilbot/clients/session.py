@@ -6,7 +6,8 @@ from telethon.sessions import StringSession
 
 #from d3vilbot.config import Config 
 from d3vilbot import config 
-from d3vilbot.config import vars 
+from d3vilbot.config import d3vil_config
+
 if Config.D3VILBOT_SESSION:
     session = StringSession(str(Config.D3VILBOT_SESSION))
 else:
