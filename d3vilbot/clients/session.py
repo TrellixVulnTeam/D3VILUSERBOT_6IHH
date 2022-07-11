@@ -4,7 +4,7 @@ from telethon import TelegramClient
 from telethon.network.connection.tcpabridged import ConnectionTcpAbridged
 from telethon.sessions import StringSession
 
-from d3vilbot.config import config
+from d3vilbot.config import *
 
 
 if Config.D3VILBOT_SESSION:
