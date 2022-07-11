@@ -6,7 +6,7 @@ import time
 from distutils.util import strtobool as sb
 from logging import DEBUG, INFO, basicConfig, getLogger
 
-from d3vilbot.clients.session import *
+from d3vilbot.clients import *
 from d3vilbot.config import Config
 from d3vilbot.clients import *
 
