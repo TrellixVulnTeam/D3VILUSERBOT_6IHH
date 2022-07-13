@@ -13,7 +13,6 @@ glitch_this
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
-googletrans==4.0.0-rc1
 gsearch
 gtts
 hachoir
@@ -26,12 +25,12 @@ justwatch
 lottie
 lyricsgenius
 nekos.py
+opencv-python-headless
 patool
 Pillow
 prettytable
 psutil
 psycopg2
-PyDictionary
 pyfiglet
 PyGithub
 pygments
@@ -59,7 +58,10 @@ vcsi
 wand
 wget
 wheel
-wikipedia
-youtube-search
-youtube-search-python
-youtube_dl
+
+
+
+git+https://github.com/D3KRISH/py-googletrans
+git+https://github.com/D3KRISH/Wikipedia
+git+https://github.com/D3KRISH/yt-fork
+git+https://github.com/D3KRISH/yt-search-python
