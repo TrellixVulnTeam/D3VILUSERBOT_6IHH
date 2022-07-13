@@ -65,7 +65,6 @@ def load_module(shortname):
         mod.delete_d3vil = delete_d3vil
         mod.eod = delete_d3vil
         mod.Var = Config
-        mod.admin_cmd = admin_cmd
         mod.admin_cmd = d3vil_cmd
         mod.d3vil_cmd = d3vil_cmd
         # support for other userbots
