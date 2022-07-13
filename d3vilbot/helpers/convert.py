@@ -17,9 +17,8 @@ from .progress import *
 from .runner import runcmd
 
 dwlpath = Config.TMP_DOWNLOAD_DIRECTORY
-
+    
 # convertions are done here...
-
 
 # make a image
 async def convert_to_image(event, client):
@@ -120,6 +119,7 @@ def tgs_to_gif(sticker_path: str, quality: int = 256) -> str:
     os.remove(sticker_path)
     return semx
 
+
 # deal with it...
 EMOJI_PATTERN = re.compile(
     "["
@@ -143,4 +143,36 @@ def deEmojify(inputString: str) -> str:
     return re.sub(EMOJI_PATTERN, "", inputString)
 
 
-# d3vilbot
+async def get_time(seconds: int) -> str:
+    count = 0
+    up_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
+    while count < 4:
+        count += 1
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
+    hmm = len(time_list)
+    for x in range(hmm):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        up_time += time_list.pop() + ", "
+    time_list.reverse()
+    up_time += ":".join(time_list)
+    return up_time
+
+
+async def VSticker(event, file):
+    _width_ = file.file.width
+    _height_ = file.file.height
+    if _height_ > _width_:
+        _height_, _width_ = (512, -1)
+    else:
+        _height_, _width_ = (-1, 512)
+    _video = await event.client.download_media(file, dwlpath)
+    await runcmd(f"ffmpeg -ss 00:00:00 -to 00:00:02.900 -i {_video} -vf scale={_width_}:{_height_} -c:v libvpx-vp9 -crf 30 -b:v 560k -maxrate 560k -bufsize 256k -an VideoSticker.webm")
+    os.remove(_video)
+    return "VideoSticker.webm"
