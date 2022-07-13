@@ -52,8 +52,6 @@ def load_module(shortname):
         spec = importlib.util.spec_from_file_location(name, path)
         mod = importlib.util.module_from_spec(spec)
         mod.bot = bot
-        mod.bot = d3vil
-        mod.d3vil = d3vil
         mod.tgbot = bot.tgbot
         mod.command = command
         mod.logger = logging.getLogger(shortname)
