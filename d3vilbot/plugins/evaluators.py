@@ -6,6 +6,7 @@ import sys
 import traceback
 
 from . import *
+from ..sql.gvar_sql import gvarstat
 
 lg_id = Config.LOGGER_ID
 
@@ -43,53 +44,42 @@ async def _(event):
 @bot.on(d3vil_cmd(pattern="eval(?: |$|\n)(.*)", command="eval"))
 @bot.on(sudo_cmd(pattern="eval(?: |$|\n)(.*)", command="eval", allow_sudo=True))
 async def _(event):
-    if event.fwd_from:
-        return
-    cmd = "".join(event.text.split(maxsplit=1)[1:])
-    if not cmd:
-        return await eod(event, "`What should i run ?..`")
-    d3vilevent = await eor(event, "`Running ...`")
-    old_stderr = sys.stderr
-    old_stdout = sys.stdout
-    redirected_output = sys.stdout = io.StringIO()
-    redirected_error = sys.stderr = io.StringIO()
-    stdout, stderr, exc = None, None, None
-    try:
-        await aexec(cmd, event)
-    except Exception:
-        exc = traceback.format_exc()
-    stdout = redirected_output.getvalue()
-    stderr = redirected_error.getvalue()
-    sys.stdout = old_stdout
-    sys.stderr = old_stderr
-    evaluation = ""
-    if exc:
-        evaluation = exc
-    elif stderr:
-        evaluation = stderr
-    elif stdout:
-        evaluation = stdout
+    if gvarstat("USE_EVAL") == "TRUE":
+        cmd = "".join(event.text.split(maxsplit=1)[1:])
+        if not cmd:
+            return await eod(event, "`What should i run ?..`")
+        d3vilevent = await eor(event, "`Running ...`")
+        old_stderr = sys.stderr
+        old_stdout = sys.stdout
+        redirected_output = sys.stdout = io.StringIO()
+        redirected_error = sys.stderr = io.StringIO()
+        stdout, stderr, exc = None, None, None
+        try:
+            await aexec(cmd, event)
+        except Exception:
+            exc = traceback.format_exc()
+        stdout = redirected_output.getvalue()
+        stderr = redirected_error.getvalue()
+        sys.stdout = old_stdout
+        sys.stderr = old_stderr
+        evaluation = ""
+        if exc:
+            evaluation = exc
+        elif stderr:
+            evaluation = stderr
+        elif stdout:
+            evaluation = stdout
+        else:
+            evaluation = "Success"
+        final_output = f"•  Eval : \n`{cmd}` \n\n•  Result : \n`{evaluation}` \n"
+        final_output2 = f"**•  Eval :** \n`{cmd}` \n\n**•  Result :** \n`{evaluation}` \n"
+        if len(final_output2) > 4092:
+            await eor(d3vilevent, final_output, deflink=True, linktext=f"**•  Eval :** \n`{cmd}` \n\n**Pasted:** ")
+        else:
+            await eor(d3vilevent, final_output, deflink=True, linktext=f"{final_output2} \n\n**Also Pasted** ")
     else:
-        evaluation = "Success"
-    final_output = f"•  Eval : \n`{cmd}` \n\n•  Result : \n`{evaluation}` \n"
-    await eor(d3vilevent, "**Eval Command Executed. Check out LOGGER for result.**")
-    await event.client.send_message(
-        lg_id,
-        f"#EVAL \n\nEval command was executed sucessfully. \n\n{final_output}",
-    )
+        await eod(event, f"**Eval Is Disbaled !!** \n\n__Do__ `{hl}svar USE_EVAL TRUE` __to enable eval commands.__")
 
-
-async def aexec(code, smessatatus):
-    message = event = smessatatus
-    p = lambda _x: print(yaml_format(_x))
-    reply = await event.get_reply_message()
-    exec(
-        f"async def __aexec(message, event , reply, client, p, chat): "
-        + "".join(f"\n {l}" for l in code.split("\n"))
-    )
-    return await locals()["__aexec"](
-        message, event, reply, message.client, p, message.chat_id
-    )
 
 
 @bot.on(d3vil_cmd(pattern="bash ?(.*)", outgoing=True))
