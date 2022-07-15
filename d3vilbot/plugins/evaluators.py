@@ -73,7 +73,7 @@ async def _(event):
     else:
         evaluation = "Success"
     final_output = f"•  Eval : \n`{cmd}` \n\n•  Result : \n `{evaluation}` \n"
-    await eor(d3vilevent, "**Eval Command Executed. `{evaluation}`**")
+    await eor(d3vilevent, "**Eval Command Executed**. `{final_output}`")
     await event.client.send_message(
         lg_id,
         f"#EVAL \n\nEval command was executed sucessfully. \n\n{final_output}",
