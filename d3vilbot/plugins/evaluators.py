@@ -44,7 +44,7 @@ async def _(event):
 @bot.on(d3vil_cmd(pattern="eval(?: |$|\n)(.*)", command="eval"))
 @bot.on(sudo_cmd(pattern="eval(?: |$|\n)(.*)", command="eval", allow_sudo=True))
 async def _(event):
-    if gvarstat("USE_EVAL") == "TRUE":
+#    if gvarstat("USE_EVAL") == "TRUE":
         cmd = "".join(event.text.split(maxsplit=1)[1:])
         if not cmd:
             return await eod(event, "`What should i run ?..`")
