@@ -77,8 +77,8 @@ async def _(event):
             await eor(d3vilevent, final_output, deflink=True, linktext=f"**•  Eval :** \n`{cmd}` \n\n**Pasted:** ")
         else:
             await eor(d3vilevent, final_output, deflink=True, linktext=f"{final_output2} \n\n**Also Pasted** ")
-    else:
-        await eod(event, f"**Eval Is Disbaled !!** \n\n__Do__ `{hl}svar USE_EVAL TRUE` __to enable eval commands.__")
+#       else:
+#        await eod(event, f"**Eval Is Disbaled !!** \n\n__Do__ `{hl}svar USE_EVAL TRUE` __to enable eval commands.__")
 
 
 
