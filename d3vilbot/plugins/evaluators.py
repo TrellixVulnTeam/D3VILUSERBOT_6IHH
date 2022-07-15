@@ -72,7 +72,7 @@ async def _(event):
         evaluation = stdout
     else:
         evaluation = "Success"
-    final_output = f"•  Eval : \n`{cmd}` \n\n•  Result : \n`{evaluation}` \n"
+    final_output = f"•  Eval : \n`{cmd}` \n\n•  Result : \n `{evaluation}` \n"
     await eor(d3vilevent, "**Eval Command Executed. `{evaluation}`**")
     await event.client.send_message(
         lg_id,
