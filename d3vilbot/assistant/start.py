@@ -23,7 +23,7 @@ OWNER_ID = bot.me.id
 ##################--CONSTANTS--##################
 ASSISTANT  = Config.ASSISTANT 
 Heroku = heroku3.from_key(Config.HEROKU_API_KEY)
-ALIVE_PIC = Config.ALIVE_PIC if Config.ALIVE_PIC else None
+BOT_PIC = Config.BOT_PIC if Config.BOT_PIC else None
 heroku_api = "https://api.heroku.com"
 path = Config.TMP_DOWNLOAD_DIRECTORY
 if not os.path.isdir(path):
@@ -49,9 +49,9 @@ async def start_all(event):
         except BaseException:
             pass
     if ASSISTANT  == "OFF":
-        if ALIVE_PIC:
+        if BOT_PIC:
             await tgbot.send_file(event.chat_id,
-                                  ALIVE_PIC,
+                                  BOT_PIC,
                                   caption=startotherdis,
                                   buttons=[
                                       (Button.inline(
@@ -67,9 +67,9 @@ async def start_all(event):
                                              data="wew"))]
                                      )
     elif ASSISTANT  == "ON":
-        if ALIVE_PIC:
+        if BOT_PIC:
             await tgbot.send_file(event.chat_id,
-                                  ALIVE_PIC,
+                                  BOT_PIC,
                                   caption=startotherena,
                                   buttons=[
                                       [Button.url(
