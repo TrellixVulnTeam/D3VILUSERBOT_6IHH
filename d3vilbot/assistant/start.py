@@ -48,7 +48,7 @@ async def start_all(event):
             add_to_userbase(target)
         except BaseException:
             pass
-    if ASSISTANT  == "OFF---":
+    if ASSISTANT  == "OFF":
         if ALIVE_PIC:
             await tgbot.send_file(event.chat_id,
                                   ALIVE_PIC,
