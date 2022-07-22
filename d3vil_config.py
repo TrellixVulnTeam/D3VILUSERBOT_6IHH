@@ -59,6 +59,7 @@ class Config(object):
     LOGGER_ID = os.environ.get("LOGGER_ID", None)
     if LOGGER_ID:
         LOGGER_ID = int(LOGGER_ID)
+    PMBOT_START_MSSG = os.environ.get("PMBOT_START_MSSG", None)
     LYDIA_API = os.environ.get("LYDIA_API", None)
     MAX_ANTI_FLOOD_MESSAGES = 10
     MAX_MESSAGE_SIZE_LIMIT = 4095
