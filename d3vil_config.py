@@ -45,6 +45,7 @@ class Config(object):
     if GBAN_LOG_GROUP:
         GBAN_LOG_GROUP = int(GBAN_LOG_GROUP)
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
+    PMBOT_START_MSSG = os.environ.get("PMBOT_START_MSSG",None)
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
     GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
     GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
