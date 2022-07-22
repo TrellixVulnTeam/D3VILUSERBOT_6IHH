@@ -12,7 +12,7 @@ from d3vilbot.assistant.sql.blacklist_sql import all_bl_users
 #from d3vilbot.plugins import TELE_NAME
 from d3vilbot.assistant.sql.userbase_sql import add_to_userbase, present_in_userbase, full_userbase
 from datetime import datetime
-from d3vilthon import events
+from telethon import events
 from d3vilbot.config import Config
 from telegraph import Telegraph, upload_file
 from d3vilbot import PM_PERMIT
