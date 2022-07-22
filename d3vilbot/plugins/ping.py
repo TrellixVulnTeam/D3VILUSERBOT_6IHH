@@ -3,7 +3,7 @@ import datetime
 
 from . import *
 
-PING_PIC = Config.ALIVE_PIC
+PING_PIC = Config.PING_PIC
 
 #@bot.on(d3vil_cmd(pattern="ping$"))
 #@bot.on(sudo_cmd(pattern="ping$", allow_sudo=True))
