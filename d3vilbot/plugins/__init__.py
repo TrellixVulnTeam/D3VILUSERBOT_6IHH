@@ -7,7 +7,8 @@ from d3vilbot.random_strings import *
 from d3vilbot.version import __d3vil__
 from telethon import version
 
-
+TELE_NAME = bot.me.first_name
+OWNER_ID = bot.me.id
 D3VIL_USER = bot.me.first_name
 d3krish = bot.uid
 d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3krish})"
