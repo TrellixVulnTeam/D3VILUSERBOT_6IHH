@@ -265,7 +265,7 @@ async def bot(event):
                 os.remove(media)
             except BaseException:
                 return await conv.send_message("Error!")
-        d3vilbot = "ALIVE_PIC"
+        d3vilbot = "BOT_PIC"
         if Config.HEROKU_APP_NAME is not None:
             app = Heroku.app(Config.HEROKU_APP_NAME)
         else:
@@ -284,7 +284,7 @@ async def bot(event):
           )  # pylint: disable=oof
 async def custom(event):
     if event.sender_id == OWNER_ID:
-        await event.reply("You can change your BIO MESSAGE here.\n If you don't want to change then send  /cancel to cancel the operation.")
+        await event.reply("You can change your BOT STARTMESSAGE here.\n If you don't want to change then send  /cancel to cancel the operation.")
         async with event.client.conversation(OWNER_ID) as conv:
             response = conv.wait_event(events.NewMessage(chats=OWNER_ID))
             response = await response
@@ -292,7 +292,7 @@ async def custom(event):
             if themssg == "/cancel":
                 await tgbot.send_message(event.chat_id, "Operation Cancelled.")
                 return
-            d3vilbot = "BIO_MSG"
+            d3vilbot = "PMBOT_START_MSSG"
             if Config.HEROKU_APP_NAME is not None:
                 app = Heroku.app(Config.HEROKU_APP_NAME)
             else:
