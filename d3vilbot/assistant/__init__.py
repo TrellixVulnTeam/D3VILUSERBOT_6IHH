@@ -19,7 +19,6 @@ import time
 import datetime
 from d3vilbot import *
 from datetime import datetime
-from telebot.telebotConfig import Var
 from d3vilbot.config import Config
 # start-other disabled
 startotherdis = """
