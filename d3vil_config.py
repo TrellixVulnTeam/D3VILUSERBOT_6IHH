@@ -14,6 +14,7 @@ class Config(object):
     )
     API_HASH = os.environ.get("API_HASH", None)
     APP_ID = os.environ.get("APP_ID", None)
+    ASSISTANT = os.environ.get("ASSISTANT",None)
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
     if AUTH_TOKEN_DATA != None:
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
