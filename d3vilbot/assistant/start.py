@@ -15,7 +15,7 @@ from datetime import datetime
 from telethon import events
 from d3vilbot.config import Config
 from telegraph import Telegraph, upload_file
-from d3vilbot import PM_PERMIT
+from d3vilbot import CUSTOM_PMPERMIT
 
 TELE_NAME = bot.me.first_name
 OWNER_ID = bot.me.id
@@ -489,15 +489,15 @@ async def alv(event):
 async def a_txt(event):
     if event.sender_id == OWNER_ID:
         await event.delete()
-        old_alv= PM_PERMIT if PM_PERMIT else "ENABLE/DISABLE Your PMSecurity message"
-        d3vilbot="PM_PERMIT"
+        old_alv= CUSTOM_PMPERMIT if CUSTOM_PMPERMIT else "Default PMSecurity message"
+        d3vilbot="CUSTOM_PMPERMIT"
         if Config.HEROKU_APP_NAME is not None:
             app=Heroku.app(Config.HEROKU_APP_NAME)
         else:
             mssg="`**HEROKU**:" "\nPlease setup your` **HEROKU_APP_NAME**"
             return
         async with event.client.conversation(OWNER_ID) as conv:
-            await conv.send_message("IF YOU NOT ENABLE/DISABLE PM MSG. \nUse /cancel to cancel the operation.")
+            await conv.send_message("Send text to change your pm security message if don't want to change. \n  /cancel to cancel the operation.")
             response=conv.wait_event(events.NewMessage(chats=OWNER_ID))
             response=await response
             themssg=response.message.message
