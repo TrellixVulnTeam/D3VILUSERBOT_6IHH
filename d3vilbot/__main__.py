@@ -14,8 +14,6 @@ from d3vilbot.version import __d3vil__ as d3vilver
 hl = Config.HANDLER
 D3VIL_PIC = Config.ALIVE_PIC or "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
 
-TELE_NAME = bot.me.first_name
-OWNER_ID = bot.me.id
 
 # let's get the bot ready
 async def d3vil_bot(bot_token):
