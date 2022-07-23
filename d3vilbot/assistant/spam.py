@@ -1,4 +1,5 @@
 from telethon import events
+from d3vilbot.utils import *
 
 MY_USERS = bot.uid
 
