@@ -2,6 +2,9 @@ from telethon import events
 from d3vilbot.utils import *
 
 MY_USERS = bot.uid
+TELE_NAME = bot.me.first_name
+OWNER_ID = bot.me.id
+
 
 a = False
 
