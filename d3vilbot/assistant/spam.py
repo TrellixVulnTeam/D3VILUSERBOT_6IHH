@@ -1,5 +1,7 @@
 from telethon import events
 
+MY_USERS = bot.uid
+
 a = False
 
 @tgbot.on(events.NewMessage(pattern="^/spam"))
