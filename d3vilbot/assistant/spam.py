@@ -8,7 +8,6 @@ a = False
 @tgbot.on(events.NewMessage(pattern="^/spam"))
 async def spam(e):
         if e.sender_id in TELE_NAME:
-        if e.text[0].isalpha() and e.text[0] in ("/", "#", "@", "!"):
             return await e.reply(usage, parse_mode=None, link_preview=None )
         d3vil = ("".join(e.text.split(maxsplit=1)[1:])).split(" ", 1)
         smex = await e.get_reply_message()
