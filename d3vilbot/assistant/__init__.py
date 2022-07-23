@@ -1,39 +1,76 @@
-from . import *
-from telethon import Button, custom
+#    TEAM-D3VIL - D3VILBOT 
+#    Copyright (C) 2020 D3VILUSERBOT 
 
-from d3vilbot import bot
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
 
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from d3vilbot.plugins import OWNER_ID, TELE_NAME
+import time
+import datetime
 from d3vilbot import *
-OWNER_NAME = "{d3vil_mention}"
-OWNER_ID = bot.uid
+from datetime import datetime
+from d3vilbot.config import Config
+# start-other disabled
+startotherdis = """
+Hi there. I am {}'s bot. Nice to see you here.
+""".format(TELE_NAME)
+
+# start-other enabled
+if Config.PMBOT_START_MSSG is None:
+    MSSG = """
+Hi there, I am {}'s personal bot.
+You can contact him through me 😌.
+Have a nice time!
+""".format(TELE_NAME)
+else:
+    MSSG = Config.PMBOT_START_MSSG
+startotherena = MSSG
+
+# start-owner
+startowner = """
+Welcome back {}. Choose the options available from below:
+""".format(TELE_NAME)
+
+# for ping
 
 
-D3VIL_USER = bot.me.first_name
-d3krish = bot.uid
+def get_readable_time(seconds: int) -> str:
+    count = 0
+    ping_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
 
-d3vil_mention = f"[{D3VIL_USER}](tg://user?id={d3krish})"
+    while count < 4:
+        count += 1
+        if count < 3:
+            remainder, result = divmod(seconds, 60)
+        else:
+            remainder, result = divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
 
-d3vil_logo = "./resources/Pics/d3vilkrish_logo.jpg"
-d3vil_logo1 = "./resources/Pics/d3vilkrish_logo.jpg"
-d3vil_logo2 = "./resources/Pics/d3vilbot_logo.jpg"
-d3vil_logo3 = "./resources/Pics/d3vilbot_logo.jpg"
-d3vil_logo4 = "./resources/Pics/d3vilkrish_logo.jpg"
-D3VILversion = "2.𝙾"
-
-perf = "[ 𝚃𝙷𝙴 𝙳3𝚅𝙸𝙻𝙱𝙾𝚃 ]"
-
-
-DEVLIST = [
-    "1676629806"
-]
-
-async def setit(event, name, value):
-    try:
-        event.set(name, value)
-    except BaseException:
-        return await event.edit("`Something Went Wrong`")
+    for x in range(len(time_list)):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        ping_time += time_list.pop() + ", "
+    time_list.reverse()
+    ping_time += ":".join(time_list)
+    return ping_time
 
 
-def get_back_button(name):
-    button = [Button.inline("« Bᴀᴄᴋ", data=f"{name}")]
-    return button
+xstart = datetime.now()
+xend = datetime.now()
+ms = (xend - xstart).microseconds / 1000
+ping = f"🏓Pong\nPing speed: {ms}"

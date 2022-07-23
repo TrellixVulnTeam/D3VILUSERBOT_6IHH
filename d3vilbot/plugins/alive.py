@@ -7,14 +7,26 @@ from telethon.errors.rpcerrorlist import BotMethodInvalidError as dedbot
 
 from . import *
 
-#-------------------------------------------------------------------------------
+ludosudo = Config.SUDO_USERS
 
-d3vil_pic = Config.ALIVE_PIC or "https://telegra.ph/file/5abfcff75e1930dcdfaf3.mp4"
-pm_caption = "  __**🔥🔥𝗗3𝗩𝗜𝗟 𝗕𝗢𝗧 𝗜𝗦 𝗔𝗟𝗜𝗩𝗘🔥🔥**__\n\n"
+if ludosudo:
+    sudou = "True"
+else:
+    sudou = "False"
 
+
+edit_time = 16
+""" =======================CONSTANTS====================== """
+#file1 = "https://telegra.ph/file/e441ee749e930d4f99a6d.jpg"
+file1 = Config.ALIVE_PIC
+file2 = "https://telegra.ph/file/4cc2b6c2702a1a9c96469.mp4"
+file3 = "https://telegra.ph/file/c00cbf9a5331faad7913d.mp4"
+file4 = "https://telegra.ph/file/4da06dc332ded806e2705.mp4"
+""" =======================CONSTANTS====================== """
+pm_caption = "  __**𖣘𖣘𝙳3𝚅𝙸𝙻 𝚄𝚂𝙴𝚁𝙱𝙾𝚃 𝙸𝚂 𝙰𝙻𝙸𝚅𝙴𖣘𖣘**__\n\n"
 pm_caption += f"**━━━━━━━━━━━━━━━━━━━━**\n\n"
 pm_caption += (
-    f"                 ↼𝗠𝗔𝗦𝗧𝗘𝗥⇀\n  **『 {d3vil_mention} 』**\n\n"
+    f"                 𝙼𝙰𝚂𝚃𝙴𝚁\n  **『 {d3vil_mention} 』**\n\n"
 )
 pm_caption += f"╔══════════════════╗\n"
 pm_caption += f"╠•➳➠ `𝖳𝖾𝗅𝖾𝗍𝗁𝗈𝗇:` `{tel_ver}` \n"
@@ -26,19 +38,60 @@ pm_caption += f"╠•➳➠ `𝖮𝗐𝗇𝖾𝗋:` [𝙳3𝚅𝙸𝙻𝙶𝚄�
 pm_caption += f"╚══════════════════╝\n"
 pm_caption += " [⚡REPO⚡](https://github.com/TEAM-D3VIL/D3vilBot) 🔹 [📜License📜](https://github.com/TEAM-D3VIL/D3vilBot/blob/main/LICENSE)"
 
+ # @command(outgoing=True, pattern="^.alive$")
+@bot.on(admin_cmd(outgoing=True, pattern="alive$"))
+@bot.on(sudo_cmd(pattern="alive$", allow_sudo=True))
+async def amireallyalive(alive):
+    await alive.get_chat()   
+    
+    on = await borg.send_file(alive.chat_id, file=file1,caption=pm_caption)
 
-#-------------------------------------------------------------------------------
+    await asyncio.sleep(edit_time)
+    ok = await borg.edit_message(alive.chat_id, on, file=file2) 
 
-@d3vilbot.on(d3vil_cmd(outgoing=True, pattern="alive$"))
-@d3vilbot.on(sudo_cmd(pattern="alive$", allow_sudo=True))
-async def up(d3vil):
-    if d3vil.fwd_from:
-        return
-    await d3vil.get_chat()
-    await d3vil.delete()
-    await bot.send_file(d3vil.chat_id, d3vil_pic, caption=pm_caption)
-    await d3vil.delete()
+    await asyncio.sleep(edit_time)
+    ok2 = await borg.edit_message(alive.chat_id, ok, file=file3)
 
+    await asyncio.sleep(edit_time)
+    ok3 = await borg.edit_message(alive.chat_id, ok2, file=file1)
+    
+    await asyncio.sleep(edit_time)
+    ok4 = await borg.edit_message(alive.chat_id, ok3, file=file3)
+    
+    await asyncio.sleep(edit_time)
+    ok5 = await borg.edit_message(alive.chat_id, ok4, file=file2)
+    
+    await asyncio.sleep(edit_time)
+    ok6 = await borg.edit_message(alive.chat_id, ok5, file=file4)
+    
+    await asyncio.sleep(edit_time)
+    ok7 = await borg.edit_message(alive.chat_id, ok6, file=file1)
+    
+    await asyncio.sleep(edit_time)
+    ok8 = await borg.edit_message(alive.chat_id, ok7, file=file2) 
+
+    await asyncio.sleep(edit_time)
+    ok9 = await borg.edit_message(alive.chat_id, ok8, file=file3)
+
+    await asyncio.sleep(edit_time)
+    ok10 = await borg.edit_message(alive.chat_id, ok9, file=file1)
+    
+    await asyncio.sleep(edit_time)
+    ok11 = await borg.edit_message(alive.chat_id, ok10, file=file3)
+    
+    await asyncio.sleep(edit_time)
+    ok12 = await borg.edit_message(alive.chat_id, ok11, file=file2)
+    
+    await asyncio.sleep(edit_time)
+    ok13 = await borg.edit_message(alive.chat_id, ok12, file=file4)
+    
+    await asyncio.sleep(edit_time)
+    ok14 = await borg.edit_message(alive.chat_id, on, file=file1)
+
+    """ For .alive command, check if the bot is running.  """
+    await borg.send_file(alive.chat_id, caption=pm_caption)
+    await alive.delete()
+    
 msg = f"""
 **⚡ 𝐃3𝐕𝐈𝐋𝐁𝐎𝐓 𝐈𝐒 𝐎𝐍𝐋𝐈𝐍𝐄 ⚡**
 {Config.ALIVE_MSG}

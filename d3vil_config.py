@@ -14,6 +14,7 @@ class Config(object):
     )
     API_HASH = os.environ.get("API_HASH", None)
     APP_ID = os.environ.get("APP_ID", None)
+    ASSISTANT = os.environ.get("ASSISTANT",None)
     AUTH_TOKEN_DATA = os.environ.get("AUTH_TOKEN_DATA", None)
     if AUTH_TOKEN_DATA != None:
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
@@ -44,6 +45,7 @@ class Config(object):
     if GBAN_LOG_GROUP:
         GBAN_LOG_GROUP = int(GBAN_LOG_GROUP)
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
+    PMBOT_START_MSSG = os.environ.get("PMBOT_START_MSSG",None)
     GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
     GIT_REPO_NAME = os.environ.get("GIT_REPO_NAME", None)
     GITHUB_ACCESS_TOKEN = os.environ.get("GITHUB_ACCESS_TOKEN", None)
@@ -51,7 +53,8 @@ class Config(object):
     GROUP_REG_SED_EX_BOT_S = os.environ.get("GROUP_REG_SED_EX_BOT_S", r"(regex|moku|BananaButler_|rgx|l4mR)bot")
     HANDLER = os.environ.get("HANDLER", r"\.")
     HASH_TO_TORRENT_API = os.environ.get("HASH_TO_TORRENT_API", "https://example.com/torrent/{}");
-    HELP_PIC = os.environ.get("HELP_PIC",None) 
+    BOT_PIC = os.environ.get("BOT_PIC", "https://telegra.ph/file/cc3b9cbea60c564160f70.jpg")
+    PING_PIC = os.environ.get ("PING_PIC", "https://telegra.ph/file/b701699f948d9425415e5.jpg")
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
     INSTANT_BLOCK = os.environ.get("INSTANT_BLOCK", "DISABLE")
@@ -59,6 +62,7 @@ class Config(object):
     LOGGER_ID = os.environ.get("LOGGER_ID", None)
     if LOGGER_ID:
         LOGGER_ID = int(LOGGER_ID)
+    PMBOT_START_MSSG = os.environ.get("PMBOT_START_MSSG", None)
     LYDIA_API = os.environ.get("LYDIA_API", None)
     MAX_ANTI_FLOOD_MESSAGES = 10
     MAX_MESSAGE_SIZE_LIMIT = 4095

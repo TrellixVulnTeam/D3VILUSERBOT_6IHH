@@ -58,6 +58,7 @@ else:
 
 tbot = TelegramClient('d3vilbot', api_id=Config.APP_ID, api_hash=Config.API_HASH).start(bot_token=Config.BOT_TOKEN)
 
+CUSTOM_PMPERMIT = os.environ.get("CUSTOM_PMPERMIT", None)
 
 # global variables
 CMD_LIST = {}
