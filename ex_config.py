@@ -7,7 +7,7 @@ class Development(Config):
   API_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"   # replace this with your api hash
 
   # the name to display in your alive message.
-  # If not filled anything then default value is I'm Hêll.
+  # If not filled anything then default value is I'm D3vil.
   YOUR_NAME = "🔥🔥❌•𝐃3𝐕𝐈𝐋•❌🔥🔥"
 
   # create any PostgreSQL database.
